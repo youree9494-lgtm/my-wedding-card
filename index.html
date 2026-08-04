@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>철민 & 유리의 청첩장</title>
+  <title>철민 & 유리 청첩장</title>
+  
+  <!-- 구글 폰트 (Gamja Flower - 감자꽃 폰트) 불러오기 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -13,7 +19,8 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      /* 손글씨 폰트 적용 */
+      font-family: "Gamja Flower", cursive, sans-serif;
       color: #333;
     }
     .card-container {
@@ -30,9 +37,9 @@
       text-align: center;
     }
     h1 {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 2px;
+      font-size: 28px; /* 손글씨 느낌을 살리기 위해 크기를 살짝 키웠습니다 */
+      font-weight: 400;
+      letter-spacing: 1px;
       margin-bottom: 24px;
       color: #222;
     }
@@ -48,20 +55,22 @@
       display: block;
     }
     p {
-      margin-top: 24px;
-      font-size: 14px;
-      color: #888;
+      margin-top: 20px;
+      margin-bottom: 0;
+      font-size: 18px; /* 손글씨 폰트는 가독성을 위해 18px 이상을 추천합니다 */
+      color: #666;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
   <div class="card-container">
-    <h1>철민 & 유리의 청첩장</h1>
+    <h1>청첩장 준비 중 ... !</h1>
     <div class="img-wrapper">
       <img src="강아지투샷.png" alt="강아지이미지">
     </div>
     <p>정식 모바일 청첩장은 제작 중입니다 💌</p>
-    <p>9/1부터 확인이 가능하십니다. 조금만 기다려주세요 ❤️</p>
+    <p>9/1부터 확인이 가능하십니다.<br>조금만 기다려주세요 ❤️</p>
   </div>
 </body>
 </html>
