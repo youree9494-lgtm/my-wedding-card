@@ -116,6 +116,9 @@
       width: 100%;
       height: auto;
       display: block;
+      position: relative;
+      margin-top: -80px; /* 헤더 이미지 영역 위로 끌어올려 겹치게 설정 */
+      z-index: 10;        /* 헤더 배경보다 위층에 배치 */
     }
 
     /* 계좌번호 영역 */
@@ -241,15 +244,34 @@
     }
 
     // 모바일 터치 시 자동 재생 처리
-    document.addEventListener('click', function firstClick() {
-      if (!isPlaying) {
-        bgm.play().then(() => {
-          isPlaying = true;
-          bgmBtn.classList.add('playing');
-        }).catch(() => {});
-      }
-      document.removeEventListener('click', firstClick);
-    }, { once: true });
+    // document.addEventListener('click', function firstClick() {
+    //   if (!isPlaying) {
+    //     bgm.play().then(() => {
+    //       isPlaying = true;
+    //       bgmBtn.classList.add('playing');
+    //     }).catch(() => {});
+    //   }
+    //   document.removeEventListener('click', firstClick);
+    // }, { once: true });
+
+
+    // 1. 페이지 로드 시 즉시 자동재생 시도 (일부 인앱 브라우저 대응)
+    window.addEventListener('DOMContentLoaded', () => {
+      playAudio();
+    });
+  
+    // 2. 브라우저 제한 완화를 위해 화면 첫 터치/클릭/스크롤 시 즉시 재생
+    const enableAudioOnInteraction = () => {
+      playAudio();
+      // 한 번 실행된 후 이벤트 리스너 제거
+      window.removeEventListener('touchstart', enableAudioOnInteraction);
+      window.removeEventListener('click', enableAudioOnInteraction);
+      window.removeEventListener('scroll', enableAudioOnInteraction);
+    };
+  
+    window.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
+    window.addEventListener('click', enableAudioOnInteraction, { once: true });
+    window.addEventListener('scroll', enableAudioOnInteraction, { once: true });
 
     // 계좌 복사
     function copyAccount(accountNumber) {
