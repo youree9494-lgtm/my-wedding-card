@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* 커스텀 폰트 정의 (FreakArt Personal Use) */
-   /* 커스텀 폰트 불러오기 (파일명 정확히 일치) */
+    /* 커스텀 폰트 불러오기 (파일명 정확히 일치) */
     @font-face {
       font-family: 'FreakArt Personal Use';
       src: url('FreakArt-Personal-Use.ttf') format('truetype');
@@ -85,7 +84,6 @@
     .header-section {
       position: relative;
       width: 100%;
-      /* 이미지가 들어갈 배경 프레임 */
       background: url('sec1-bg.png') no-repeat center top / cover;
       min-height: 910px;
       display: flex;
@@ -113,8 +111,10 @@
       vertical-align: middle;
     }
 
+    /* 섹션 이미지 반응형 스타일 */
     .img-sec {
       width: 100%;
+      height: auto;
       display: block;
     }
 
@@ -210,7 +210,7 @@
 
   <div class="wedding-card">
     
-    <!-- 1. 헤더 섹션 (폰트 & FontAwesome 하트 적용) -->
+    <!-- 1. 헤더 섹션 -->
     <div class="header-section">
       <h1 class="header-title">
         Our Wedding Story<br>
@@ -218,7 +218,9 @@
       </h1>
     </div>
 
-    
+    <!-- 2. 초대글 편지 이미지 섹션 -->
+    <img class="img-sec" src="sec2-letter.png" alt="정철민 최유리 초대글">
+
   </div>
 
   <script>
