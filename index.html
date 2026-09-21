@@ -42,7 +42,6 @@
       width: 100%;
       max-width: 430px; /* 모바일 프레임 규격 */
       background-color: #ffffff;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       position: relative;
       overflow: hidden;
     }
@@ -88,7 +87,7 @@
       width: 100%;
       /* 이미지가 들어갈 배경 프레임 */
       background: url('sec1-bg.png') no-repeat center top / cover;
-      min-height: 680px;
+      min-height: 910px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -99,11 +98,10 @@
       margin-top: 75px;
       text-align: center;
       font-family: 'FreakArt Personal Use', 'Georgia', cursive, serif;
-      font-size: 42px;
+      font-size: 55px;
       color: #ffffff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25),
-                  -1px -1px 0 rgba(255, 255, 255, 0.4);
-      line-height: 1.15;
+      line-height: 53px;
+      letter-spacing: 0;
       z-index: 2;
     }
 
@@ -203,7 +201,7 @@
 <body>
 
   <!-- BGM 음악 오디오 태그 -->
-  <audio id="bgm" src="360.mp3" loop></audio>
+  <audio id="bgm" src="360.mp4" loop></audio>
   
   <!-- 우측 상단 노래 표시 컨트롤 버튼 -->
   <button id="bgmBtn" class="bgm-btn" onclick="toggleBgm()" title="배경음악 재생/일시정지">
