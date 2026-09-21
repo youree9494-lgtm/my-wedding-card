@@ -3,74 +3,257 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>철민 & 유리 청첩장</title>
+  <title>Our Wedding Story Begins</title>
   
-  <!-- 구글 폰트 (Gamja Flower - 감자꽃 폰트) 불러오기 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <!-- FontAwesome 아이콘 라이브러리 (하트 및 음표) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    body {
+    /* 커스텀 폰트 정의 (FreakArt Personal Use) */
+    @font-face {
+      font-family: 'FreakArt Personal Use';
+      src: url('FreakArtPersonalUse.otf') format('opentype'),
+           url('FreakArtPersonalUse.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background-color: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      /* 손글씨 폰트 적용 */
-      font-family: "Gamja Flower", cursive, sans-serif;
-      color: #333;
     }
-    .card-container {
+
+    body {
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+    }
+
+    .wedding-card {
       width: 100%;
-      max-width: 430px; /* 모바일 화면 너비에 맞춤 */
+      max-width: 430px; /* 모바일 프레임 규격 */
       background-color: #ffffff;
-      min-height: 100vh;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 1. 우측 상단 고정 음악(BGM) 버튼 */
+    .bgm-btn {
+      position: fixed;
+      top: 18px;
+      right: calc(50% - 200px); /* 모바일 카드 기준 우측 상단 고정 */
+      z-index: 9999;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid #e59bb3;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e59bb3;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(4px);
+      transition: all 0.3s ease;
+    }
+    @media (max-width: 430px) {
+      .bgm-btn {
+        right: 18px;
+      }
+    }
+    .bgm-btn.playing {
+      background-color: #e59bb3;
+      color: #ffffff;
+      animation: spin 4s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 2. 헤더 섹션 레이아웃 */
+    .header-section {
+      position: relative;
+      width: 100%;
+      /* 이미지가 들어갈 배경 프레임 */
+      background: url('sec1-bg.png') no-repeat center top / cover;
+      min-height: 680px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 20px;
-      box-sizing: border-box;
+    }
+
+    /* 타이틀 텍스트 영역 */
+    .header-title {
+      margin-top: 75px;
       text-align: center;
+      font-family: 'FreakArt Personal Use', 'Georgia', cursive, serif;
+      font-size: 42px;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25),
+                  -1px -1px 0 rgba(255, 255, 255, 0.4);
+      line-height: 1.15;
+      z-index: 2;
     }
-    h1 {
-      font-size: 28px; /* 손글씨 느낌을 살리기 위해 크기를 살짝 키웠습니다 */
-      font-weight: 400;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-      color: #222;
+
+    /* FontAwesome 하트 스타일 */
+    .header-title .fa-heart {
+      color: #ff6b81;
+      font-size: 32px;
+      margin-left: 4px;
+      vertical-align: middle;
+      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
     }
-    .img-wrapper {
+
+    .img-sec {
       width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    img {
-      width: 100%;
-      height: auto;
       display: block;
     }
-    p {
-      margin-top: 20px;
-      margin-bottom: 0;
-      font-size: 18px; /* 손글씨 폰트는 가독성을 위해 18px 이상을 추천합니다 */
-      color: #666;
-      line-height: 1.5;
+
+    /* 계좌번호 영역 */
+    .account-section {
+      background-color: #fff2f5;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .account-title-badge {
+      display: inline-block;
+      background-color: #e59bb3;
+      color: white;
+      font-size: 18px;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .account-group {
+      text-align: left;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 15px;
+      border-radius: 12px;
+    }
+    .account-group-title {
+      font-weight: bold;
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .account-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px dashed #eee;
+      font-size: 14px;
+      color: #555;
+    }
+    .account-row:last-child {
+      border-bottom: none;
+    }
+    .btn-copy {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* 지도 및 안내 */
+    .location-info {
+      padding: 20px;
+      font-size: 14px;
+      color: #444;
+      line-height: 1.6;
+      background: #fff;
+    }
+    .location-info h4 {
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      color: #e59bb3;
+    }
+
+    .btn-guestbook {
+      display: block;
+      width: 80%;
+      margin: 20px auto;
+      padding: 12px;
+      background-color: #e59bb3;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="card-container">
-    <h1>청첩장 준비 중 ... !</h1>
-    <div class="img-wrapper">
-      <img src="강아지투샷.png" alt="강아지이미지">
+
+  <!-- BGM 음악 오디오 태그 -->
+  <audio id="bgm" src="360.mp3" loop></audio>
+  
+  <!-- 우측 상단 노래 표시 컨트롤 버튼 -->
+  <button id="bgmBtn" class="bgm-btn" onclick="toggleBgm()" title="배경음악 재생/일시정지">
+    <i class="fa-solid fa-music"></i>
+  </button>
+
+  <div class="wedding-card">
+    
+    <!-- 1. 헤더 섹션 (폰트 & FontAwesome 하트 적용) -->
+    <div class="header-section">
+      <h1 class="header-title">
+        Our Wedding Story<br>
+        Begins <i class="fa-solid fa-heart"></i>
+      </h1>
     </div>
-    <p>정식 모바일 청첩장은 제작 중입니다 💌</p>
-    <p>9/18부터 확인이 가능하십니다.<br>조금만 기다려주세요 ❤️</p>
+
+    
   </div>
+
+  <script>
+    const bgm = document.getElementById('bgm');
+    const bgmBtn = document.getElementById('bgmBtn');
+    let isPlaying = false;
+
+    // BGM 토글
+    function toggleBgm() {
+      if (isPlaying) {
+        bgm.pause();
+        bgmBtn.classList.remove('playing');
+      } else {
+        bgm.play();
+        bgmBtn.classList.add('playing');
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // 모바일 터치 시 자동 재생 처리
+    document.addEventListener('click', function firstClick() {
+      if (!isPlaying) {
+        bgm.play().then(() => {
+          isPlaying = true;
+          bgmBtn.classList.add('playing');
+        }).catch(() => {});
+      }
+      document.removeEventListener('click', firstClick);
+    }, { once: true });
+
+    // 계좌 복사
+    function copyAccount(accountNumber) {
+      navigator.clipboard.writeText(accountNumber).then(() => {
+        alert("계좌번호가 복사되었습니다: " + accountNumber);
+      }).catch(err => {
+        alert("복사에 실패했습니다.");
+      });
+    }
+  </script>
 </body>
 </html>
