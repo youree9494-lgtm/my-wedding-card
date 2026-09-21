@@ -10,12 +10,18 @@
 
   <style>
     /* 커스텀 폰트 정의 (FreakArt Personal Use) */
+   /* 커스텀 폰트 불러오기 (파일명 정확히 일치) */
     @font-face {
       font-family: 'FreakArt Personal Use';
-      src: url('FreakArtPersonalUse.otf') format('opentype'),
-           url('FreakArtPersonalUse.ttf') format('truetype');
+      src: url('FreakArt-Personal-Use.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
+    }
+    
+    /* 폰트 적용 */
+    .header-title {
+      font-family: 'FreakArt Personal Use', cursive, sans-serif !important;
     }
 
     * {
@@ -103,11 +109,10 @@
 
     /* FontAwesome 하트 스타일 */
     .header-title .fa-heart {
-      color: #ff6b81;
+      color: #DE7DA6;
       font-size: 32px;
       margin-left: 4px;
       vertical-align: middle;
-      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
     }
 
     .img-sec {
