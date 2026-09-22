@@ -195,7 +195,7 @@
       gap: 50px;
     }
 
-    /* 공통 타이틀 스타일 (4번, 5번 이미지 속성 적용) */
+    /* 공통 타이틀 스타일 */
     .parents-title {
       font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
       font-size: 22px;
@@ -223,11 +223,10 @@
     }
 
     .groom-header .parents-title {
-      text-align: right;
       flex: 1;
       padding-right: 15px;
       padding-bottom: 10px;
-      transform: translate(26px, -69px);
+      transform: translate(62px, -69px);
     }
 
     .groom-photo {
@@ -276,6 +275,216 @@
       height: auto;
       display: block;
       transform: translate(158px, -201px);
+    }
+
+    /* [섹션 4] 웨딩 앨범 컨테이너 */
+    .sec4-container {
+      position: relative;
+      width: 100%;
+      min-height: 850px;
+      background: url('sec4_bg.png') no-repeat center top / cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* 상단 구름 및 CLICK ME 영역 */
+    .click-me-wrapper {
+      position: relative;
+      width: 280px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .cloud-bg {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      z-index: 1;
+    }
+
+    /* CLICK ME !! 알록달록 텍스트 */
+    .click-me-text {
+      position: relative;
+      z-index: 2;
+      font-family: 'FreakArt Personal Use', cursive, sans-serif;
+      font-size: 48.79px;
+      font-weight: bold;
+      line-height: 45.5px;
+      letter-spacing: 0em;
+      text-align: center;
+      -webkit-text-stroke: 0.83px #FFFFFF;
+      margin-top: -15px;
+    }
+
+    /* 각 글자별 채우기 색상 지정 */
+    .click-me-text span:nth-child(1) { color: #3F689A; } /* C */
+    .click-me-text span:nth-child(2) { color: #4091D3; } /* L */
+    .click-me-text span:nth-child(3) { color: #A4D28E; } /* I */
+    .click-me-text span:nth-child(4) { color: #AB7E6B; } /* C */
+    .click-me-text span:nth-child(5) { color: #CDBFA2; } /* K */
+    .click-me-text span:nth-child(6) { color: transparent; width: 10px; display: inline-block; } /* 공백 */
+    .click-me-text span:nth-child(7) { color: #D780B5; } /* M */
+    .click-me-text span:nth-child(8) { color: #F5C3CC; } /* E */
+    .click-me-text span:nth-child(9) { color: transparent; width: 10px; display: inline-block; } /* 공백 */
+    .click-me-text span:nth-child(10) { color: #3F689A; } /* ! */
+    .click-me-text span:nth-child(11) { color: #4091D3; } /* ! */
+
+    /* 분홍색 화살표 */
+    .pink-arrow {
+      position: absolute;
+      right: 15px;
+      bottom: -25px;
+      width: 45px;
+      height: auto;
+      z-index: 3;
+    }
+
+    /* 메인 앨범 커버 버튼 */
+    .album-cover-btn {
+      position: relative;
+      width: 290px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 15px;
+      z-index: 2;
+    }
+    
+    .album-cover-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .album-cover-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.15));
+    }
+
+    /* 하단 안내 텍스트 영역 */
+    .album-notice-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 보라색 화살표 */
+    .purple-arrow {
+      position: absolute;
+      left: 20px;
+      top: -30px;
+      width: 40px;
+      height: auto;
+    }
+
+    /* 하단 안내 문구 */
+    .album-notice-text {
+      font-family: 'EF_jejudoldam', sans-serif;
+      font-size: 24px;
+      line-height: 31px;
+      letter-spacing: 0em;
+      color: #5E1F00;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* ==========================================
+       책 넘김 팝업 (3D Flip Book Modal)
+    ========================================== */
+    .album-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .album-modal.active {
+      display: flex;
+    }
+
+    /* 닫기 버튼 */
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: #ffffff;
+      font-size: 35px;
+      cursor: pointer;
+      z-index: 100001;
+    }
+
+    /* 3D 앨범 본체 */
+    .book-container {
+      width: 320px;
+      height: 440px;
+      position: relative;
+      perspective: 1500px;
+    }
+
+    .book-page {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      border-radius: 8px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    .page-front, .page-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fff;
+    }
+
+    .page-front img, .page-back img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .page-back {
+      transform: rotateY(180deg);
+    }
+
+    /* 책이 넘겨진 상태 클래스 */
+    .book-page.flipped {
+      transform: rotateY(-180deg);
+    }
+
+    /* 페이지 안내 가이드 */
+    .album-hint {
+      position: absolute;
+      bottom: 30px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: sans-serif;
+      opacity: 0.8;
     }
 
     /* 계좌번호 영역 */
@@ -340,10 +549,10 @@
           </p>
         </div>
       </div>
+    </div> <!-- .letter-section 닫기 -->
 
-      <!-- 섹션 3: 부모님 메시지 & 어릴적 사진 -->
+    <!-- 3. 부모님 메시지 & 어릴적 사진 섹션 -->
     <div class="sec3-container">
-      
       <!-- 신랑측 (정철민) -->
       <div class="groom-block">
         <div class="groom-header">
@@ -362,16 +571,100 @@
           <img class="bride-photo" src="yr_child.png" alt="최유리 어린시절">
           <div class="parents-title">
             최만순 &amp; 경창희의 <br>&nbsp;&nbsp;딸
-            <span class="child-name">최유리</span>
+            <span class="child-name">&nbsp;&nbsp;최유리</span>
           </div>
         </div>
         <img class="bride-letter-img" src="yr_mommy.png" alt="신부 부모님 편지">
       </div>
+    </div> <!-- .sec3-container 닫기 -->
+
+    <!-- 4. 웨딩 앨범 섹션 -->
+    <div class="sec4-container">
+      <!-- 상단 CLICK ME !! (구름 배경 + 타이포) -->
+      <div class="click-me-wrapper">
+        <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
+        <div class="click-me-text">
+          <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span> </span><span>!</span><span>!</span>
+        </div>
+        <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
+      </div>
+
+      <!-- 메인 앨범 커버 클릭 영역 -->
+      <div class="album-cover-btn" onclick="openAlbumModal()">
+        <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
+      </div>
+
+      <!-- 하단 안내 문구 영역 -->
+      <div class="album-notice-wrapper">
+        <img src="sec4_arrow_purple.png" class="purple-arrow" alt="화살표">
+        <div class="album-notice-text">
+          앨범을 누르시면<br>저희 사진을 볼 수 있어요!
+        </div>
+      </div>
+    </div> <!-- .sec4-container 닫기 -->
+
+  </div> <!-- .wedding-card 닫기 -->
+
+  <!-- 앨범 3D 책 넘김 팝업 (모달) -->
+  <div id="albumModal" class="album-modal">
+    <span class="modal-close-btn" onclick="closeAlbumModal()">&times;</span>
+    
+    <div class="book-container">
+      <!-- 1페이지 (커버 -> 사진1) -->
+      <div class="book-page" style="z-index: 3;" onclick="flipPage(this)">
+        <div class="page-front">
+          <img src="sec4_album.png" alt="앨범 표지">
+        </div>
+        <div class="page-back">
+          <img src="cm_child.png" alt="앨범 사진 1">
+        </div>
+      </div>
+
+      <!-- 2페이지 (사진2 -> 사진3) -->
+      <div class="book-page" style="z-index: 2;" onclick="flipPage(this)">
+        <div class="page-front">
+          <img src="yr_child.png" alt="앨범 사진 2">
+        </div>
+        <div class="page-back">
+          <img src="sec1-bg.png" alt="앨범 사진 3">
+        </div>
+      </div>
+
+      <!-- 3페이지 (마지막 커버) -->
+      <div class="book-page" style="z-index: 1;">
+        <div class="page-front">
+          <img src="sec2-letter.png" alt="앨범 사진 4">
+        </div>
+      </div>
     </div>
 
+    <div class="album-hint">화면을 터치하여 다음 페이지로 넘겨보세요 📖</div>
   </div>
 
+  <!-- JavaScript 동작 스크립트 -->
   <script>
+    // 앨범 모달 열기/닫기
+    function openAlbumModal() {
+      document.getElementById('albumModal').classList.add('active');
+    }
+
+    function closeAlbumModal() {
+      const modal = document.getElementById('albumModal');
+      modal.classList.remove('active');
+      
+      // 모달을 닫을 때 넘긴 책장 초기화
+      setTimeout(() => {
+        const pages = document.querySelectorAll('.book-page');
+        pages.forEach(page => page.classList.remove('flipped'));
+      }, 300);
+    }
+
+    // 3D 책장 넘김 효과
+    function flipPage(element) {
+      element.classList.toggle('flipped');
+    }
+
+    // BGM 관련 코드
     const bgm = document.getElementById('bgm');
     const bgmBtn = document.getElementById('bgmBtn');
     let isPlaying = false;
