@@ -9,18 +9,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* 커스텀 폰트 불러오기 (파일명 정확히 일치) */
+    /* 1. 커스텀 폰트 불러오기 */
     @font-face {
       font-family: 'FreakArt Personal Use';
       src: url('FreakArt-Personal-Use.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
       font-display: swap;
-    }
-    
-    /* 폰트 적용 */
-    .header-title {
-      font-family: 'FreakArt Personal Use', cursive, sans-serif !important;
     }
 
     * {
@@ -45,11 +40,11 @@
       overflow: hidden;
     }
 
-    /* 1. 우측 상단 고정 음악(BGM) 버튼 */
+    /* 우측 상단 고정 음악(BGM) 버튼 */
     .bgm-btn {
       position: fixed;
       top: 18px;
-      right: calc(50% - 200px); /* 모바일 카드 기준 우측 상단 고정 */
+      right: calc(50% - 200px);
       z-index: 9999;
       width: 40px;
       height: 40px;
@@ -80,12 +75,12 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* 2. 헤더 섹션 레이아웃 */
+    /* 헤더 섹션 레이아웃 */
     .header-section {
       position: relative;
       width: 100%;
       background: url('sec1-bg.png') no-repeat center top / cover;
-      min-height: 910px;
+      min-height: 920px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -96,15 +91,15 @@
     .header-title {
       margin-top: 75px;
       text-align: center;
-      font-family: 'FreakArt Personal Use', 'Georgia', cursive, serif;
+      font-family: 'FreakArt Personal Use', 'Georgia', cursive, serif !important;
       font-size: 55px;
       color: #ffffff;
       line-height: 53px;
       letter-spacing: 0;
       z-index: 2;
+      text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
     }
 
-    /* FontAwesome 하트 스타일 */
     .header-title .fa-heart {
       color: #DE7DA6;
       font-size: 32px;
@@ -112,13 +107,75 @@
       vertical-align: middle;
     }
 
-    /* 섹션 이미지 반응형 스타일 */
-    .img-sec {
+    /* 초대글(편지) 섹션 컨테이너 */
+    .letter-section {
+      position: relative;
+      width: 100%;
+      margin-top: -118px; /* 헤더 상단 이미지와 겹치게 배치 */
+      z-index: 10;
+    }
+
+    /* 배경 이미지 */
+    .letter-bg-img {
       width: 100%;
       height: auto;
       display: block;
-      position: relative;
-      margin-top: -107px; /* 헤더 이미지 영역 위로 끌어올려 겹치게 설정 */
+    }
+
+    /* 편지 배경 위 텍스트 오버레이 영역 */
+    .letter-content-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 180px; /* 카드 이미지 내 흰색 하트 위치에 맞춘 상단 여백 */
+    }
+
+    /* 1. 정철민 · 최유리 스타일 */
+    .couple-names {
+      font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
+      font-size: 39.55px;
+      color: #222222;
+      font-weight: normal;
+      text-align: center;
+      /* 외곽선 0.31px 효과 */
+      -webkit-text-stroke: 0.31px #222222;
+      margin-bottom: 12px;
+    }
+
+    /* 2. 일시 및 장소 스타일 */
+    .wedding-date-location {
+      font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
+      font-size: 19.78px;
+      color: #222222;
+      letter-spacing: -0.01em; /* -1% */
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 110px; /* 편지 봉투 영역까지 하단 여백 확보 */
+    }
+
+    /* 3. 초대글 본문 문구 스타일 */
+    .letter-text {
+      font-family: 'Nanum DdarEGeEomMaGa', 'Nanum Pen Script', cursive, sans-serif;
+      font-size: 23px;
+      line-height: 35px;
+      letter-spacing: 0.02em; /* 2% */
+      color: #000000;
+      text-align: center;
+      /* 외곽선 0.3px 효과 */
+      -webkit-text-stroke: 0.3px #000000;
+      width: 80%;
+    }
+
+    .letter-text p {
+      margin-bottom: 25px; /* 단락 간격 */
+    }
+    .letter-text p:last-child {
+      margin-bottom: 0;
     }
 
     /* 계좌번호 영역 */
@@ -126,78 +183,6 @@
       background-color: #fff2f5;
       padding: 30px 20px;
       text-align: center;
-    }
-    .account-title-badge {
-      display: inline-block;
-      background-color: #e59bb3;
-      color: white;
-      font-size: 18px;
-      padding: 6px 20px;
-      border-radius: 20px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    .account-group {
-      text-align: left;
-      margin-bottom: 20px;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 15px;
-      border-radius: 12px;
-    }
-    .account-group-title {
-      font-weight: bold;
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .account-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-      border-bottom: 1px dashed #eee;
-      font-size: 14px;
-      color: #555;
-    }
-    .account-row:last-child {
-      border-bottom: none;
-    }
-    .btn-copy {
-      background-color: #fff;
-      border: 1px solid #ddd;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-      color: #333;
-    }
-
-    /* 지도 및 안내 */
-    .location-info {
-      padding: 20px;
-      font-size: 14px;
-      color: #444;
-      line-height: 1.6;
-      background: #fff;
-    }
-    .location-info h4 {
-      font-size: 16px;
-      margin-top: 10px;
-      margin-bottom: 5px;
-      color: #e59bb3;
-    }
-
-    .btn-guestbook {
-      display: block;
-      width: 80%;
-      margin: 20px auto;
-      padding: 12px;
-      background-color: #e59bb3;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
     }
   </style>
 </head>
@@ -221,8 +206,41 @@
       </h1>
     </div>
 
-    <!-- 2. 초대글 편지 이미지 섹션 -->
-    <img class="img-sec" src="sec2-letter.png" alt="정철민 최유리 초대글">
+    <!-- 2. 초대글 편지 이미지 & 텍스트 오버레이 섹션 -->
+    <div class="letter-section">
+      <!-- 배경으로 깔리는 이미지 -->
+      <img class="letter-bg-img" src="sec2-letter.png" alt="초대글 배경">
+
+      <!-- 이미지 위에 위치하는 텍스트들 -->
+      <div class="letter-content-overlay">
+        <!-- 1) 신랑 신부 이름 -->
+        <div class="couple-names">정철민 · 최유리</div>
+
+        <!-- 2) 예식 일시 및 장소 -->
+        <div class="wedding-date-location">
+          2026.11.14 토요일 5시 20분<br>
+          인천 웨스턴팰리스 &lt;팰리스홀&gt;
+        </div>
+
+        <!-- 3) 편지 본문 문구 -->
+        <div class="letter-text">
+          <p>
+            서로를 바라보던 시간이 쌓여<br>
+            이제는 나란히 같은 방향을<br>
+            바라보게 되었습니다.
+          </p>
+          <p>
+            서툴지만 단단한 두 사람이<br>
+            하나의 계절을 시작하려 합니다.
+          </p>
+          <p>
+            그 시작의 순간에<br>
+            함께 해 주신다면<br>
+            더 없이 기쁠 것 같습니다.
+          </p>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -231,49 +249,40 @@
     const bgmBtn = document.getElementById('bgmBtn');
     let isPlaying = false;
 
-    // BGM 토글
+    function playAudio() {
+      if (!isPlaying) {
+        bgm.play().then(() => {
+          isPlaying = true;
+          bgmBtn.classList.add('playing');
+        }).catch(err => {});
+      }
+    }
+
     function toggleBgm() {
       if (isPlaying) {
         bgm.pause();
         bgmBtn.classList.remove('playing');
+        isPlaying = false;
       } else {
-        bgm.play();
-        bgmBtn.classList.add('playing');
+        playAudio();
       }
-      isPlaying = !isPlaying;
     }
 
-    // 모바일 터치 시 자동 재생 처리
-    // document.addEventListener('click', function firstClick() {
-    //   if (!isPlaying) {
-    //     bgm.play().then(() => {
-    //       isPlaying = true;
-    //       bgmBtn.classList.add('playing');
-    //     }).catch(() => {});
-    //   }
-    //   document.removeEventListener('click', firstClick);
-    // }, { once: true });
-
-
-    // 1. 페이지 로드 시 즉시 자동재생 시도 (일부 인앱 브라우저 대응)
     window.addEventListener('DOMContentLoaded', () => {
       playAudio();
     });
-  
-    // 2. 브라우저 제한 완화를 위해 화면 첫 터치/클릭/스크롤 시 즉시 재생
+
     const enableAudioOnInteraction = () => {
       playAudio();
-      // 한 번 실행된 후 이벤트 리스너 제거
       window.removeEventListener('touchstart', enableAudioOnInteraction);
       window.removeEventListener('click', enableAudioOnInteraction);
       window.removeEventListener('scroll', enableAudioOnInteraction);
     };
-  
+
     window.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
     window.addEventListener('click', enableAudioOnInteraction, { once: true });
     window.addEventListener('scroll', enableAudioOnInteraction, { once: true });
 
-    // 계좌 복사
     function copyAccount(accountNumber) {
       navigator.clipboard.writeText(accountNumber).then(() => {
         alert("계좌번호가 복사되었습니다: " + accountNumber);
