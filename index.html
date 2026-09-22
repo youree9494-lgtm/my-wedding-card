@@ -304,7 +304,7 @@
 
     .cloud-bg {
       position: absolute;
-      width: 100%;
+      width: 80%;
       height: auto;
       z-index: 1;
     }
@@ -319,8 +319,7 @@
       line-height: 45.5px;
       letter-spacing: 0em;
       text-align: center;
-      -webkit-text-stroke: 0.83px #FFFFFF;
-      margin-top: -15px;
+      margin-top: -6px;
     }
 
     /* 각 글자별 채우기 색상 지정 */
@@ -336,12 +335,20 @@
     .click-me-text span:nth-child(10) { color: #3F689A; } /* ! */
     .click-me-text span:nth-child(11) { color: #4091D3; } /* ! */
 
+    /* 느낌표(!) 전용 스타일 교정 */
+    .click-me-text .excl {
+      font-family: 'FreakArt Personal Use', 'Georgia', serif !important;
+      font-weight: normal;
+      display: inline-block;
+      transform: scaleY(1.1); /* 피그마처럼 세로로 살짝 길게 교정 */
+    }
+
     /* 분홍색 화살표 */
     .pink-arrow {
       position: absolute;
-      right: 15px;
-      bottom: -25px;
-      width: 45px;
+      right: -51px;
+      bottom: -85px;
+      width: 180px;
       height: auto;
       z-index: 3;
     }
@@ -349,10 +356,9 @@
     /* 메인 앨범 커버 버튼 */
     .album-cover-btn {
       position: relative;
-      width: 290px;
+      width: 320px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      margin-top: 15px;
       z-index: 2;
     }
     
@@ -365,6 +371,7 @@
       height: auto;
       display: block;
       filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.15));
+      margin-left: 10px;
     }
 
     /* 하단 안내 텍스트 영역 */
@@ -381,10 +388,11 @@
     /* 보라색 화살표 */
     .purple-arrow {
       position: absolute;
-      left: 20px;
-      top: -30px;
-      width: 40px;
+      left: 0px;
+      top: -82px;
+      width: 143px;
       height: auto;
+      z-index: 3;
     }
 
     /* 하단 안내 문구 */
@@ -584,7 +592,7 @@
       <div class="click-me-wrapper">
         <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
         <div class="click-me-text">
-          <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span> </span><span>!</span><span>!</span>
+          <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span class="excl">!</span><span class="excl">!</span>
         </div>
         <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
       </div>
@@ -616,24 +624,89 @@
           <img src="sec4_album.png" alt="앨범 표지">
         </div>
         <div class="page-back">
-          <img src="cm_child.png" alt="앨범 사진 1">
+          <img src="album_1.jpg" alt="앨범 사진 1">
         </div>
       </div>
 
       <!-- 2페이지 (사진2 -> 사진3) -->
       <div class="book-page" style="z-index: 2;" onclick="flipPage(this)">
         <div class="page-front">
-          <img src="yr_child.png" alt="앨범 사진 2">
+          <img src="album_2.jpg" alt="앨범 사진 2">
         </div>
         <div class="page-back">
-          <img src="sec1-bg.png" alt="앨범 사진 3">
+          <img src="album_3.jpg" alt="앨범 사진 3">
         </div>
       </div>
 
-      <!-- 3페이지 (마지막 커버) -->
-      <div class="book-page" style="z-index: 1;">
+      <div class="book-page">
         <div class="page-front">
-          <img src="sec2-letter.png" alt="앨범 사진 4">
+          <img src="album_4.jpg" alt="앨범 사진 4">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_5.jpg" alt="앨범 사진 5">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_6.jpg" alt="앨범 사진 6">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_7.jpg" alt="앨범 사진 7">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_8.jpg" alt="앨범 사진 8">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_9.jpg" alt="앨범 사진 9">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_10.jpg" alt="앨범 사진 10">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_11.jpg" alt="앨범 사진 11">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_12.jpg" alt="앨범 사진 12">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_13.jpg" alt="앨범 사진 13">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_14.jpg" alt="앨범 사진 14">
+        </div>
+      </div>
+
+      <div class="book-page">
+        <div class="page-front">
+          <img src="album_15.jpg" alt="앨범 사진 15">
         </div>
       </div>
     </div>
