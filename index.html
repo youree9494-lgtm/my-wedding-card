@@ -640,6 +640,111 @@
       padding: 30px 20px;
       text-align: center;
     }
+
+    /* ==========================================
+     7_D-Day 섹션 스타일링
+     ========================================== */
+  .dday-section {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 50px 20px 40px 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  /* 검은색 구름 말풍선 컨테이너 */
+  .dday-cloud-wrapper {
+    position: relative;
+    width: 320px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+    box-sizing: border-box;
+  }
+  
+  /* 피그마 검은 구름 배경 이미지 */
+  .dday-cloud-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: contain;
+  }
+  
+  /* 구름 내부 텍스트 레이아웃 */
+  .dday-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+  }
+  
+  /* 1번 문구: 36일 23시 04분 40초 */
+  .dday-timer {
+    font-family: 'GriunXHangeul Gowoon', sans-serif;
+    font-size: 20px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    margin-bottom: 8px;
+    -webkit-text-stroke: 0.5px #FFFFFF;
+  }
+  
+  /* 2번 문구: 철민, 유리의 결혼식이 37일 남았습니다. */
+  .dday-text-main {
+    font-family: 'EF_jejudoldam', sans-serif;
+    font-size: 19px;
+    line-height: 22px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+  }
+  
+  /* 신랑/신부 이름 포인트 컬러 */
+  .dday-text-main .name-groom {
+    color: #4091D3;
+  }
+  
+  .dday-text-main .name-bride {
+    color: #D780B5;
+  }
+  
+  /* 스티커 위치 설정 */
+  .dday-decor-arrow {
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    width: 42px;
+    height: auto;
+    z-index: 3;
+  }
+  
+  .dday-decor-heart-top {
+    position: absolute;
+    top: 20px;
+    left: 55px;
+    width: 26px;
+    height: auto;
+    z-index: 0;
+  }
+  
+  .dday-decor-heart-bottom {
+    position: absolute;
+    bottom: 35px;
+    right: 35px;
+    width: 22px;
+    height: auto;
+    z-index: 0;
+  }
   </style>
 </head>
 <body>
@@ -817,9 +922,42 @@
         </div>
       </div>
     </section>
+    <!-- 7_D-Day 디데이 섹션 -->
+    <section class="dday-section">
+      <!-- 배경 주변 장식 하트 (좌측 상단, 우측 하단에 동일 이미지 적용) -->
+      <img src="sec7_heart.png" class="dday-decor-heart-top" alt="하트">
+      <img src="sec7_heart.png" class="dday-decor-heart-bottom" alt="하트">
+    
+      <div class="dday-cloud-wrapper">
+        <!-- 검은 구름 배경 -->
+        <img src="sec7_cloud.png" class="dday-cloud-bg" alt="구름 배경">
+        
+        <!-- 우측 상단 핑크 화살표 -->
+        <img src="sec7_arrow.png" class="dday-decor-arrow" alt="화살표">
+    
+        <!-- 구름 내부 디데이 텍스트 영역 -->
+        <div class="dday-content">
+          <!-- 1번 문구: 실시간 타이머 (JS로 업데이트) -->
+          <div id="ddayTimer" class="dday-timer">00일 00시 00분 00초</div>
+    
+          <!-- 2번 문구: 메인 안내 텍스트 -->
+          <div class="dday-text-main">
+            <span class="name-groom">철민</span>, <span class="name-bride">유리</span>의 결혼식이<br>
+            <span id="ddayDays">0</span>일 남았습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
 
   </div> <!-- .wedding-card 닫기 -->
 
+
+
+
+
+  
   <!-- 앨범 3D 책 넘김 팝업 (모달) -->
   <div id="albumModal" class="album-modal">
     <span class="modal-close-btn" onclick="closeAlbumModal()">&times;</span>
