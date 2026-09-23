@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>정철민 · 최유리 결혼식에 소중한 분들을 초대합니다🕊️ </title>
+  <title>정철민 · 최유리 결혼식에 소중한 분들을 초대합니다🕊️</title>
   <!-- 공유용 제목 (타이틀) -->
   <meta property="og:title" content="정철민 · 최유리 결혼식에 소중한 분들을 초대합니다🕊️">
   <!-- 공유용 설명 (서브타이틀) -->
@@ -18,6 +18,14 @@
     @font-face {
       font-family: 'FreakArt Personal Use';
       src: url('FreakArt-Personal-Use.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'GriunXHangeul Gowoon';
+      src: url('GriunXHangeulGowoon.ttf') format('truetype'); /* 실제 ttf 파일 경로 지정 */
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -43,6 +51,8 @@
       background-color: #ffffff;
       position: relative;
       overflow: hidden;
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
     }
 
     /* 우측 상단 고정 음악(BGM) 버튼 */
@@ -137,7 +147,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: 247px; /* 카드 이미지 내 흰색 하트 위치에 맞춘 상단 여백 */
+      padding-top: 247px;
     }
 
     /* 1. 정철민 · 최유리 스타일 */
@@ -147,7 +157,6 @@
       color: #222222;
       font-weight: normal;
       text-align: center;
-      /* 외곽선 0.31px 효과 */
       -webkit-text-stroke: 0.31px #222222;
       margin-bottom: 1px;
     }
@@ -157,30 +166,29 @@
       font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
       font-size: 19.78px;
       color: #222222;
-      letter-spacing: -0.01em; /* -1% */
+      letter-spacing: -0.01em;
       text-align: center;
       line-height: 1.4;
-      margin-bottom: 110px; /* 편지 봉투 영역까지 하단 여백 확보 */
+      margin-bottom: 110px;
     }
 
     /* 3. 초대글 본문 문구 스타일 */
-    .letter-text {
+    .letter-text-main {
       font-family: 'Nanum DdarEGeEomMaGa', 'Nanum Pen Script', cursive, sans-serif;
       font-size: 23px;
       line-height: 38px;
-      letter-spacing: 0.02em; /* 2% */
+      letter-spacing: 0.02em;
       color: #000000;
       text-align: center;
-      /* 외곽선 0.5px 효과 */
       -webkit-text-stroke: 0.5px #000000;
       width: 80%;
       margin-top: 202px;
     }
 
-    .letter-text p {
-      margin-bottom: 42px; /* 단락 간격 */
+    .letter-text-main p {
+      margin-bottom: 42px;
     }
-    .letter-text p:last-child {
+    .letter-text-main p:last-child {
       margin-bottom: 0;
     }
 
@@ -209,7 +217,7 @@
       -webkit-text-stroke: 0.3px #000000;
     }
 
-    /* 신랑측 박스 (우측 상단 사진) */
+    /* 신랑측 박스 */
     .groom-block {
       display: flex;
       flex-direction: column;
@@ -243,7 +251,7 @@
       transform: translate(0px, -69px);
     }
 
-    /* 신부측 박스 (좌측 상단 사진) */
+    /* 신부측 박스 */
     .bride-block {
       display: flex;
       flex-direction: column;
@@ -291,7 +299,6 @@
       overflow: hidden;
     }
 
-    /* 상단 구름 및 CLICK ME 영역 */
     .click-me-wrapper {
       position: relative;
       width: 280px;
@@ -309,7 +316,6 @@
       z-index: 1;
     }
 
-    /* CLICK ME !! 알록달록 텍스트 */
     .click-me-text {
       position: relative;
       z-index: 2;
@@ -322,28 +328,25 @@
       margin-top: -6px;
     }
 
-    /* 각 글자별 채우기 색상 지정 */
-    .click-me-text span:nth-child(1) { color: #3F689A; } /* C */
-    .click-me-text span:nth-child(2) { color: #4091D3; } /* L */
-    .click-me-text span:nth-child(3) { color: #A4D28E; } /* I */
-    .click-me-text span:nth-child(4) { color: #AB7E6B; } /* C */
-    .click-me-text span:nth-child(5) { color: #CDBFA2; } /* K */
-    .click-me-text span:nth-child(6) { color: transparent; width: 10px; display: inline-block; } /* 공백 */
-    .click-me-text span:nth-child(7) { color: #D780B5; } /* M */
-    .click-me-text span:nth-child(8) { color: #F5C3CC; } /* E */
-    .click-me-text span:nth-child(9) { color: transparent; width: 10px; display: inline-block; } /* 공백 */
-    .click-me-text span:nth-child(10) { color: #3F689A; } /* ! */
-    .click-me-text span:nth-child(11) { color: #4091D3; } /* ! */
+    .click-me-text span:nth-child(1) { color: #3F689A; }
+    .click-me-text span:nth-child(2) { color: #4091D3; }
+    .click-me-text span:nth-child(3) { color: #A4D28E; }
+    .click-me-text span:nth-child(4) { color: #AB7E6B; }
+    .click-me-text span:nth-child(5) { color: #CDBFA2; }
+    .click-me-text span:nth-child(6) { color: transparent; width: 10px; display: inline-block; }
+    .click-me-text span:nth-child(7) { color: #D780B5; }
+    .click-me-text span:nth-child(8) { color: #F5C3CC; }
+    .click-me-text span:nth-child(9) { color: transparent; width: 10px; display: inline-block; }
+    .click-me-text span:nth-child(10) { color: #3F689A; }
+    .click-me-text span:nth-child(11) { color: #4091D3; }
 
-    /* 느낌표(!) 전용 스타일 교정 */
     .click-me-text .excl {
       font-family: 'FreakArt Personal Use', 'Georgia', serif !important;
       font-weight: normal;
       display: inline-block;
-      transform: scaleY(1.1); /* 피그마처럼 세로로 살짝 길게 교정 */
+      transform: scaleY(1.1);
     }
 
-    /* 분홍색 화살표 */
     .pink-arrow {
       position: absolute;
       right: -51px;
@@ -353,7 +356,6 @@
       z-index: 3;
     }
 
-    /* 메인 앨범 커버 버튼 */
     .album-cover-btn {
       position: relative;
       width: 320px;
@@ -374,7 +376,6 @@
       margin-left: 10px;
     }
 
-    /* 하단 안내 텍스트 영역 */
     .album-notice-wrapper {
       position: relative;
       width: 100%;
@@ -385,7 +386,6 @@
       align-items: center;
     }
 
-    /* 보라색 화살표 */
     .purple-arrow {
       position: absolute;
       left: 0px;
@@ -395,7 +395,6 @@
       z-index: 3;
     }
 
-    /* 하단 안내 문구 */
     .album-notice-text {
       font-family: 'EF_jejudoldam', sans-serif;
       font-size: 24px;
@@ -406,9 +405,7 @@
       margin-top: 20px;
     }
 
-    /* ==========================================
-       책 넘김 팝업 (3D Flip Book Modal)
-    ========================================== */
+    /* 3D Flip Book Modal */
     .album-modal {
       display: none;
       position: fixed;
@@ -427,7 +424,6 @@
       display: flex;
     }
 
-    /* 닫기 버튼 */
     .modal-close-btn {
       position: absolute;
       top: 20px;
@@ -438,7 +434,6 @@
       z-index: 100001;
     }
 
-    /* 3D 앨범 본체 */
     .book-container {
       width: 320px;
       height: 440px;
@@ -480,12 +475,10 @@
       transform: rotateY(180deg);
     }
 
-    /* 책이 넘겨진 상태 클래스 */
     .book-page.flipped {
       transform: rotateY(-180deg);
     }
 
-    /* 페이지 안내 가이드 */
     .album-hint {
       position: absolute;
       bottom: 30px;
@@ -495,7 +488,153 @@
       opacity: 0.8;
     }
 
-    /* 계좌번호 영역 */
+    /* 5. 신랑신부 메시지 */
+    .section5 {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      overflow: hidden;
+      background-image: url('sec5_bg.png');
+      background-repeat: repeat;
+      background-size: contain;
+    }
+    
+    .sec5-container {
+      position: relative;
+      width: 100%;
+      height: 1100px;
+    }
+    
+    .sec5-container .item {
+      position: absolute;
+    }
+    
+    .photo-pink1 {
+      top: 100px;
+      left: 20px;
+      width: 175px;
+      z-index: 1;
+    }
+    
+    .letter-cm-group {
+      top: 60px;
+      right: 15px;
+      width: 230px;
+      z-index: 2;
+    }
+    
+    .photo-pink2 {
+      top: 300px;
+      right: 25px;
+      width: 170px;
+      z-index: 3;
+    }
+    
+    .photo-black1 {
+      top: 530px;
+      left: 35px;
+      width: 150px;
+      z-index: 4;
+    }
+    
+    .letter-yr-group {
+      bottom: 80px;
+      left: 10px;
+      width: 390px;
+      z-index: 5;
+    }
+    
+    .letter-bg {
+      width: 100%;
+      display: block;
+    }
+    
+    .letter-text-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* 6. 달력 섹션 */
+    .section6 {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      background-color: #FFDCEB; /* 피그마 지정 배경색[cite: 24] */
+      font-family: 'GriunXHangeul Gowoon', sans-serif; /* 피그마 지정 폰트[cite: 21, 22, 23] */
+      text-align: center;
+      color: #000000;
+      box-sizing: border-box;
+    }
+    
+    .wedding-info {
+      margin-bottom: 35px;
+    }
+    
+    .wedding-info .location {
+      font-size: 17px; /* 피그마 지정 크기[cite: 21] */
+      line-height: 25px; /* 행간[cite: 21] */
+      letter-spacing: 0.02em; /* 자간 2%[cite: 21] */
+      margin: 0 0 4px 0;
+    }
+    
+    .wedding-info .date {
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0.02em;
+      margin: 0 0 4px 0;
+    }
+    
+    .wedding-info .time {
+      font-size: 17px;
+      line-height: 25px;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+    
+    .calendar-container {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    
+    .calendar-header,
+    .calendar-body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      align-items: center;
+      justify-items: center;
+    }
+    
+    .calendar-header {
+      font-size: 11px; /* 피그마 요일 글자 크기[cite: 22] */
+      margin-bottom: 15px;
+    }
+    
+    .calendar-body .day {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    
+    .calendar-body .day.target-day {
+      background-color: #000000;
+      color: #FFFFFF; /* 흰색 글씨[cite: 23] */
+      border-radius: 50%;
+      font-size: 15px; /* 피그마 지정 크기[cite: 23] */
+      letter-spacing: -0.1em; /* 피그마 지정 자간 -10%[cite: 23] */
+      box-shadow: 0 0 0 0.3px #FFFFFF; /* 피그마 지정 흰색 외곽선[cite: 23] */
+    }
+        
     .account-section {
       background-color: #fff2f5;
       padding: 30px 20px;
@@ -525,22 +664,17 @@
 
     <!-- 2. 초대글 편지 이미지 & 텍스트 오버레이 섹션 -->
     <div class="letter-section">
-      <!-- 배경으로 깔리는 이미지 -->
       <img class="letter-bg-img" src="sec2-letter.png" alt="초대글 배경">
 
-      <!-- 이미지 위에 위치하는 텍스트들 -->
       <div class="letter-content-overlay">
-        <!-- 1) 신랑 신부 이름 -->
         <div class="couple-names">정철민 · 최유리</div>
 
-        <!-- 2) 예식 일시 및 장소 -->
         <div class="wedding-date-location">
           2026.11.14 토요일 5시 20분<br>
           인천 웨스턴팰리스 &lt;팰리스홀&gt;
         </div>
 
-        <!-- 3) 편지 본문 문구 -->
-        <div class="letter-text">
+        <div class="letter-text-main">
           <p>
             서로를 바라보던 시간이 쌓여<br>
             이제는 나란히 같은 방향을<br>
@@ -561,7 +695,6 @@
 
     <!-- 3. 부모님 메시지 & 어릴적 사진 섹션 -->
     <div class="sec3-container">
-      <!-- 신랑측 (정철민) -->
       <div class="groom-block">
         <div class="groom-header">
           <div class="parents-title">
@@ -573,7 +706,6 @@
         <img class="groom-letter-img" src="cm_daddy.png" alt="신랑 부모님 편지">
       </div>
 
-      <!-- 신부측 (최유리) -->
       <div class="bride-block">
         <div class="bride-header">
           <img class="bride-photo" src="yr_child.png" alt="최유리 어린시절">
@@ -588,7 +720,6 @@
 
     <!-- 4. 웨딩 앨범 섹션 -->
     <div class="sec4-container">
-      <!-- 상단 CLICK ME !! (구름 배경 + 타이포) -->
       <div class="click-me-wrapper">
         <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
         <div class="click-me-text">
@@ -597,12 +728,10 @@
         <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
       </div>
 
-      <!-- 메인 앨범 커버 클릭 영역 -->
       <div class="album-cover-btn" onclick="openAlbumModal()">
         <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
       </div>
 
-      <!-- 하단 안내 문구 영역 -->
       <div class="album-notice-wrapper">
         <img src="sec4_arrow_purple.png" class="purple-arrow" alt="화살표">
         <div class="album-notice-text">
@@ -611,6 +740,84 @@
       </div>
     </div> <!-- .sec4-container 닫기 -->
 
+    <!-- 5. 신랑,신부 메시지 -->
+    <section class="section5">
+      <div class="sec5-container">
+        <img src="sec5_photo_pink1.png" class="item photo-pink1" alt="사진 핑크 1">
+
+        <div class="item letter-cm-group">
+          <img src="sec5_cm_letter_bg.png" class="letter-bg" alt="편지지 배경">
+          <img src="sec5_cm_letter.png" class="letter-text-img" alt="편지 글씨">
+        </div>
+
+        <img src="sec5_photo_pink2.png" class="item photo-pink2" alt="사진 핑크 2">
+        <img src="sec5_photo_black1.png" class="item photo-black1" alt="사진 블랙 1">
+
+        <div class="item letter-yr-group">
+          <img src="sec5_yr_letter_bg.png" class="letter-bg" alt="편지지 배경">
+          <img src="sec5_yr_letter.png" class="letter-text-img" alt="편지 글씨">
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 달력 섹션 -->
+    <section class="section6">
+      <div class="wedding-info">
+        <p class="location">인천 웨스턴팰리스 &lt;팰리스홀&gt;</p>
+        <p class="date">2026.11.14</p>
+        <p class="time">토요일 5시 20분</p>
+      </div>
+
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <span>일</span>
+          <span>월</span>
+          <span>화</span>
+          <span>수</span>
+          <span>목</span>
+          <span>금</span>
+          <span>토</span>
+        </div>
+
+        <div class="calendar-body">
+          <span class="day">1</span>
+          <span class="day">2</span>
+          <span class="day">3</span>
+          <span class="day">4</span>
+          <span class="day">5</span>
+          <span class="day">6</span>
+          <span class="day">7</span>
+
+          <span class="day">8</span>
+          <span class="day">9</span>
+          <span class="day">10</span>
+          <span class="day">11</span>
+          <span class="day">12</span>
+          <span class="day">13</span>
+          <span class="day target-day">14</span>
+
+          <span class="day">15</span>
+          <span class="day">16</span>
+          <span class="day">17</span>
+          <span class="day">18</span>
+          <span class="day">19</span>
+          <span class="day">20</span>
+          <span class="day">21</span>
+
+          <span class="day">22</span>
+          <span class="day">23</span>
+          <span class="day">24</span>
+          <span class="day">25</span>
+          <span class="day">26</span>
+          <span class="day">27</span>
+          <span class="day">28</span>
+
+          <span class="day">29</span>
+          <span class="day">30</span>
+        </div>
+      </div>
+    </section>
+
   </div> <!-- .wedding-card 닫기 -->
 
   <!-- 앨범 3D 책 넘김 팝업 (모달) -->
@@ -618,7 +825,6 @@
     <span class="modal-close-btn" onclick="closeAlbumModal()">&times;</span>
     
     <div class="book-container">
-      <!-- 1장: 표지 -> album_1.jpg -->
       <div class="book-page" style="z-index: 15;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="sec4_album.png" alt="앨범 표지">
@@ -628,7 +834,6 @@
         </div>
       </div>
 
-      <!-- 2장: album_2.jpg -> album_3.jpg -->
       <div class="book-page" style="z-index: 14;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_2.jpg" alt="앨범 사진 2">
@@ -638,7 +843,6 @@
         </div>
       </div>
 
-      <!-- 3장: album_4.jpg -> album_5.jpg -->
       <div class="book-page" style="z-index: 13;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_4.jpg" alt="앨범 사진 4">
@@ -648,7 +852,6 @@
         </div>
       </div>
 
-      <!-- 4장: album_6.jpg -> album_7.jpg -->
       <div class="book-page" style="z-index: 12;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_6.jpg" alt="앨범 사진 6">
@@ -658,7 +861,6 @@
         </div>
       </div>
 
-      <!-- 5장: album_8.jpg -> album_9.jpg -->
       <div class="book-page" style="z-index: 11;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_8.jpg" alt="앨범 사진 8">
@@ -668,7 +870,6 @@
         </div>
       </div>
 
-      <!-- 6장: album_10.jpg -> album_11.jpg -->
       <div class="book-page" style="z-index: 10;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_10.jpg" alt="앨범 사진 10">
@@ -678,7 +879,6 @@
         </div>
       </div>
 
-      <!-- 7장: album_12.jpg -> album_13.jpg -->
       <div class="book-page" style="z-index: 9;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_12.jpg" alt="앨범 사진 12">
@@ -694,7 +894,6 @@
 
   <!-- JavaScript 동작 스크립트 -->
   <script>
-    // 앨범 모달 열기/닫기
     function openAlbumModal() {
       document.getElementById('albumModal').classList.add('active');
     }
@@ -703,19 +902,16 @@
       const modal = document.getElementById('albumModal');
       modal.classList.remove('active');
       
-      // 모달을 닫을 때 넘긴 책장 초기화
       setTimeout(() => {
         const pages = document.querySelectorAll('.book-page');
         pages.forEach(page => page.classList.remove('flipped'));
       }, 300);
     }
 
-    // 3D 책장 넘김 효과
     function flipPage(element) {
       element.classList.toggle('flipped');
     }
 
-    // BGM 관련 코드
     const bgm = document.getElementById('bgm');
     const bgmBtn = document.getElementById('bgmBtn');
     let isPlaying = false;
