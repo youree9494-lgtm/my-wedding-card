@@ -1041,21 +1041,18 @@
    Section 10: 방명록 (Guestbook Section)
    ========================================== */
 
-    .section10 {
-      background-image: url('sec10_bg.png');
-      background-size: cover;        /* 이미지를 요소에 맞춰 꽉 채움 */
-      background-position: center;   /* 이미지를 중앙에 배치 */
-      background-repeat: no-repeat;  /* 이미지 반복 방지 */
-    }
+  
     
     .guestbook-section {
       padding: 50px 20px 60px 20px;
-      /* 피그마 배경 스트라이프 느낌을 원할 경우 image/gradient 추가 가능 */
-      background-color: #FFF9F9;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
+      background-image: url('sec10_bg.png');
+      background-size: cover;        /* 이미지를 요소에 맞춰 꽉 채움 */
+      background-position: center;   /* 이미지를 중앙에 배치 */
+      background-repeat: no-repeat;  /* 이미지 반복 방지 */
     }
     
     /* 1. 상단 타이틀 */
@@ -1395,7 +1392,127 @@
       background-color: #FFF;
       cursor: pointer;
     }
-        
+
+    /* Section 11 스타일 */
+    .section11 {
+      background-color: #ffffff;
+      padding: 60px 20px 40px;
+      text-align: center;
+      color: #000000;
+      box-sizing: border-box;
+    }
+    
+    .sec11-container {
+      max-width: 430px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* 반려동물 이미지 */
+    .sec11-animal-img {
+      width: 180px;
+      height: auto;
+      margin-bottom: 25px;
+      display: block;
+    }
+    
+    /* 영문 폰트 (FreakArt Personal Use) */
+    @font-face {
+      font-family: 'FreakArt Personal Use';
+      src: url('FreakArtPersonalUse.woff2') format('woff2'),
+           url('FreakArtPersonalUse.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+    
+    /* 한글 폰트 (GriunXHangeul Gowoon) */
+    @font-face {
+      font-family: 'GriunXHangeul Gowoon';
+      src: url('GriunXHangeulGowoon.woff2') format('woff2'),
+           url('GriunXHangeulGowoon.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    /* 영문 메인 타이틀 */
+    .sec11-title-en {
+      font-family: 'FreakArt Personal Use', cursive, sans-serif;
+      font-size: 58px;
+      font-weight: bold;
+      line-height: 55px;
+      letter-spacing: 0;
+      color: #000000;
+      margin: 0 0 25px 0;
+      /* 이미지의 외곽선(Stroke) 효과 반영 */
+      -webkit-text-stroke: 1px #ffffff;
+      paint-order: stroke fill;
+    }
+    
+    /* 메시지 영역 (GriunXHangeul Gowoon) */
+    .sec11-message {
+      font-family: 'GriunXHangeul Gowoon', 'Gowoon Batang', serif, sans-serif;
+      font-size: 19px;
+      color: #000000;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+    
+    .sec11-subtitle {
+      margin: 0 0 15px 0;
+    }
+    
+    .sec11-dots {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 15px;
+    }
+    
+    .sec11-dots span {
+      font-size: 20px;
+      line-height: 1;
+    }
+    
+    .sec11-text {
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    /* 링크 복사하기 버튼 */
+    .sec11-copy-btn {
+      width: 100%;
+      max-width: 280px;
+      background-color: #d880b9; /* 분홍색 버튼 배경 */
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 0;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      margin-bottom: 35px;
+    }
+    
+    .sec11-copy-btn:active {
+      transform: scale(0.98);
+      background-color: #c76fa8;
+    }
+    
+    /* 푸터 영역 (NanumSquare Neo) */
+    .sec11-footer {
+      font-family: 'NanumSquare Neo', 'NanumSquare', sans-serif;
+      font-size: 10px;
+      line-height: 18px;
+      color: #000000;
+    }
+    
+    .sec11-footer p {
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -1726,14 +1843,6 @@
     </section>
     <!-- section10. 방명록 섹션 -->
   <section id="section10" class="guestbook-section">
-    <!-- 상단 타이틀 (섹션 8, 9와 동일한 뱃지 스타일 적용) -->
-    <div class="guestbook-title-container">
-      <div class="oval-badge">
-        <div class="oval-badge-inner">
-          <span class="oval-badge-text">방명록</span>
-        </div>
-      </div>
-    </div>
   
     <!-- 방명록 말풍선 목록 리스트 (JavaScript로 동적 출력) -->
     <div id="guestbookList" class="guestbook-list"></div>
@@ -1747,7 +1856,44 @@
       <button type="button" class="btn-guestbook-manage" onclick="openManageModal()">방명록 관리</button>
     </div>
   </section>
+
+  <!-- Section 11 -->
+  <section class="section11">
+    <div class="sec11-container">
+      <!-- 반려동물 이미지 -->
+      <img src="animal.png" alt="반려동물 이미지" class="sec11-animal-img">
   
+      <!-- 영문 타이틀 -->
+      <h2 class="sec11-title-en">the Beginning of<br>Forever</h2>
+  
+      <!-- 서브 타이틀 및 메시지 -->
+      <div class="sec11-message">
+        <p class="sec11-subtitle">[영원토록 함께할 날들의 시작]</p>
+        <div class="sec11-dots">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </div>
+        <p class="sec11-text">
+          따뜻한 축하를 건네주신 모든 분께<br>
+          진심으로 감사드립니다.<br>
+          행복한 모습으로 보답하겠습니다.
+        </p>
+      </div>
+  
+      <!-- 링크 복사 버튼 -->
+      <button type="button" class="sec11-copy-btn" onclick="copyInvitationLink()">
+        모바일 청첩장 링크 복사하기
+      </button>
+  
+      <!-- 푸터 카피라이트 -->
+      <footer class="sec11-footer">
+        <p>©신부 유리가 한 땀 한 땀 디자인하고 개발한 청첩장</p>
+        <p>©Designed & Developed by choiyouree</p>
+      </footer>
+    </div>
+  </section>
+    
   <!-- [모달 1] 방명록 작성 모달 -->
   <div id="writeModal" class="gb-modal-overlay">
     <div class="gb-modal-content">
@@ -2177,6 +2323,51 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  // 모바일 청첩장 링크 복사 함수
+  function copyInvitationLink() {
+    const currentUrl = window.location.href; // 현재 페이지 주소 추출
+  
+    if (navigator.clipboard && window.isSecureContext) {
+      // 최신 브라우저 및 HTTPS 환경
+      navigator.clipboard.writeText(currentUrl)
+        .then(() => {
+          alert("모바일 청첩장 링크가 복사되었습니다. 💕");
+        })
+        .catch(err => {
+          fallbackCopyTextToClipboard(currentUrl);
+        });
+    } else {
+      // 구형 브라우저 또는 호환성 대응
+      fallbackCopyTextToClipboard(currentUrl);
+    }
+  }
+  
+  // 링크 복사 든든한 호환성 지원 함수 (fallback)
+  function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+  
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        alert("모바일 청첩장 링크가 복사되었습니다. 💕");
+      } else {
+        alert("링크 복사에 실패했습니다. 주소를 직접 복사해 주세요.");
+      }
+    } catch (err) {
+      alert("링크 복사에 실패했습니다. 주소를 직접 복사해 주세요.");
+    }
+  
+    document.body.removeChild(textArea);
   }
 </script>
 </body>
