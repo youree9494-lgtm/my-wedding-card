@@ -12,6 +12,8 @@
   <meta property="og:image" content="https://youree9494-lgtm.github.io/my-wedding-card/sec1-bg.png">
   <!-- FontAwesome 아이콘 라이브러리 (하트 및 음표) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- 1. 카카오 지도 SDK 스크립트  -->
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY&libraries=services"></script>
 
   <style>
     /* 1. 커스텀 폰트 불러오기 */
@@ -745,6 +747,188 @@
     height: auto;
     z-index: 0;
   }
+
+  /* ==========================================
+   Section 8 : 오시는 길 전체 레이아웃
+   ========================================== */
+.location-section {
+  width: 100%;
+  max-width: 480px; /* 모바일 반응형 기본 규격 */
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 1. 상단 타원형 뱃지 (제공해주신 스펙 적용) */
+.oval-badge {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 235.3px;           /* 피그마 너비 */
+  height: 79.86px;          /* 피그마 높이 */
+  background-color: #D780B5; /* 피그마 분홍색 */
+  border-radius: 50%;       /* 타원 형태 */
+  box-sizing: border-box;
+  margin-bottom: 24px;
+}
+
+.oval-badge-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 212.72px;          /* 피그마 안쪽 요소 너비 */
+  height: 65.14px;          /* 피그마 안쪽 요소 높이 */
+  border: 2px solid #FFFFFF;/* 피그마 안쪽 흰색 외곽선 굵기 2px */
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.oval-badge-text {
+  font-family: 'GriunXHangeul Gowoon', 'Gowoon Batang', sans-serif; /* 피그마 폰트 */
+  font-size: 24px;          /* 피그마 글씨 크기 24px */
+  color: #FFFFFF;           /* 피그마 글자색 흰색 */
+  line-height: 1;
+  user-select: none;
+}
+
+/* 2. 지도 컨테이너 및 핀 스타일 */
+.map-container {
+  width: 100%;
+  height: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+/* 3. 주소 및 복사 버튼 */
+.address-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 4px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.address-text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 주소 및 장소명 폰트 스펙 (Inter SemiBold & Regular 20px) */
+.address-main {
+  font-size: 20px;
+  font-weight: 400; /* Regular */
+  color: #000000;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.address-sub {
+  font-size: 20px;
+  font-weight: 600; /* Semi Bold */
+  color: #000000;
+  margin: 2px 0 0 0;
+  line-height: 1.3;
+}
+
+/* 재사용 가능한 복사하기 버튼 컴포넌트 */
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-copy:hover {
+  background-color: #f7f7f7;
+  border-color: #bbbbbb;
+}
+
+.btn-copy:active {
+  background-color: #eeeeee;
+}
+
+/* 구분선 */
+.section-divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #f2e6ee;
+  margin: 10px 0 28px 0;
+}
+
+/* 4. 교통 및 주차 상세 정보 목록 */
+.transport-info-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.transport-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.transport-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.info-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.info-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+/* 서브 텍스트 스펙 (Inter Regular 16px, 자간 -3%) */
+.info-desc {
+  padding-left: 32px; /* 아이콘 너비 + gap 만큼 들여쓰기 */
+}
+
+.info-desc p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.03em; /* 자간 -3% */
+  line-height: 1.4;
+}
+
+.info-desc p:last-child {
+  margin-bottom: 0;
+}
   </style>
 </head>
 <body>
@@ -948,8 +1132,9 @@
         </div>
       </div>
     </section>
+    <!-- 8section 오시는 길 -->
 
-    
+
 
   </div> <!-- .wedding-card 닫기 -->
 
@@ -1032,6 +1217,27 @@
 
   <!-- JavaScript 동작 스크립트 -->
   <script>
+  // ==========================================
+    // 카카오 지도 생성 및 Pin(마커) 연동 코드 추가
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", function () {
+      const latitude = 37.517332;
+      const longitude = 126.724128;
+      const mapContainer = document.getElementById('map');
+      
+      if (mapContainer && typeof kakao !== 'undefined' && kakao.maps) {
+        kakao.maps.load(function() {
+          const mapOption = {
+            center: new kakao.maps.LatLng(latitude, longitude),
+            level: 3
+          };
+          const map = new kakao.maps.Map(mapContainer, mapOption);
+          const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+          const marker = new kakao.maps.Marker({ position: markerPosition });
+          marker.setMap(map);
+        });
+      }
+    });
   // ==========================================
   // D-Day 타이머 자바스크립트 로직
   // ==========================================
