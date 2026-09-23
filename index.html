@@ -643,398 +643,757 @@
       text-align: center;
     }
 
-    /* ==========================================
-     7_D-Day 섹션 스타일링
-     ========================================== */
-  .dday-section {
-    position: relative;
-    width: 100%;
-    max-width: 430px;
-    margin: 0 auto;
-    padding: 50px 20px 40px 20px;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-  
-  /* 검은색 구름 말풍선 컨테이너 */
-  .dday-cloud-wrapper {
-    position: relative;
-    width: 320px;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 20px;
-    box-sizing: border-box;
-  }
-  
-  /* 피그마 검은 구름 배경 이미지 */
-  .dday-cloud-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    object-fit: contain;
-  }
-  
-  /* 구름 내부 텍스트 레이아웃 */
-  .dday-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    width: 100%;
-  }
-  
-  /* 1번 문구: 36일 23시 04분 40초 */
-  .dday-timer {
-    font-family: 'GriunXHangeul Gowoon', sans-serif;
-    font-size: 20px;
-    color: #FFFFFF;
-    letter-spacing: 0;
-    margin-bottom: 8px;
-    -webkit-text-stroke: 0.5px #FFFFFF;
-  }
-  
-  /* 2번 문구: 철민, 유리의 결혼식이 37일 남았습니다. */
-  .dday-text-main {
-    font-family: 'EF_jejudoldam', sans-serif;
-    font-size: 19px;
-    line-height: 22px;
-    color: #FFFFFF;
-    letter-spacing: 0;
-  }
-  
-  /* 신랑/신부 이름 포인트 컬러 */
-  .dday-text-main .name-groom {
-    color: #4091D3;
-  }
-  
-  .dday-text-main .name-bride {
-    color: #D780B5;
-  }
-  
-  /* 스티커 위치 설정 */
-  .dday-decor-arrow {
-    position: absolute;
-    top: 18px;
-    right: 10px;
-    width: 42px;
-    height: auto;
-    z-index: 3;
-  }
-  
-  .dday-decor-heart-top {
-    position: absolute;
-    top: 20px;
-    left: 55px;
-    width: 26px;
-    height: auto;
-    z-index: 0;
-  }
-  
-  .dday-decor-heart-bottom {
-    position: absolute;
-    bottom: 35px;
-    right: 35px;
-    width: 22px;
-    height: auto;
-    z-index: 0;
-  }
-
-  /* ==========================================
-   Section 8 : 오시는 길 전체 레이아웃
-   ========================================== */
-  .location-section {
-    width: 100%;
-    max-width: 480px; /* 모바일 반응형 기본 규격 */
-    margin: 0 auto;
-    padding: 40px 20px;
-    background-color: #ffffff;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-  
-  /* 1. 상단 타원형 뱃지 (제공해주신 스펙 적용) */
-  .oval-badge {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 235.3px;           /* 피그마 너비 */
-    height: 79.86px;          /* 피그마 높이 */
-    background-color: #D780B5; /* 피그마 분홍색 */
-    border-radius: 50%;       /* 타원 형태 */
-    box-sizing: border-box;
-    margin-bottom: 24px;
-  }
-  
-  .oval-badge-inner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 212.72px;          /* 피그마 안쪽 요소 너비 */
-    height: 65.14px;          /* 피그마 안쪽 요소 높이 */
-    border: 2px solid #FFFFFF;/* 피그마 안쪽 흰색 외곽선 굵기 2px */
-    border-radius: 50%;
-    box-sizing: border-box;
-  }
-  
-  .oval-badge-text {
-    font-family: 'GriunXHangeul Gowoon', 'Gowoon Batang', sans-serif; /* 피그마 폰트 */
-    font-size: 24px;          /* 피그마 글씨 크기 24px */
-    color: #FFFFFF;           /* 피그마 글자색 흰색 */
-    line-height: 1;
-    user-select: none;
-  }
-  
-  /* 2. 지도 컨테이너 및 핀 스타일 */
-  .map-container {
-    width: 100%;
-    height: 280px;
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    margin-bottom: 20px;
-  }
-  
-  #map {
-    width: 100%;
-    height: 100%;
-  }
-  
-  /* 3. 주소 및 복사 버튼 */
-  .address-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0 4px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-  }
-  
-  .address-text {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* 주소 및 장소명 폰트 스펙 (Inter SemiBold & Regular 20px) */
-  .address-main {
-    font-size: 20px;
-    font-weight: 400; /* Regular */
-    color: #000000;
-    margin: 0;
-    line-height: 1.3;
-  }
-  
-  .address-sub {
-    font-size: 20px;
-    font-weight: 600; /* Semi Bold */
-    color: #000000;
-    margin: 2px 0 0 0;
-    line-height: 1.3;
-  }
-  
-  /* 재사용 가능한 복사하기 버튼 컴포넌트 */
-  .btn-copy {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    background-color: #ffffff;
-    border: 1px solid #d1d1d1;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #333333;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .btn-copy:hover {
-    background-color: #f7f7f7;
-    border-color: #bbbbbb;
-  }
-  
-  .btn-copy:active {
-    background-color: #eeeeee;
-  }
-  
-  /* 구분선 */
-  .section-divider {
-    width: 100%;
-    border: none;
-    border-top: 1px solid #f2e6ee;
-    margin: 10px 0 28px 0;
-  }
-  
-  /* 4. 교통 및 주차 상세 정보 목록 */
-  .transport-info-list {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-  
-  .transport-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .transport-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  
-  .info-icon {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-  }
-  
-  .info-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #000000;
-    margin: 0;
-  }
-  
-  /* 서브 텍스트 스펙 (Inter Regular 16px, 자간 -3%) */
-  .info-desc {
-    padding-left: 32px; /* 아이콘 너비 + gap 만큼 들여쓰기 */
-  }
-  
-  .info-desc p {
-    font-size: 16px;
-    font-weight: 400;
-    color: #000000;
-    margin: 0 0 4px 0;
-    letter-spacing: -0.03em; /* 자간 -3% */
-    line-height: 1.4;
-  }
-  
-  .info-desc p:last-child {
-    margin-bottom: 0;
-  }
-
-        /* ==========================================
-       Section 9: 마음 전하실 곳 (Bank Section)
+      /* ==========================================
+       7_D-Day 섹션 스타일링
        ========================================== */
-    
-    .bank-section {
-      padding: 40px 20px;
+    .dday-section {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 50px 20px 40px 20px;
       background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    
+    /* 검은색 구름 말풍선 컨테이너 */
+    .dday-cloud-wrapper {
+      position: relative;
+      width: 320px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
       box-sizing: border-box;
     }
     
-    /* 1. 상단 제목 (뱃지) 영역 */
+    /* 피그마 검은 구름 배경 이미지 */
+    .dday-cloud-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      object-fit: contain;
+    }
+    
+    /* 구름 내부 텍스트 레이아웃 */
+    .dday-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      width: 100%;
+    }
+    
+    /* 1번 문구: 36일 23시 04분 40초 */
+    .dday-timer {
+      font-family: 'GriunXHangeul Gowoon', sans-serif;
+      font-size: 20px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+      -webkit-text-stroke: 0.5px #FFFFFF;
+    }
+    
+    /* 2번 문구: 철민, 유리의 결혼식이 37일 남았습니다. */
+    .dday-text-main {
+      font-family: 'EF_jejudoldam', sans-serif;
+      font-size: 19px;
+      line-height: 22px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+    }
+    
+    /* 신랑/신부 이름 포인트 컬러 */
+    .dday-text-main .name-groom {
+      color: #4091D3;
+    }
+    
+    .dday-text-main .name-bride {
+      color: #D780B5;
+    }
+    
+    /* 스티커 위치 설정 */
+    .dday-decor-arrow {
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      width: 42px;
+      height: auto;
+      z-index: 3;
+    }
+    
+    .dday-decor-heart-top {
+      position: absolute;
+      top: 20px;
+      left: 55px;
+      width: 26px;
+      height: auto;
+      z-index: 0;
+    }
+    
+    .dday-decor-heart-bottom {
+      position: absolute;
+      bottom: 35px;
+      right: 35px;
+      width: 22px;
+      height: auto;
+      z-index: 0;
+    }
+  
+    /* ==========================================
+     Section 8 : 오시는 길 전체 레이아웃
+     ========================================== */
+    .location-section {
+      width: 100%;
+      max-width: 480px; /* 모바일 반응형 기본 규격 */
+      margin: 0 auto;
+      padding: 40px 20px;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    /* 1. 상단 타원형 뱃지 (제공해주신 스펙 적용) */
+    .oval-badge {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 235.3px;           /* 피그마 너비 */
+      height: 79.86px;          /* 피그마 높이 */
+      background-color: #D780B5; /* 피그마 분홍색 */
+      border-radius: 50%;       /* 타원 형태 */
+      box-sizing: border-box;
+      margin-bottom: 24px;
+    }
+    
+    .oval-badge-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 212.72px;          /* 피그마 안쪽 요소 너비 */
+      height: 65.14px;          /* 피그마 안쪽 요소 높이 */
+      border: 2px solid #FFFFFF;/* 피그마 안쪽 흰색 외곽선 굵기 2px */
+      border-radius: 50%;
+      box-sizing: border-box;
+    }
+    
+    .oval-badge-text {
+      font-family: 'GriunXHangeul Gowoon', 'Gowoon Batang', sans-serif; /* 피그마 폰트 */
+      font-size: 24px;          /* 피그마 글씨 크기 24px */
+      color: #FFFFFF;           /* 피그마 글자색 흰색 */
+      line-height: 1;
+      user-select: none;
+    }
+    
+    /* 2. 지도 컨테이너 및 핀 스타일 */
+    .map-container {
+      width: 100%;
+      height: 280px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 20px;
+    }
+    
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* 3. 주소 및 복사 버튼 */
+    .address-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0 4px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+    
+    .address-text {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* 주소 및 장소명 폰트 스펙 (Inter SemiBold & Regular 20px) */
+    .address-main {
+      font-size: 20px;
+      font-weight: 400; /* Regular */
+      color: #000000;
+      margin: 0;
+      line-height: 1.3;
+    }
+    
+    .address-sub {
+      font-size: 20px;
+      font-weight: 600; /* Semi Bold */
+      color: #000000;
+      margin: 2px 0 0 0;
+      line-height: 1.3;
+    }
+    
+    /* 재사용 가능한 복사하기 버튼 컴포넌트 */
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      background-color: #ffffff;
+      border: 1px solid #d1d1d1;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #333333;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease-in-out;
+    }
+    
+    .btn-copy:hover {
+      background-color: #f7f7f7;
+      border-color: #bbbbbb;
+    }
+    
+    .btn-copy:active {
+      background-color: #eeeeee;
+    }
+    
+    /* 구분선 */
+    .section-divider {
+      width: 100%;
+      border: none;
+      border-top: 1px solid #f2e6ee;
+      margin: 10px 0 28px 0;
+    }
+    
+    /* 4. 교통 및 주차 상세 정보 목록 */
+    .transport-info-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    
+    .transport-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .transport-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .info-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+    
+    .info-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #000000;
+      margin: 0;
+    }
+    
+    /* 서브 텍스트 스펙 (Inter Regular 16px, 자간 -3%) */
+    .info-desc {
+      padding-left: 32px; /* 아이콘 너비 + gap 만큼 들여쓰기 */
+    }
+    
+    .info-desc p {
+      font-size: 16px;
+      font-weight: 400;
+      color: #000000;
+      margin: 0 0 4px 0;
+      letter-spacing: -0.03em; /* 자간 -3% */
+      line-height: 1.4;
+    }
+    
+    .info-desc p:last-child {
+      margin-bottom: 0;
+    }
+
+       /* ==========================================
+   Section 9: 마음 전하실 곳 (Bank Section)
+   ========================================== */
+
+    .bank-section {
+      padding: 60px 24px;
+      background-color: #FFF9F9; /* 이미지 배경 연한 핑크 톤 */
+      box-sizing: border-box;
+    }
+    
+    /* 1. 타이틀 영역 (section8 오시는 길 타이틀 뱃지와 동일) */
     .bank-title-container {
       display: flex;
       justify-content: center;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
     
-    .bank-title-badge {
-      display: inline-block;
-      padding: 8px 20px;
-      background-color: #f5f5f5;
-      border-radius: 20px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #333333;
-    }
-    
-    /* 2. 그룹 컨테이너 (신랑 측 / 신부 측) */
+    /* 2. 신랑/신부 그룹 컨테이너 */
     .bank-group-container {
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
     
+    .bank-group-container:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* 그룹 헤더 (신랑/신부 측 계좌번호 타이틀) */
     .bank-group-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 8px;
     }
     
     .bank-group-title {
+      font-family: 'NanumSquare Neo', sans-serif;
       font-size: 16px;
-      font-weight: 600;
-      color: #222222;
-      white-space: nowrap;
+      font-weight: 700;
+      color: #000000;
+      line-height: 28px;
     }
     
+    /* 구분선 (피그마 분홍색 선 #D780B5, 1px) */
     .bank-header-line {
-      flex: 1;
+      width: 100%;
       height: 1px;
-      background-color: #eaeaea;
+      background-color: #D780B5;
+      margin-bottom: 20px;
     }
     
-    /* 3. 계좌 목록 및 아이템 */
+    /* 3. 계좌 목록 및 각 항목 */
     .bank-account-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
     
     .bank-account-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 16px;
-      background-color: #fdfdfd;
-      border: 1px solid #f0f0f0;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      background: transparent;
     }
     
     .bank-account-info {
       flex: 1;
     }
     
+    /* 계좌 정보 텍스트 (피그마 수치 적용: NanumSquare Neo, 14px, 행간 20px, #000000) */
     .bank-account-text {
       margin: 0;
+      font-family: 'NanumSquare Neo', sans-serif;
       font-size: 14px;
-      line-height: 1.5;
-      color: #444444;
-      word-break: keep-all;
+      font-weight: 400;
+      line-height: 20px;
+      color: #000000;
+      letter-spacing: 0;
     }
     
-    /* 4. 복사하기 버튼 */
+    /* 4. 복사하기 버튼 (피그마 디자인 스펙 맞춤) */
     .bank-copy-btn {
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #555555;
-      background-color: #f7f7f7;
-      border: 1px solid #e0e0e0;
-      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 32px;
+      padding: 0;
+      background-color: #FFFFFF;
+      border: 1px solid #E2E2E2;
+      border-radius: 8px; /* 은은한 라운드 모서리 */
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #000000;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
-      margin-left: 10px;
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
     }
     
     .bank-copy-btn:hover {
-      background-color: #eee;
-      color: #222;
+      background-color: #F8F8F8;
+      border-color: #CCCCCC;
     }
     
     .bank-copy-btn:active {
-      background-color: #e0e0e0;
+      background-color: #EFEFEF;
+    }
+
+    /* ==========================================
+   Section 10: 방명록 (Guestbook Section)
+   ========================================== */
+
+    .section10 {
+      background-image: url('sec10_bg.png');
+      background-size: cover;        /* 이미지를 요소에 맞춰 꽉 채움 */
+      background-position: center;   /* 이미지를 중앙에 배치 */
+      background-repeat: no-repeat;  /* 이미지 반복 방지 */
+    }
+    
+    .guestbook-section {
+      padding: 50px 20px 60px 20px;
+      /* 피그마 배경 스트라이프 느낌을 원할 경우 image/gradient 추가 가능 */
+      background-color: #FFF9F9;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* 1. 상단 타이틀 */
+    .guestbook-title-container {
+      margin-bottom: 30px;
+    }
+    
+    /* 2. 방명록 목록 리스트 */
+    .guestbook-list {
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-height: 280px; /* 4개 기준 영역 확보 */
+      margin-bottom: 25px;
+    }
+    
+    /* 방명록 아이템 (좌/우 반전 레이아웃) */
+    .gb-item {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      position: relative;
+      width: 100%;
+    }
+    
+    /* 오른쪽 말풍선 (우측 정렬) */
+    .gb-item.right {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    
+    /* 왼쪽 말풍선 (좌측 정렬) */
+    .gb-item.left {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    }
+    
+    /* 이모지 프로필 아이콘 */
+    .gb-avatar {
+      font-size: 24px;
+      line-height: 1;
+      user-select: none;
+      margin-bottom: 2px;
+    }
+    
+    /* 말풍선 본체 */
+    .gb-bubble {
+      position: relative;
+      background-color: #FFFFFF;
+      padding: 14px 18px;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      max-width: 75%;
+      word-break: break-word;
+    }
+    
+    /* 오른쪽 말풍선 꼬리 */
+    .gb-item.right .gb-bubble {
+      border-bottom-right-radius: 4px;
+    }
+    
+    .gb-item.right .gb-bubble::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-left: 10px solid #FFFFFF;
+      border-top: 8px solid transparent;
+    }
+    
+    /* 왼쪽 말풍선 꼬리 */
+    .gb-item.left .gb-bubble {
+      border-bottom-left-radius: 4px;
+    }
+    
+    .gb-item.left .gb-bubble::after {
+      content: "";
+      position: absolute;
+      left: -8px;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-right: 10px solid #FFFFFF;
+      border-top: 8px solid transparent;
+    }
+    
+    /* 방명록 텍스트 스펙 */
+    .gb-text {
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #111111;
+      margin-bottom: 6px;
+      white-space: pre-wrap;
+    }
+    
+    .gb-author {
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 12px;
+      color: #666666;
+    }
+    
+    /* 3. 페이지네이션 (도트) */
+    .guestbook-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+    
+    .gb-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #E2B2C9;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .gb-dot.active {
+      opacity: 1;
+      transform: scale(1.2);
+      background-color: #D780B5;
+    }
+    
+    /* 4. 하단 버튼 영역 */
+    .guestbook-btn-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+    
+    .btn-guestbook-write {
+      width: 180px;
+      height: 44px;
+      background-color: #D780B5; /* 메인 핑크 컬러 */
+      color: #FFFFFF;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(215, 128, 181, 0.3);
+      transition: background-color 0.2s ease;
+    }
+    
+    .btn-guestbook-write:hover {
+      background-color: #C36FA2;
+    }
+    
+    .btn-guestbook-manage {
+      background: none;
+      border: none;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 12px;
+      color: #888888;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* ==========================================
+       공통 모달 (Modal UI)
+       ========================================== */
+    
+    .gb-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    .gb-modal-overlay.active {
+      display: flex;
+    }
+    
+    .gb-modal-content {
+      background-color: #FFFFFF;
+      width: 100%;
+      max-width: 340px;
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-sizing: border-box;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      animation: modalUp 0.25s ease-out;
+    }
+    
+    @keyframes modalUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .gb-modal-title {
+      margin: 0 0 16px 0;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #222222;
+      text-align: center;
+    }
+    
+    .gb-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    
+    .gb-form-group label {
+      font-size: 12px;
+      color: #666666;
+      font-weight: 600;
+    }
+    
+    .gb-form-group input,
+    .gb-form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #E2E2E2;
+      border-radius: 8px;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 13px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    
+    .gb-form-group input:focus,
+    .gb-form-group textarea:focus {
+      border-color: #D780B5;
+    }
+    
+    .gb-modal-btn-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    
+    .gb-btn-submit {
+      flex: 1;
+      height: 40px;
+      background-color: #D780B5;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .gb-btn-cancel {
+      flex: 1;
+      height: 40px;
+      background-color: #F2F2F2;
+      color: #555555;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    /* 관리 모달 내부 스타일 */
+    .gb-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .gb-close-icon {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #888888;
+    }
+    
+    .gb-manage-desc {
+      font-size: 12px;
+      color: #777;
+      margin: 0 0 15px 0;
+      text-align: center;
+    }
+    
+    .gb-manage-list {
+      max-height: 240px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .gb-manage-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #F9F9F9;
+      border-radius: 8px;
+      border: 1px solid #EEEEEE;
+    }
+    
+    .gb-manage-info {
+      font-size: 13px;
+      color: #333;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 180px;
+    }
+    
+    .gb-manage-actions {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .gb-manage-actions button {
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 4px;
+      border: 1px solid #DDD;
+      background-color: #FFF;
+      cursor: pointer;
     }
         
   </style>
@@ -1294,175 +1653,291 @@
     </section>
     <!-- section9. 마음 전하실 곳 -->
     <section id="section9" class="bank-section">
-      <!-- 상단 제목 영역 -->
+      <!-- 1. 상단 타이틀 (section8 오시는 길과 동일한 뱃지 스타일) -->
       <div class="bank-title-container">
-        <div class="bank-title-badge">
-          <span>마음 전하실 곳</span>
+        <div class="oval-badge">
+          <div class="oval-badge-inner">
+            <span class="oval-badge-text">마음 전하실 곳</span>
+          </div>
         </div>
       </div>
-
-      <!-- 신랑 측 계좌번호 -->
+    
+      <!-- 2. 신랑 측 계좌번호 -->
       <div class="bank-group-container">
         <div class="bank-group-header">
           <span class="bank-group-title">🤵🏻‍♂️ 신랑 측 계좌번호</span>
-          <div class="bank-header-line"></div>
         </div>
+        <div class="bank-header-line"></div>
         
         <div class="bank-account-list">
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">농협 352-0431-3129-03<br>정철민</p>
             </div>
-            <button class="bank-copy-btn" onclick="copyAccount('352-0431-3129-03')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('352-0431-3129-03')">복사하기</button>
           </div>
-
+    
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">국민은행 228-24-0278-357<br>정기준</p>
             </div>
-            <button class="bank-copy-btn" onclick="copyAccount('228-24-0278-357')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('228-24-0278-357')">복사하기</button>
           </div>
-
+    
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">우리은행 1002-730-313767<br>이경화</p>
             </div>
-            <button class="bank-copy-btn" onclick="copyAccount('1002-730-313767')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('1002-730-313767')">복사하기</button>
+          </div>
+        </div>
+      </div>
+    
+      <!-- 3. 신부 측 계좌번호 -->
+      <div class="bank-group-container">
+        <div class="bank-group-header">
+          <span class="bank-group-title">👰🏻‍♀️ 신부 측 계좌번호</span>
+        </div>
+        <div class="bank-header-line"></div>
+        
+        <div class="bank-account-list">
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">농협 130051-51-095784<br>최유리</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('130051-51-095784')">복사하기</button>
+          </div>
+    
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">국민은행 646801-01-269377<br>최만순</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('646801-01-269377')">복사하기</button>
+          </div>
+    
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">신한은행 110-32872-7772<br>경창희</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('110-32872-7772')">복사하기</button>
           </div>
         </div>
       </div>
     </section>
-
-  </div> <!-- .wedding-card 닫기 -->
-
-  <!-- 앨범 3D 책 넘김 팝업 (모달) -->
-  <div id="albumModal" class="album-modal">
-    <span class="modal-close-btn" onclick="closeAlbumModal()">&times;</span>
-    <div class="book-container">
-      <div class="book-page" style="z-index: 15;" onclick="flipPage(this)">
-        <div class="page-front">
-          <img src="sec4_album.png" alt="앨범 표지">
-        </div>
-        <div class="page-back">
-          <img src="album_1.jpg" alt="앨범 사진 1">
-        </div>
-      </div>
-      <div class="book-page" style="z-index: 14;" onclick="flipPage(this)">
-        <div class="page-front">
-          <img src="album_2.jpg" alt="앨범 사진 2">
-        </div>
-        <div class="page-back">
-          <img src="album_3.jpg" alt="앨범 사진 3">
-        </div>
-      </div>
-      <div class="book-page" style="z-index: 13;" onclick="flipPage(this)">
-        <div class="page-front">
-          <img src="album_4.jpg" alt="앨범 사진 4">
-        </div>
-        <div class="page-back">
-          <img src="album_5.jpg" alt="앨범 사진 5">
-        </div>
-      </div>
-      <div class="book-page" style="z-index: 12;" onclick="flipPage(this)">
-        <div class="page-front">
-          <img src="album_6.jpg" alt="앨범 사진 6">
-        </div>
-        <div class="page-back">
-          <img src="album_7.jpg" alt="앨범 사진 7">
-        </div>
-      </div>
-      <div class="book-page" style="z-index: 11;" onclick="flipPage(this)">
-        <div class="page-front">
-          <img src="album_8.jpg" alt="앨범 사진 8">
-        </div>
-        <div class="page-back">
-          <img src="album_9.jpg" alt="앨범 사진 9">
-        </div>
-      </div>
-      <div class="book-page" style="z-index: 10;" onclick="flipPage(this)">
-        <div class="page-front">
-          <img src="album_10.jpg" alt="앨범 사진 10">
-        </div>
-        <div class="page-back">
-          <img src="album_11.jpg" alt="앨범 사진 11">
-        </div>
-      </div>
-      <div class="book-page" style="z-index: 9;" onclick="flipPage(this)">
-        <div class="page-front">
-          <img src="album_12.jpg" alt="앨범 사진 12">
-        </div>
-        <div class="page-back">
-          <img src="album_13.jpg" alt="앨범 사진 13">
+    <!-- section10. 방명록 섹션 -->
+  <section id="section10" class="guestbook-section">
+    <!-- 상단 타이틀 (섹션 8, 9와 동일한 뱃지 스타일 적용) -->
+    <div class="guestbook-title-container">
+      <div class="oval-badge">
+        <div class="oval-badge-inner">
+          <span class="oval-badge-text">방명록</span>
         </div>
       </div>
     </div>
+  
+    <!-- 방명록 말풍선 목록 리스트 (JavaScript로 동적 출력) -->
+    <div id="guestbookList" class="guestbook-list"></div>
+  
+    <!-- 페이지네이션 (도트 형태 / 4개 초과 시 출력) -->
+    <div id="guestbookPagination" class="guestbook-pagination"></div>
+  
+    <!-- 버튼 영역 (방명록 쓰기 / 방명록 관리) -->
+    <div class="guestbook-btn-group">
+      <button type="button" class="btn-guestbook-write" onclick="openWriteModal()">방명록 쓰기</button>
+      <button type="button" class="btn-guestbook-manage" onclick="openManageModal()">방명록 관리</button>
+    </div>
+  </section>
+  
+  <!-- [모달 1] 방명록 작성 모달 -->
+  <div id="writeModal" class="gb-modal-overlay">
+    <div class="gb-modal-content">
+      <h3 class="gb-modal-title">방명록 작성</h3>
+      <div class="gb-form-group">
+        <label for="gbAuthor">작성자 이름</label>
+        <input type="text" id="gbAuthor" placeholder="이름 또는 닉네임을 입력하세요" maxlength="20">
+      </div>
+      <div class="gb-form-group">
+        <label for="gbPassword">비밀번호 (수정/삭제용)</label>
+        <input type="password" id="gbPassword" placeholder="비밀번호 4자리" maxlength="10">
+      </div>
+      <div class="gb-form-group">
+        <label for="gbText">내용</label>
+        <textarea id="gbText" rows="4" placeholder="축하 메시지를 남겨주세요 💕" maxlength="150"></textarea>
+      </div>
+      <div class="gb-modal-btn-group">
+        <button type="button" class="gb-btn-submit" onclick="submitGuestbook()">등록하기</button>
+        <button type="button" class="gb-btn-cancel" onclick="closeWriteModal()">취소</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- [모달 2] 방명록 관리/수정/삭제 모달 -->
+  <div id="manageModal" class="gb-modal-overlay">
+    <div class="gb-modal-content gb-modal-manage">
+      <div class="gb-modal-header">
+        <h3 class="gb-modal-title">방명록 관리</h3>
+        <button type="button" class="gb-close-icon" onclick="closeManageModal()">✕</button>
+      </div>
+      <p class="gb-manage-desc">내가 작성한 글을 수정하거나 삭제할 수 있습니다.</p>
+      
+      <div id="manageList" class="gb-manage-list"></div>
+  
+      <div class="gb-modal-btn-group">
+        <button type="button" class="gb-btn-cancel" onclick="closeManageModal()">닫기</button>
+      </div>
+    </div>
+  </div>
+  
+    </div> <!-- .wedding-card 닫기 -->
+  
+    <!-- 앨범 3D 책 넘김 팝업 (모달) -->
+    <div id="albumModal" class="album-modal">
+      <span class="modal-close-btn" onclick="closeAlbumModal()">&times;</span>
+      <div class="book-container">
+        <div class="book-page" style="z-index: 15;" onclick="flipPage(this)">
+          <div class="page-front">
+            <img src="sec4_album.png" alt="앨범 표지">
+          </div>
+          <div class="page-back">
+            <img src="album_1.jpg" alt="앨범 사진 1">
+          </div>
+        </div>
+        <div class="book-page" style="z-index: 14;" onclick="flipPage(this)">
+          <div class="page-front">
+            <img src="album_2.jpg" alt="앨범 사진 2">
+          </div>
+          <div class="page-back">
+            <img src="album_3.jpg" alt="앨범 사진 3">
+          </div>
+        </div>
+        <div class="book-page" style="z-index: 13;" onclick="flipPage(this)">
+          <div class="page-front">
+            <img src="album_4.jpg" alt="앨범 사진 4">
+          </div>
+          <div class="page-back">
+            <img src="album_5.jpg" alt="앨범 사진 5">
+          </div>
+        </div>
+        <div class="book-page" style="z-index: 12;" onclick="flipPage(this)">
+          <div class="page-front">
+            <img src="album_6.jpg" alt="앨범 사진 6">
+          </div>
+          <div class="page-back">
+            <img src="album_7.jpg" alt="앨범 사진 7">
+          </div>
+        </div>
+        <div class="book-page" style="z-index: 11;" onclick="flipPage(this)">
+          <div class="page-front">
+            <img src="album_8.jpg" alt="앨범 사진 8">
+          </div>
+          <div class="page-back">
+            <img src="album_9.jpg" alt="앨범 사진 9">
+          </div>
+        </div>
+        <div class="book-page" style="z-index: 10;" onclick="flipPage(this)">
+          <div class="page-front">
+            <img src="album_10.jpg" alt="앨범 사진 10">
+          </div>
+          <div class="page-back">
+            <img src="album_11.jpg" alt="앨범 사진 11">
+          </div>
+        </div>
+        <div class="book-page" style="z-index: 9;" onclick="flipPage(this)">
+          <div class="page-front">
+            <img src="album_12.jpg" alt="앨범 사진 12">
+          </div>
+          <div class="page-back">
+            <img src="album_13.jpg" alt="앨범 사진 13">
+          </div>
+        </div>
+      </div>
 
     <div class="album-hint">화면을 터치하여 다음 페이지로 넘겨보세요 📖</div>
   </div>
 
   <!-- JavaScript 동작 스크립트 -->
-  <script>
+<script>
   // ==========================================
-    // 카카오 지도 생성 및 Pin(마커) 연동 코드 추가
-    // ==========================================
-    document.addEventListener("DOMContentLoaded", function () {
-      const latitude = 37.517332;
-      const longitude = 126.724128;
-      const mapContainer = document.getElementById('map');
-      
-      if (mapContainer && typeof kakao !== 'undefined' && kakao.maps) {
-        kakao.maps.load(function() {
-          const mapOption = {
-            center: new kakao.maps.LatLng(latitude, longitude),
-            level: 3
-          };
-          const map = new kakao.maps.Map(mapContainer, mapOption);
-          const markerPosition = new kakao.maps.LatLng(latitude, longitude);
-          const marker = new kakao.maps.Marker({ position: markerPosition });
-          marker.setMap(map);
-        });
-      }
-    });
+  // 1. 초깃값 및 전역 변수 설정 (방명록, D-Day, BGM)
   // ==========================================
-  // D-Day 타이머 자바스크립트 로직
-  // ==========================================
-  // 예식 일시 설정: 2026년 11월 14일 17시 20분
+  const defaultGuestbookData = [
+    { id: 1, author: "유리 중딩 친구 누구게", text: "🎉🙋‍♀️💖🤵 축하합니다! 평생 행복하세요", password: "1234" },
+    { id: 2, author: "철민이 친구규규", text: "햄볶아야 해~ 🤍", password: "1234" }
+  ];
+
+  let guestbookData = JSON.parse(localStorage.getItem('wedding_guestbook')) || defaultGuestbookData;
+  let currentPage = 1;
+  const ITEMS_PER_PAGE = 4;
+
   const targetDate = new Date("2026-11-14T17:20:00").getTime();
+  let isPlaying = false;
+
+  // ==========================================
+  // 2. DOMContentLoaded (페이지 로드 시 초기화)
+  // ==========================================
+  document.addEventListener("DOMContentLoaded", function () {
+    // [지도 로드]
+    const latitude = 37.517332;
+    const longitude = 126.724128;
+    const mapContainer = document.getElementById('map');
+    
+    if (mapContainer && typeof kakao !== 'undefined' && kakao.maps) {
+      kakao.maps.load(function() {
+        const mapOption = {
+          center: new kakao.maps.LatLng(latitude, longitude),
+          level: 3
+        };
+        const map = new kakao.maps.Map(mapContainer, mapOption);
+        const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+        const marker = new kakao.maps.Marker({ position: markerPosition });
+        marker.setMap(map);
+      });
+    }
+
+    // [방명록 렌더링]
+    renderGuestbook();
+
+    // [BGM 자동 재생 시도]
+    playAudio();
+  });
+
+  // ==========================================
+  // 3. D-Day 타이머 로직
+  // ==========================================
   function updateDday() {
     const now = new Date().getTime();
     const distance = targetDate - now;
     const timerElement = document.getElementById("ddayTimer");
     const daysElement = document.getElementById("ddayDays");
+
     if (distance < 0) {
-      // 결혼식이 지난 경우
       if (timerElement) timerElement.textContent = "00일 00시 00분 00초";
       if (daysElement) daysElement.textContent = "0";
       return;
     }
-    // 일, 시간, 분, 초 계산
+
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    // 두 자리 수 형식 맞추기 (예: 05일 09시)
+
     const formattedHours = String(hours).padStart(2, "0");
     const formattedMinutes = String(minutes).padStart(2, "0");
     const formattedSeconds = String(seconds).padStart(2, "0");
-    // 화면 업데이트
+
     if (timerElement) {
       timerElement.textContent = `${days}일 ${formattedHours}시 ${formattedMinutes}분 ${formattedSeconds}초`;
     }
     if (daysElement) {
-      // 남은 일수 (당일 또는 시간에 따라 1일 단위 표시)
       daysElement.textContent = days;
     }
   }
 
-  // 페이지 로드 시 즉시 계산 실행 후 1초 간격으로 반복
   updateDday();
   setInterval(updateDday, 1000);
+
   // ==========================================
-  // 기존 앨범 및 BGM 컨트롤 기능
+  // 4. 앨범 및 BGM, 계좌 복사 컨트롤
   // ==========================================
   function openAlbumModal() {
     document.getElementById('albumModal').classList.add('active');
@@ -1482,33 +1957,30 @@
     element.classList.toggle('flipped');
   }
 
-  const bgm = document.getElementById('bgm');
-  const bgmBtn = document.getElementById('bgmBtn');
-  let isPlaying = false;
-
   function playAudio() {
+    const bgm = document.getElementById('bgm');
+    const bgmBtn = document.getElementById('bgmBtn');
     if (!isPlaying && bgm) {
       bgm.play().then(() => {
         isPlaying = true;
-        bgmBtn.classList.add('playing');
+        if (bgmBtn) bgmBtn.classList.add('playing');
       }).catch(err => {});
     }
   }
 
   function toggleBgm() {
+    const bgm = document.getElementById('bgm');
+    const bgmBtn = document.getElementById('bgmBtn');
     if (isPlaying) {
-      bgm.pause();
-      bgmBtn.classList.remove('playing');
+      if (bgm) bgm.pause();
+      if (bgmBtn) bgmBtn.classList.remove('playing');
       isPlaying = false;
     } else {
       playAudio();
     }
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    playAudio();
-  });
-
+  // 사용자 첫 터치/클릭/스크롤 시 BGM 자동재생 허용
   const enableAudioOnInteraction = () => {
     playAudio();
     window.removeEventListener('touchstart', enableAudioOnInteraction);
@@ -1526,6 +1998,185 @@
     }).catch(err => {
       alert("복사에 실패했습니다.");
     });
+  }
+
+  // ==========================================
+  // 5. 방명록 로직 (저장, 렌더링, 등록, 수정, 삭제)
+  // ==========================================
+  function saveData() {
+    localStorage.setItem('wedding_guestbook', JSON.stringify(guestbookData));
+  }
+
+  function renderGuestbook() {
+    const listEl = document.getElementById('guestbookList');
+    const paginationEl = document.getElementById('guestbookPagination');
+    
+    if (!listEl || !paginationEl) return;
+
+    listEl.innerHTML = '';
+    paginationEl.innerHTML = '';
+
+    const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    pageItems.forEach((item, index) => {
+      const isRight = index % 2 === 0;
+      const directionClass = isRight ? 'right' : 'left';
+      const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
+
+      const itemEl = document.createElement('div');
+      itemEl.className = `gb-item ${directionClass}`;
+      itemEl.innerHTML = `
+        <div class="gb-avatar">${avatar}</div>
+        <div class="gb-bubble">
+          <div class="gb-text">${escapeHtml(item.text)}</div>
+          <div class="gb-author">-${escapeHtml(item.author)}-</div>
+        </div>
+      `;
+      listEl.appendChild(itemEl);
+    });
+
+    if (guestbookData.length > ITEMS_PER_PAGE) {
+      for (let i = 1; i <= totalPages; i++) {
+        const dot = document.createElement('div');
+        dot.className = `gb-dot ${i === currentPage ? 'active' : ''}`;
+        dot.onclick = () => {
+          currentPage = i;
+          renderGuestbook();
+        };
+        paginationEl.appendChild(dot);
+      }
+    }
+  }
+
+  function openWriteModal() {
+    document.getElementById('writeModal').classList.add('active');
+  }
+
+  function closeWriteModal() {
+    document.getElementById('writeModal').classList.remove('active');
+    clearWriteInputs();
+  }
+
+  function clearWriteInputs() {
+    document.getElementById('gbAuthor').value = '';
+    document.getElementById('gbPassword').value = '';
+    document.getElementById('gbText').value = '';
+  }
+
+  function submitGuestbook() {
+    const author = document.getElementById('gbAuthor').value.trim();
+    const password = document.getElementById('gbPassword').value.trim();
+    const text = document.getElementById('gbText').value.trim();
+
+    if (!author || !password || !text) {
+      alert('모든 항목을 입력해 주세요.');
+      return;
+    }
+
+    const newItem = {
+      id: Date.now(),
+      author,
+      password,
+      text
+    };
+
+    guestbookData.unshift(newItem);
+    saveData();
+    currentPage = 1;
+    renderGuestbook();
+    closeWriteModal();
+    alert('방명록이 등록되었습니다. 💕');
+  }
+
+  function openManageModal() {
+    renderManageList();
+    document.getElementById('manageModal').classList.add('active');
+  }
+
+  function closeManageModal() {
+    document.getElementById('manageModal').classList.remove('active');
+  }
+
+  function renderManageList() {
+    const container = document.getElementById('manageList');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (guestbookData.length === 0) {
+      container.innerHTML = '<p style="text-align:center; font-size:13px; color:#999;">작성된 방명록이 없습니다.</p>';
+      return;
+    }
+
+    guestbookData.forEach(item => {
+      const manageItem = document.createElement('div');
+      manageItem.className = 'gb-manage-item';
+      manageItem.innerHTML = `
+        <div class="gb-manage-info">
+          <strong>${escapeHtml(item.author)}</strong>: ${escapeHtml(item.text)}
+        </div>
+        <div class="gb-manage-actions">
+          <button type="button" onclick="editGuestbook(${item.id})">수정</button>
+          <button type="button" onclick="deleteGuestbook(${item.id})">삭제</button>
+        </div>
+      `;
+      container.appendChild(manageItem);
+    });
+  }
+
+  function editGuestbook(id) {
+    const target = guestbookData.find(item => item.id === id);
+    if (!target) return;
+
+    const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
+    if (inputPw === null) return;
+
+    if (inputPw !== target.password) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    const newText = prompt('수정할 내용을 입력하세요:', target.text);
+    if (newText && newText.trim() !== '') {
+      target.text = newText.trim();
+      saveData();
+      renderGuestbook();
+      renderManageList();
+      alert('수정되었습니다.');
+    }
+  }
+
+  function deleteGuestbook(id) {
+    const target = guestbookData.find(item => item.id === id);
+    if (!target) return;
+
+    const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
+    if (inputPw === null) return;
+
+    if (inputPw !== target.password) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    if (confirm('정말 삭제하시겠습니까?')) {
+      guestbookData = guestbookData.filter(item => item.id !== id);
+      saveData();
+      renderGuestbook();
+      renderManageList();
+      alert('삭제되었습니다.');
+    }
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 </script>
 </body>
