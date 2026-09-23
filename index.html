@@ -1032,69 +1032,117 @@
 
   <!-- JavaScript 동작 스크립트 -->
   <script>
-    function openAlbumModal() {
-      document.getElementById('albumModal').classList.add('active');
+  // ==========================================
+  // D-Day 타이머 자바스크립트 로직
+  // ==========================================
+  // 예식 일시 설정: 2026년 11월 14일 17시 20분
+  const targetDate = new Date("2026-11-14T17:20:00").getTime();
+
+  function updateDday() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const timerElement = document.getElementById("ddayTimer");
+    const daysElement = document.getElementById("ddayDays");
+
+    if (distance < 0) {
+      // 결혼식이 지난 경우
+      if (timerElement) timerElement.textContent = "00일 00시 00분 00초";
+      if (daysElement) daysElement.textContent = "0";
+      return;
     }
 
-    function closeAlbumModal() {
-      const modal = document.getElementById('albumModal');
-      modal.classList.remove('active');
-      
-      setTimeout(() => {
-        const pages = document.querySelectorAll('.book-page');
-        pages.forEach(page => page.classList.remove('flipped'));
-      }, 300);
+    // 일, 시간, 분, 초 계산
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // 두 자리 수 형식 맞추기 (예: 05일 09시)
+    const formattedHours = String(hours).padStart(2, "0");
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(seconds).padStart(2, "0");
+
+    // 화면 업데이트
+    if (timerElement) {
+      timerElement.textContent = `${days}일 ${formattedHours}시 ${formattedMinutes}분 ${formattedSeconds}초`;
     }
-
-    function flipPage(element) {
-      element.classList.toggle('flipped');
+    if (daysElement) {
+      // 남은 일수 (당일 또는 시간에 따라 1일 단위 표시)
+      daysElement.textContent = days;
     }
+  }
 
-    const bgm = document.getElementById('bgm');
-    const bgmBtn = document.getElementById('bgmBtn');
-    let isPlaying = false;
+  // 페이지 로드 시 즉시 계산 실행 후 1초 간격으로 반복
+  updateDday();
+  setInterval(updateDday, 1000);
 
-    function playAudio() {
-      if (!isPlaying) {
-        bgm.play().then(() => {
-          isPlaying = true;
-          bgmBtn.classList.add('playing');
-        }).catch(err => {});
-      }
+  // ==========================================
+  // 기존 앨범 및 BGM 컨트롤 기능
+  // ==========================================
+  function openAlbumModal() {
+    document.getElementById('albumModal').classList.add('active');
+  }
+
+  function closeAlbumModal() {
+    const modal = document.getElementById('albumModal');
+    modal.classList.remove('active');
+    
+    setTimeout(() => {
+      const pages = document.querySelectorAll('.book-page');
+      pages.forEach(page => page.classList.remove('flipped'));
+    }, 300);
+  }
+
+  function flipPage(element) {
+    element.classList.toggle('flipped');
+  }
+
+  const bgm = document.getElementById('bgm');
+  const bgmBtn = document.getElementById('bgmBtn');
+  let isPlaying = false;
+
+  function playAudio() {
+    if (!isPlaying && bgm) {
+      bgm.play().then(() => {
+        isPlaying = true;
+        bgmBtn.classList.add('playing');
+      }).catch(err => {});
     }
+  }
 
-    function toggleBgm() {
-      if (isPlaying) {
-        bgm.pause();
-        bgmBtn.classList.remove('playing');
-        isPlaying = false;
-      } else {
-        playAudio();
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
+  function toggleBgm() {
+    if (isPlaying) {
+      bgm.pause();
+      bgmBtn.classList.remove('playing');
+      isPlaying = false;
+    } else {
       playAudio();
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    playAudio();
+  });
+
+  const enableAudioOnInteraction = () => {
+    playAudio();
+    window.removeEventListener('touchstart', enableAudioOnInteraction);
+    window.removeEventListener('click', enableAudioOnInteraction);
+    window.removeEventListener('scroll', enableAudioOnInteraction);
+  };
+
+  window.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
+  window.addEventListener('click', enableAudioOnInteraction, { once: true });
+  window.addEventListener('scroll', enableAudioOnInteraction, { once: true });
+
+  function copyAccount(accountNumber) {
+    navigator.clipboard.writeText(accountNumber).then(() => {
+      alert("계좌번호가 복사되었습니다: " + accountNumber);
+    }).catch(err => {
+      alert("복사에 실패했습니다.");
     });
-
-    const enableAudioOnInteraction = () => {
-      playAudio();
-      window.removeEventListener('touchstart', enableAudioOnInteraction);
-      window.removeEventListener('click', enableAudioOnInteraction);
-      window.removeEventListener('scroll', enableAudioOnInteraction);
-    };
-
-    window.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
-    window.addEventListener('click', enableAudioOnInteraction, { once: true });
-    window.addEventListener('scroll', enableAudioOnInteraction, { once: true });
-
-    function copyAccount(accountNumber) {
-      navigator.clipboard.writeText(accountNumber).then(() => {
-        alert("계좌번호가 복사되었습니다: " + accountNumber);
-      }).catch(err => {
-        alert("복사에 실패했습니다.");
-      });
-    }
-  </script>
+  }
+</script>
 </body>
 </html>
