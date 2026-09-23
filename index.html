@@ -1134,7 +1134,72 @@
     </section>
     <!-- 8section 오시는 길 -->
 
+    <section id="section8" class="location-section">
+      <!-- 1. 상단 오시는 길 뱃지 -->
+      <div class="oval-badge">
+        <div class="oval-badge-inner">
+          <span class="oval-badge-text">오시는 길</span>
+        </div>
+      </div>
+    
+      <!-- 2. 지도 영역 (카카오 지도 또는 iframe) -->
+      <div class="map-container">
+        <div id="map"></div>
+        <!-- API 키 미사용 시 사용할 수 있는 Kakao Map iframe 백업 (기본 숨김 처리 가능) -->
+        <!-- <iframe class="map-iframe" src="https://m.map.kakao.com/actions/detailMapView?id=12345" frameborder="0"></iframe> -->
+      </div>
+    
+      <!-- 3. 주소 및 복사하기 버튼 -->
+      <div class="address-container">
+        <div class="address-text">
+          <p class="address-main">인천 부평구 갈산동 178-1</p>
+          <p class="address-sub">웨스턴 팰리스 웨딩홀</p>
+        </div>
+        <!-- 재사용 가능한 복사하기 컴포넌트 버튼 -->
+        <button type="button" class="btn-copy" onclick="copyToClipboard('인천 부평구 갈산동 178-1 웨스턴 팰리스 웨딩홀')">
+          복사하기
+        </button>
+      </div>
 
+      <hr class="section-divider">
+    
+      <!-- 4. 교통 및 주차 안내 정보 -->
+      <div class="transport-info-list">
+        <!-- 주차 안내 -->
+        <div class="transport-item">
+          <div class="transport-header">
+            <img src="paking_icon.png" alt="주차 아이콘" class="info-icon">
+            <h3 class="info-title">주차 안내</h3>
+          </div>
+          <div class="info-desc">
+            <p>부평 우림 라이온스밸리 3시간 무료</p>
+            <p>갈산역 공영주차장 2시간 무료</p>
+          </div>
+        </div>
+    
+        <!-- 지하철 이용 -->
+        <div class="transport-item">
+          <div class="transport-header">
+            <img src="subway_icon.png" alt="지하철 아이콘" class="info-icon">
+            <h3 class="info-title">지하철 이용</h3>
+          </div>
+          <div class="info-desc">
+            <p>인천1호선 갈산역 2번 출구 - 도보 1분</p>
+          </div>
+        </div>
+    
+        <!-- 버스 이용 -->
+        <div class="transport-item">
+          <div class="transport-header">
+            <img src="bus_icon.png" alt="버스 아이콘" class="info-icon">
+            <h3 class="info-title">버스 이용</h3>
+          </div>
+          <div class="info-desc">
+            <p>갈산역(40601) 정류장 하차</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </div> <!-- .wedding-card 닫기 -->
 
