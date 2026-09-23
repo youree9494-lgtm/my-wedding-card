@@ -751,198 +751,302 @@
   /* ==========================================
    Section 8 : 오시는 길 전체 레이아웃
    ========================================== */
-.location-section {
-  width: 100%;
-  max-width: 480px; /* 모바일 반응형 기본 규격 */
-  margin: 0 auto;
-  padding: 40px 20px;
-  background-color: #ffffff;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
+  .location-section {
+    width: 100%;
+    max-width: 480px; /* 모바일 반응형 기본 규격 */
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  /* 1. 상단 타원형 뱃지 (제공해주신 스펙 적용) */
+  .oval-badge {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 235.3px;           /* 피그마 너비 */
+    height: 79.86px;          /* 피그마 높이 */
+    background-color: #D780B5; /* 피그마 분홍색 */
+    border-radius: 50%;       /* 타원 형태 */
+    box-sizing: border-box;
+    margin-bottom: 24px;
+  }
+  
+  .oval-badge-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 212.72px;          /* 피그마 안쪽 요소 너비 */
+    height: 65.14px;          /* 피그마 안쪽 요소 높이 */
+    border: 2px solid #FFFFFF;/* 피그마 안쪽 흰색 외곽선 굵기 2px */
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
+  
+  .oval-badge-text {
+    font-family: 'GriunXHangeul Gowoon', 'Gowoon Batang', sans-serif; /* 피그마 폰트 */
+    font-size: 24px;          /* 피그마 글씨 크기 24px */
+    color: #FFFFFF;           /* 피그마 글자색 흰색 */
+    line-height: 1;
+    user-select: none;
+  }
+  
+  /* 2. 지도 컨테이너 및 핀 스타일 */
+  .map-container {
+    width: 100%;
+    height: 280px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+  }
+  
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* 3. 주소 및 복사 버튼 */
+  .address-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 4px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+  
+  .address-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* 주소 및 장소명 폰트 스펙 (Inter SemiBold & Regular 20px) */
+  .address-main {
+    font-size: 20px;
+    font-weight: 400; /* Regular */
+    color: #000000;
+    margin: 0;
+    line-height: 1.3;
+  }
+  
+  .address-sub {
+    font-size: 20px;
+    font-weight: 600; /* Semi Bold */
+    color: #000000;
+    margin: 2px 0 0 0;
+    line-height: 1.3;
+  }
+  
+  /* 재사용 가능한 복사하기 버튼 컴포넌트 */
+  .btn-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background-color: #ffffff;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-copy:hover {
+    background-color: #f7f7f7;
+    border-color: #bbbbbb;
+  }
+  
+  .btn-copy:active {
+    background-color: #eeeeee;
+  }
+  
+  /* 구분선 */
+  .section-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #f2e6ee;
+    margin: 10px 0 28px 0;
+  }
+  
+  /* 4. 교통 및 주차 상세 정보 목록 */
+  .transport-info-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  
+  .transport-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .transport-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .info-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  
+  .info-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+  }
+  
+  /* 서브 텍스트 스펙 (Inter Regular 16px, 자간 -3%) */
+  .info-desc {
+    padding-left: 32px; /* 아이콘 너비 + gap 만큼 들여쓰기 */
+  }
+  
+  .info-desc p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.03em; /* 자간 -3% */
+    line-height: 1.4;
+  }
+  
+  .info-desc p:last-child {
+    margin-bottom: 0;
+  }
 
-/* 1. 상단 타원형 뱃지 (제공해주신 스펙 적용) */
-.oval-badge {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 235.3px;           /* 피그마 너비 */
-  height: 79.86px;          /* 피그마 높이 */
-  background-color: #D780B5; /* 피그마 분홍색 */
-  border-radius: 50%;       /* 타원 형태 */
-  box-sizing: border-box;
-  margin-bottom: 24px;
-}
-
-.oval-badge-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 212.72px;          /* 피그마 안쪽 요소 너비 */
-  height: 65.14px;          /* 피그마 안쪽 요소 높이 */
-  border: 2px solid #FFFFFF;/* 피그마 안쪽 흰색 외곽선 굵기 2px */
-  border-radius: 50%;
-  box-sizing: border-box;
-}
-
-.oval-badge-text {
-  font-family: 'GriunXHangeul Gowoon', 'Gowoon Batang', sans-serif; /* 피그마 폰트 */
-  font-size: 24px;          /* 피그마 글씨 크기 24px */
-  color: #FFFFFF;           /* 피그마 글자색 흰색 */
-  line-height: 1;
-  user-select: none;
-}
-
-/* 2. 지도 컨테이너 및 핀 스타일 */
-.map-container {
-  width: 100%;
-  height: 280px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  margin-bottom: 20px;
-}
-
-#map {
-  width: 100%;
-  height: 100%;
-}
-
-/* 3. 주소 및 복사 버튼 */
-.address-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0 4px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-}
-
-.address-text {
-  display: flex;
-  flex-direction: column;
-}
-
-/* 주소 및 장소명 폰트 스펙 (Inter SemiBold & Regular 20px) */
-.address-main {
-  font-size: 20px;
-  font-weight: 400; /* Regular */
-  color: #000000;
-  margin: 0;
-  line-height: 1.3;
-}
-
-.address-sub {
-  font-size: 20px;
-  font-weight: 600; /* Semi Bold */
-  color: #000000;
-  margin: 2px 0 0 0;
-  line-height: 1.3;
-}
-
-/* 재사용 가능한 복사하기 버튼 컴포넌트 */
-.btn-copy {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 16px;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #333333;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease-in-out;
-}
-
-.btn-copy:hover {
-  background-color: #f7f7f7;
-  border-color: #bbbbbb;
-}
-
-.btn-copy:active {
-  background-color: #eeeeee;
-}
-
-/* 구분선 */
-.section-divider {
-  width: 100%;
-  border: none;
-  border-top: 1px solid #f2e6ee;
-  margin: 10px 0 28px 0;
-}
-
-/* 4. 교통 및 주차 상세 정보 목록 */
-.transport-info-list {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.transport-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.transport-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.info-icon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
-.info-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #000000;
-  margin: 0;
-}
-
-/* 서브 텍스트 스펙 (Inter Regular 16px, 자간 -3%) */
-.info-desc {
-  padding-left: 32px; /* 아이콘 너비 + gap 만큼 들여쓰기 */
-}
-
-.info-desc p {
-  font-size: 16px;
-  font-weight: 400;
-  color: #000000;
-  margin: 0 0 4px 0;
-  letter-spacing: -0.03em; /* 자간 -3% */
-  line-height: 1.4;
-}
-
-.info-desc p:last-child {
-  margin-bottom: 0;
-}
+        /* ==========================================
+       Section 9: 마음 전하실 곳 (Bank Section)
+       ========================================== */
+    
+    .bank-section {
+      padding: 40px 20px;
+      background-color: #ffffff;
+      box-sizing: border-box;
+    }
+    
+    /* 1. 상단 제목 (뱃지) 영역 */
+    .bank-title-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    
+    .bank-title-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #f5f5f5;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #333333;
+    }
+    
+    /* 2. 그룹 컨테이너 (신랑 측 / 신부 측) */
+    .bank-group-container {
+      margin-bottom: 30px;
+    }
+    
+    .bank-group-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .bank-group-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #222222;
+      white-space: nowrap;
+    }
+    
+    .bank-header-line {
+      flex: 1;
+      height: 1px;
+      background-color: #eaeaea;
+    }
+    
+    /* 3. 계좌 목록 및 아이템 */
+    .bank-account-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .bank-account-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background-color: #fdfdfd;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    }
+    
+    .bank-account-info {
+      flex: 1;
+    }
+    
+    .bank-account-text {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #444444;
+      word-break: keep-all;
+    }
+    
+    /* 4. 복사하기 버튼 */
+    .bank-copy-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #555555;
+      background-color: #f7f7f7;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+    
+    .bank-copy-btn:hover {
+      background-color: #eee;
+      color: #222;
+    }
+    
+    .bank-copy-btn:active {
+      background-color: #e0e0e0;
+    }
+        
   </style>
 </head>
 <body>
-
   <!-- BGM 음악 오디오 태그 -->
   <audio id="bgm" src="360.mp4" loop></audio>
-  
   <!-- 우측 상단 노래 표시 컨트롤 버튼 -->
   <button id="bgmBtn" class="bgm-btn" onclick="toggleBgm()" title="배경음악 재생/일시정지">
     <i class="fa-solid fa-music"></i>
   </button>
-
   <div class="wedding-card">
-    
     <!-- 1. 헤더 섹션 -->
     <div class="header-section">
       <h1 class="header-title">
@@ -950,7 +1054,6 @@
         Begins <i class="fa-solid fa-heart"></i>
       </h1>
     </div>
-
     <!-- 2. 초대글 편지 이미지 & 텍스트 오버레이 섹션 -->
     <div class="letter-section">
       <img class="letter-bg-img" src="sec2-letter.png" alt="초대글 배경">
@@ -980,8 +1083,7 @@
           </p>
         </div>
       </div>
-    </div> <!-- .letter-section 닫기 -->
-
+    </div> 
     <!-- 3. 부모님 메시지 & 어릴적 사진 섹션 -->
     <div class="sec3-container">
       <div class="groom-block">
@@ -994,7 +1096,6 @@
         </div>
         <img class="groom-letter-img" src="cm_daddy.png" alt="신랑 부모님 편지">
       </div>
-
       <div class="bride-block">
         <div class="bride-header">
           <img class="bride-photo" src="yr_child.png" alt="최유리 어린시절">
@@ -1005,8 +1106,7 @@
         </div>
         <img class="bride-letter-img" src="yr_mommy.png" alt="신부 부모님 편지">
       </div>
-    </div> <!-- .sec3-container 닫기 -->
-
+    </div> 
     <!-- 4. 웨딩 앨범 섹션 -->
     <div class="sec4-container">
       <div class="click-me-wrapper">
@@ -1027,8 +1127,7 @@
           앨범을 누르시면<br>저희 사진을 볼 수 있어요!
         </div>
       </div>
-    </div> <!-- .sec4-container 닫기 -->
-
+    </div> 
     <!-- 5. 신랑,신부 메시지 -->
     <section class="section5">
       <div class="sec5-container">
@@ -1076,7 +1175,6 @@
           <span class="day">5</span>
           <span class="day">6</span>
           <span class="day">7</span>
-
           <span class="day">8</span>
           <span class="day">9</span>
           <span class="day">10</span>
@@ -1084,7 +1182,6 @@
           <span class="day">12</span>
           <span class="day">13</span>
           <span class="day target-day">14</span>
-
           <span class="day">15</span>
           <span class="day">16</span>
           <span class="day">17</span>
@@ -1092,7 +1189,6 @@
           <span class="day">19</span>
           <span class="day">20</span>
           <span class="day">21</span>
-
           <span class="day">22</span>
           <span class="day">23</span>
           <span class="day">24</span>
@@ -1100,7 +1196,6 @@
           <span class="day">26</span>
           <span class="day">27</span>
           <span class="day">28</span>
-
           <span class="day">29</span>
           <span class="day">30</span>
         </div>
@@ -1133,7 +1228,6 @@
       </div>
     </section>
     <!-- 8section 오시는 길 -->
-
     <section id="section8" class="location-section">
       <!-- 1. 상단 오시는 길 뱃지 -->
       <div class="oval-badge">
@@ -1160,15 +1254,13 @@
           복사하기
         </button>
       </div>
-
       <hr class="section-divider">
-    
       <!-- 4. 교통 및 주차 안내 정보 -->
       <div class="transport-info-list">
         <!-- 주차 안내 -->
         <div class="transport-item">
           <div class="transport-header">
-            <img src="paking_icon.png" alt="주차 아이콘" class="info-icon">
+            <img src="parking_icon.png" alt="주차 아이콘" class="info-icon">
             <h3 class="info-title">주차 안내</h3>
           </div>
           <div class="info-desc">
@@ -1200,18 +1292,52 @@
         </div>
       </div>
     </section>
+    <!-- section9. 마음 전하실 곳 -->
+    <section id="section9" class="bank-section">
+      <!-- 상단 제목 영역 -->
+      <div class="bank-title-container">
+        <div class="bank-title-badge">
+          <span>마음 전하실 곳</span>
+        </div>
+      </div>
+
+      <!-- 신랑 측 계좌번호 -->
+      <div class="bank-group-container">
+        <div class="bank-group-header">
+          <span class="bank-group-title">🤵🏻‍♂️ 신랑 측 계좌번호</span>
+          <div class="bank-header-line"></div>
+        </div>
+        
+        <div class="bank-account-list">
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">농협 352-0431-3129-03<br>정철민</p>
+            </div>
+            <button class="bank-copy-btn" onclick="copyAccount('352-0431-3129-03')">복사하기</button>
+          </div>
+
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">국민은행 228-24-0278-357<br>정기준</p>
+            </div>
+            <button class="bank-copy-btn" onclick="copyAccount('228-24-0278-357')">복사하기</button>
+          </div>
+
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">우리은행 1002-730-313767<br>이경화</p>
+            </div>
+            <button class="bank-copy-btn" onclick="copyAccount('1002-730-313767')">복사하기</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </div> <!-- .wedding-card 닫기 -->
 
-
-
-
-
-  
   <!-- 앨범 3D 책 넘김 팝업 (모달) -->
   <div id="albumModal" class="album-modal">
     <span class="modal-close-btn" onclick="closeAlbumModal()">&times;</span>
-    
     <div class="book-container">
       <div class="book-page" style="z-index: 15;" onclick="flipPage(this)">
         <div class="page-front">
@@ -1221,7 +1347,6 @@
           <img src="album_1.jpg" alt="앨범 사진 1">
         </div>
       </div>
-
       <div class="book-page" style="z-index: 14;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_2.jpg" alt="앨범 사진 2">
@@ -1230,7 +1355,6 @@
           <img src="album_3.jpg" alt="앨범 사진 3">
         </div>
       </div>
-
       <div class="book-page" style="z-index: 13;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_4.jpg" alt="앨범 사진 4">
@@ -1239,7 +1363,6 @@
           <img src="album_5.jpg" alt="앨범 사진 5">
         </div>
       </div>
-
       <div class="book-page" style="z-index: 12;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_6.jpg" alt="앨범 사진 6">
@@ -1248,7 +1371,6 @@
           <img src="album_7.jpg" alt="앨범 사진 7">
         </div>
       </div>
-
       <div class="book-page" style="z-index: 11;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_8.jpg" alt="앨범 사진 8">
@@ -1257,7 +1379,6 @@
           <img src="album_9.jpg" alt="앨범 사진 9">
         </div>
       </div>
-
       <div class="book-page" style="z-index: 10;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_10.jpg" alt="앨범 사진 10">
@@ -1266,7 +1387,6 @@
           <img src="album_11.jpg" alt="앨범 사진 11">
         </div>
       </div>
-
       <div class="book-page" style="z-index: 9;" onclick="flipPage(this)">
         <div class="page-front">
           <img src="album_12.jpg" alt="앨범 사진 12">
@@ -1308,32 +1428,26 @@
   // ==========================================
   // 예식 일시 설정: 2026년 11월 14일 17시 20분
   const targetDate = new Date("2026-11-14T17:20:00").getTime();
-
   function updateDday() {
     const now = new Date().getTime();
     const distance = targetDate - now;
-
     const timerElement = document.getElementById("ddayTimer");
     const daysElement = document.getElementById("ddayDays");
-
     if (distance < 0) {
       // 결혼식이 지난 경우
       if (timerElement) timerElement.textContent = "00일 00시 00분 00초";
       if (daysElement) daysElement.textContent = "0";
       return;
     }
-
     // 일, 시간, 분, 초 계산
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
     // 두 자리 수 형식 맞추기 (예: 05일 09시)
     const formattedHours = String(hours).padStart(2, "0");
     const formattedMinutes = String(minutes).padStart(2, "0");
     const formattedSeconds = String(seconds).padStart(2, "0");
-
     // 화면 업데이트
     if (timerElement) {
       timerElement.textContent = `${days}일 ${formattedHours}시 ${formattedMinutes}분 ${formattedSeconds}초`;
@@ -1347,7 +1461,6 @@
   // 페이지 로드 시 즉시 계산 실행 후 1초 간격으로 반복
   updateDday();
   setInterval(updateDday, 1000);
-
   // ==========================================
   // 기존 앨범 및 BGM 컨트롤 기능
   // ==========================================
