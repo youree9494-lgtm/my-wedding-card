@@ -2156,30 +2156,70 @@
       alert("복사에 실패했습니다.");
     });
   }
-
+    //오시는길 - 주소 복사 전용 함수
+  function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      // 최신 브라우저 및 HTTPS 환경
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert("주소가 복사되었습니다. 💕");
+        })
+        .catch(err => {
+          fallbackCopyToClipboard(text);
+        });
+    } else {
+      // 구형 브라우저 및 HTTP 환경 대응
+      fallbackCopyToClipboard(text);
+    }
+  }
+  
+  // 복사 실패 시 동작하는 fallback 함수
+  function fallbackCopyToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+  
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        alert("주소가 복사되었습니다. 💕");
+      } else {
+        alert("주소 복사에 실패했습니다. 직접 복사해 주세요.");
+      }
+    } catch (err) {
+      alert("주소 복사에 실패했습니다. 직접 복사해 주세요.");
+    }
+  
+    document.body.removeChild(textArea);
+  }
   // ==========================================
   // 5. 방명록 로직 (저장, 렌더링, 등록, 수정, 삭제)
   // ==========================================
   function saveData() {
     localStorage.setItem('wedding_guestbook', JSON.stringify(guestbookData));
   }
-
+  
   function renderGuestbook() {
     const listEl = document.getElementById('guestbookList');
     const paginationEl = document.getElementById('guestbookPagination');
     
     if (!listEl || !paginationEl) return;
-
+  
     listEl.innerHTML = '';
     paginationEl.innerHTML = '';
-
+  
     const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
     if (currentPage > totalPages) currentPage = totalPages;
-
+  
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
-    // renderGuestbook 함수 내부 itemEl.innerHTML 부분 수정
+  
     pageItems.forEach((item, index) => {
       const isRight = index % 2 === 0;
       const directionClass = isRight ? 'right' : 'left';
@@ -2188,8 +2228,6 @@
       const itemEl = document.createElement('div');
       itemEl.className = `gb-item ${directionClass}`;
       
-      // 오른쪽/왼쪽 구분 없이 항상 [이모지 -> 말풍선] 순서로 생성합니다.
-      // 위치 정렬 및 순서 뒤집기는 CSS flex-direction에서 처리합니다.
       itemEl.innerHTML = `
         <div class="gb-avatar">${avatar}</div>
         <div class="gb-bubble">
@@ -2199,9 +2237,24 @@
       `;
       listEl.appendChild(itemEl);
     });
-
+  
+    // ==========================================
+    // 슬라이딩 도트 페이지네이션 (최대 5개 표시)
+    // ==========================================
     if (guestbookData.length > ITEMS_PER_PAGE) {
-      for (let i = 1; i <= totalPages; i++) {
+      const maxVisibleDots = 5; // 화면에 노출할 최대 도트 개수
+      
+      // 현재 페이지 기준으로 시작 및 끝 페이지 계산
+      let startPage = Math.max(1, currentPage - Math.floor(maxVisibleDots / 2));
+      let endPage = Math.min(totalPages, startPage + maxVisibleDots - 1);
+  
+      // 끝 페이지 도달 시 앞쪽 도트 개수 보장
+      if (endPage - startPage + 1 < maxVisibleDots) {
+        startPage = Math.max(1, endPage - maxVisibleDots + 1);
+      }
+  
+      // 범위 내의 도트만 생성
+      for (let i = startPage; i <= endPage; i++) {
         const dot = document.createElement('div');
         dot.className = `gb-dot ${i === currentPage ? 'active' : ''}`;
         dot.onclick = () => {
@@ -2212,39 +2265,39 @@
       }
     }
   }
-
+  
   function openWriteModal() {
     document.getElementById('writeModal').classList.add('active');
   }
-
+  
   function closeWriteModal() {
     document.getElementById('writeModal').classList.remove('active');
     clearWriteInputs();
   }
-
+  
   function clearWriteInputs() {
     document.getElementById('gbAuthor').value = '';
     document.getElementById('gbPassword').value = '';
     document.getElementById('gbText').value = '';
   }
-
+  
   function submitGuestbook() {
     const author = document.getElementById('gbAuthor').value.trim();
     const password = document.getElementById('gbPassword').value.trim();
     const text = document.getElementById('gbText').value.trim();
-
+  
     if (!author || !password || !text) {
       alert('모든 항목을 입력해 주세요.');
       return;
     }
-
+  
     const newItem = {
       id: Date.now(),
       author,
       password,
       text
     };
-
+  
     guestbookData.unshift(newItem);
     saveData();
     currentPage = 1;
@@ -2252,26 +2305,26 @@
     closeWriteModal();
     alert('방명록이 등록되었습니다. 💕');
   }
-
+  
   function openManageModal() {
     renderManageList();
     document.getElementById('manageModal').classList.add('active');
   }
-
+  
   function closeManageModal() {
     document.getElementById('manageModal').classList.remove('active');
   }
-
+  
   function renderManageList() {
     const container = document.getElementById('manageList');
     if (!container) return;
     container.innerHTML = '';
-
+  
     if (guestbookData.length === 0) {
       container.innerHTML = '<p style="text-align:center; font-size:13px; color:#999;">작성된 방명록이 없습니다.</p>';
       return;
     }
-
+  
     guestbookData.forEach(item => {
       const manageItem = document.createElement('div');
       manageItem.className = 'gb-manage-item';
@@ -2287,19 +2340,19 @@
       container.appendChild(manageItem);
     });
   }
-
+  
   function editGuestbook(id) {
     const target = guestbookData.find(item => item.id === id);
     if (!target) return;
-
+  
     const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
     if (inputPw === null) return;
-
+  
     if (inputPw !== target.password) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
     }
-
+  
     const newText = prompt('수정할 내용을 입력하세요:', target.text);
     if (newText && newText.trim() !== '') {
       target.text = newText.trim();
@@ -2309,19 +2362,19 @@
       alert('수정되었습니다.');
     }
   }
-
+  
   function deleteGuestbook(id) {
     const target = guestbookData.find(item => item.id === id);
     if (!target) return;
-
+  
     const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
     if (inputPw === null) return;
-
+  
     if (inputPw !== target.password) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
     }
-
+  
     if (confirm('정말 삭제하시겠습니까?')) {
       guestbookData = guestbookData.filter(item => item.id !== id);
       saveData();
@@ -2330,7 +2383,7 @@
       alert('삭제되었습니다.');
     }
   }
-
+  
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, "&amp;")
@@ -2339,7 +2392,6 @@
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
   }
-
   // 모바일 청첩장 링크 복사 함수
   function copyInvitationLink() {
     const currentUrl = window.location.href; // 현재 페이지 주소 추출
