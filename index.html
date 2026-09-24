@@ -639,7 +639,7 @@
     }
     
     .calendar-header {
-      font-size: 11px; /* 피그마 요일 글자 크기[cite: 22] */
+      font-size: 15px; /* 피그마 요일 글자 크기[cite: 22] */
       margin-bottom: 15px;
     }
     
@@ -657,9 +657,9 @@
       background-color: #000000;
       color: #FFFFFF; /* 흰색 글씨[cite: 23] */
       border-radius: 50%;
-      font-size: 15px; /* 피그마 지정 크기[cite: 23] */
+      font-size: 19px; /* 피그마 지정 크기[cite: 23] */
       letter-spacing: -0.1em; /* 피그마 지정 자간 -10%[cite: 23] */
-      box-shadow: 0 0 0 0.3px #FFFFFF; /* 피그마 지정 흰색 외곽선[cite: 23] */
+      -webkit-text-stroke: 0.2px #FFFFFF
     }
         
     .account-section {
@@ -676,7 +676,7 @@
       width: 100%;
       max-width: 430px;
       margin: 0 auto;
-      padding: 50px 20px 40px 20px;
+      padding: 30px 20px 40px 20px;
       background-color: #ffffff;
       display: flex;
       flex-direction: column;
@@ -748,9 +748,9 @@
     /* 스티커 위치 설정 */
     .dday-decor-arrow {
       position: absolute;
-      top: 18px;
-      right: 10px;
-      width: 110px;
+      top: -50px;
+      right: -63px;
+      width: 176px;
       height: auto;
       z-index: 3;
     }
@@ -831,7 +831,7 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
     
     #map {
@@ -841,13 +841,12 @@
     
     /* 3. 주소 및 복사 버튼 */
     .address-container {
-      width: 90px;
-      height: 30px;
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 4px;
-      margin-bottom: 45px;
+      margin-bottom: 35px;
       box-sizing: border-box;
     }
     
@@ -963,7 +962,7 @@
    ========================================== */
 
     .bank-section {
-      padding: 60px 40px;
+      padding: 0px 40px 180px 40px;
       background-color: #FFF9F9; /* 이미지 배경 연한 핑크 톤 */
       box-sizing: border-box;
     }
@@ -1071,6 +1070,8 @@
   
     
     .guestbook-section {
+      width: auto;
+      height: 800px;
       padding: 50px 40px 60px 40px;
       box-sizing: border-box;
       display: flex;
@@ -1090,11 +1091,10 @@
     /* 2. 방명록 목록 리스트 */
     .guestbook-list {
       width: 100%;
-      max-width: 360px;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      min-height: 280px; /* 4개 기준 영역 확보 */
+      min-height: 800px; /* 4개 기준 영역 확보 */
       margin-bottom: 25px;
     }
     
@@ -1707,7 +1707,7 @@
     
           <!-- 2번 문구: 메인 안내 텍스트 -->
           <div class="dday-text-main">
-            <span class="name-groom">철민 · </span>, <span class="name-bride">유리</span>의 결혼식이<br>
+            <span class="name-groom">철민</span><span class="name-bride">·유리</span>의 결혼식이<br>
             <span id="ddayDays">0</span>일 남았습니다.
           </div>
         </div>
