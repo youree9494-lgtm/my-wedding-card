@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>정철민 · 최유리 결혼합니다</title>
   <!-- 공유용 제목 (타이틀) -->
   <meta property="og:title" content="정철민 · 최유리 결혼합니다🕊️">
@@ -373,6 +373,7 @@
       height: auto;
       z-index: 3;
     }
+    
 
     .album-cover-btn {
       position: relative;
@@ -421,6 +422,30 @@
       color: #5E1F00;
       text-align: center;
       margin-top: 20px;
+    }
+
+    /* ==========================================
+   앨범 이동 및 확대 방지 추가 CSS
+   ========================================== */
+
+    /* 앨범이 닫혀있을 때 기본 위치 */
+    .book-container {
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(0);
+    }
+    
+    /* 표지가 펼쳐지면 오른쪽으로 이동하여 2면(좌/우)이 화면 중앙에 오도록 설정 */
+    .book-container.opened {
+      transform: translateX(50%); /* 모바일 화면 기준 중앙 정렬 */
+    }
+    
+    /* 터치 및 이미지 저장/확대 방지 */
+    .book-container img,
+    .book-page img {
+      -webkit-user-drag: none;
+      user-select: none;
+      -webkit-touch-callout: none; /* 길게 눌러서 이미지 저장 메뉴 띄우기 방지 */
+      touch-action: manipulation;   /* 더블 터치 확대 방지 */
     }
 
     /* 3D Flip Book Modal */
@@ -1947,70 +1972,27 @@
   
     </div> <!-- .wedding-card 닫기 -->
   
-    <!-- 앨범 3D 책 넘김 팝업 (모달) -->
-    <div id="albumModal" class="album-modal">
-      <span class="modal-close-btn" onclick="closeAlbumModal()">&times;</span>
-      <div class="book-container">
-        <div class="book-page" style="z-index: 15;" onclick="flipPage(this)">
-          <div class="page-front">
-            <img src="sec4_album.png" alt="앨범 표지">
-          </div>
-          <div class="page-back">
-            <img src="album_1.jpg" alt="앨범 사진 1">
-          </div>
+    <!-- 4. 웨딩 앨범 섹션 -->
+    <div class="sec4-container">
+      <div class="click-me-wrapper">
+        <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
+        <div class="click-me-text">
+          <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span class="excl">!</span><span class="excl">!</span>
         </div>
-        <div class="book-page" style="z-index: 14;" onclick="flipPage(this)">
-          <div class="page-front">
-            <img src="album_2.jpg" alt="앨범 사진 2">
-          </div>
-          <div class="page-back">
-            <img src="album_3.jpg" alt="앨범 사진 3">
-          </div>
-        </div>
-        <div class="book-page" style="z-index: 13;" onclick="flipPage(this)">
-          <div class="page-front">
-            <img src="album_4.jpg" alt="앨범 사진 4">
-          </div>
-          <div class="page-back">
-            <img src="album_5.jpg" alt="앨범 사진 5">
-          </div>
-        </div>
-        <div class="book-page" style="z-index: 12;" onclick="flipPage(this)">
-          <div class="page-front">
-            <img src="album_6.jpg" alt="앨범 사진 6">
-          </div>
-          <div class="page-back">
-            <img src="album_7.jpg" alt="앨범 사진 7">
-          </div>
-        </div>
-        <div class="book-page" style="z-index: 11;" onclick="flipPage(this)">
-          <div class="page-front">
-            <img src="album_8.jpg" alt="앨범 사진 8">
-          </div>
-          <div class="page-back">
-            <img src="album_9.jpg" alt="앨범 사진 9">
-          </div>
-        </div>
-        <div class="book-page" style="z-index: 10;" onclick="flipPage(this)">
-          <div class="page-front">
-            <img src="album_10.jpg" alt="앨범 사진 10">
-          </div>
-          <div class="page-back">
-            <img src="album_11.jpg" alt="앨범 사진 11">
-          </div>
-        </div>
-        <div class="book-page" style="z-index: 9;" onclick="flipPage(this)">
-          <div class="page-front">
-            <img src="album_12.jpg" alt="앨범 사진 12">
-          </div>
-          <div class="page-back">
-            <img src="album_13.jpg" alt="앨범 사진 13">
-          </div>
-        </div>
+        <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
       </div>
 
-    <div class="album-hint">화면을 터치하여 다음 페이지로 넘겨보세요 📖</div>
-  </div>
+      <div class="album-cover-btn" onclick="openAlbumModal()">
+        <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
+      </div>
+
+      <div class="album-notice-wrapper">
+        <img src="sec4_arrow_purple.png" class="purple-arrow" alt="화살표">
+        <div class="album-notice-text">
+          앨범을 누르시면<br>저희 사진을 볼 수 있어요!
+        </div>
+      </div>
+    </div> 
 
   <!-- JavaScript 동작 스크립트 -->
 <script>
@@ -2018,8 +2000,8 @@
   // 1. 초깃값 및 전역 변수 설정 (방명록, D-Day, BGM)
   // ==========================================
   const defaultGuestbookData = [
-    { id: 1, author: "유리 중딩 친구 누구게", text: "🎉🙋‍♀️💖🤵 축하합니다! 평생 행복하세요", password: "1234" },
-    { id: 2, author: "철민이 친구규규", text: "햄볶아야 해~ 🤍", password: "1234" }
+    { id: 1, author: "최유리", text: "🎉🙋‍♀️💖🤵 저희의 결혼에 방명록을 남겨주세요!", password: "1234" },
+    { id: 2, author: "철민이 친구", text: "햄볶아야 해~ 🤍", password: "1234" }
   ];
 
   let guestbookData = JSON.parse(localStorage.getItem('wedding_guestbook')) || defaultGuestbookData;
@@ -2094,12 +2076,22 @@
   setInterval(updateDday, 1000);
 
   // ==========================================
-  // 4. 앨범 및 BGM, 계좌 복사 컨트롤
+  // 4. 앨범 나타나는 모달
   // ==========================================
-  function openAlbumModal() {
-    document.getElementById('albumModal').classList.add('active');
+  function flipPage(element) {
+    element.classList.toggle('flipped');
+  
+    // .album-book 대신 HTML의 .book-container 선택
+    const bookEl = element.closest('.book-container');
+    const firstPage = bookEl ? bookEl.querySelector('.book-page:first-child') : null;
+    
+    if (firstPage && firstPage.classList.contains('flipped')) {
+      bookEl.classList.add('opened');
+    } else if (bookEl) {
+      bookEl.classList.remove('opened');
+    }
   }
-
+  
   function closeAlbumModal() {
     const modal = document.getElementById('albumModal');
     modal.classList.remove('active');
@@ -2107,11 +2099,12 @@
     setTimeout(() => {
       const pages = document.querySelectorAll('.book-page');
       pages.forEach(page => page.classList.remove('flipped'));
+  
+      const bookEl = document.querySelector('.book-container');
+      if (bookEl) {
+        bookEl.classList.remove('opened');
+      }
     }, 300);
-  }
-
-  function flipPage(element) {
-    element.classList.toggle('flipped');
   }
 
   function playAudio() {
@@ -2471,6 +2464,32 @@
   
     document.body.removeChild(textArea);
   }
+
+  // ==========================================
+// 모바일 화면 및 이미지 핀치 줌 / 더블 터치 확대 방지
+// ==========================================
+
+// 1. 두 손가락 핀치 줌 방지
+  document.addEventListener('touchstart', function(event) {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+  
+  // 2. 더블 탭(더블 클릭)으로 인한 화면 확대 방지
+  let lastTouchEnd = 0;
+  document.addEventListener('touchend', function(event) {
+    const now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+  }, false);
+  
+  // 3. 제스처(Safari 핀치 줌) 방지
+  document.addEventListener('gesturestart', function(event) {
+    event.preventDefault();
+  });
 </script>
 </body>
 </html>
