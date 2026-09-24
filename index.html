@@ -18,10 +18,9 @@
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97efe4ac977cffdbea326517a6eb3adb&autoload=false"></script>
 
   <style>
-    /* 1-1. FreakArt Personal Use */
+   /* 1-1. FreakArt Personal Use (서버에 해당 파일 업로드 필요!) */
     @font-face {
       font-family: 'FreakArt Personal Use';
-      /* 실제 서버/폴더에 존재하는 폰트 파일명 및 경로와 정확히 일치해야 합니다 (대소문자 구분) */
       src: url('FreakArt-Personal-Use.woff2') format('woff2'),
            url('FreakArt-Personal-Use.ttf') format('truetype');
       font-weight: normal;
@@ -29,17 +28,17 @@
       font-display: swap;
     }
     
-    /* 1-2. GriunXHangeul Gowoon */
+    /* 1-2. GriunXHangeul Gowoon (서버 파일명에 맞춰 -Rg 추가 및 .woff 지원) */
     @font-face {
       font-family: 'GriunXHangeul Gowoon';
-      src: url('GriunXHangeulGowoon.woff2') format('woff2'),
-           url('GriunXHangeulGowoon.ttf') format('truetype');
+      src: url('GriunXHangeul_Gowoon-Rg.woff') format('woff'),
+           url('GriunXHangeul_Gowoon-Rg.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
       font-display: swap;
     }
     
-    /* 1-3. Nanum DdarEGeEomMaGa (누락되었던 폰트 추가) */
+    /* 1-3. Nanum DdarEGeEomMaGa */
     @font-face {
       font-family: 'Nanum DdarEGeEomMaGa';
       src: url('NanumDdarEGeEomMaGa.woff2') format('woff2'),
