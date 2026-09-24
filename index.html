@@ -1150,8 +1150,6 @@
    Section 10: 방명록 (Guestbook Section)
    ========================================== */
 
-  
-    
     .guestbook-section {
       width: auto;
       height: 800px;
@@ -1621,12 +1619,14 @@
 </head>
 <body>
   <!-- BGM 음악 오디오 태그 -->
-    <audio id="bgm" src="360.mp4" preload="auto" loop playsinline></audio>
-    
-    <!-- 우측 상단 노래 표시 컨트롤 버튼 -->
-    <button id="bgmBtn" class="bgm-btn" onclick="toggleBgm()" title="배경음악 재생/일시정지">
-      <i class="fa-solid fa-music"></i>
-    </button>
+  <audio id="bgm" src="360.mp4" preload="auto" loop playsinline></audio>
+
+  <!-- 우측 상단 노래 표시 컨트롤 버튼 -->
+  <button id="bgmBtn" class="bgm-btn" onclick="toggleBgm()" title="배경음악 재생/일시정지">
+    <i class="fa-solid fa-music"></i>
+  </button>
+
+  <!-- 메인 청첩장 컨테이너 -->
   <div class="wedding-card">
     <!-- 1. 헤더 섹션 -->
     <div class="header-section">
@@ -1635,6 +1635,7 @@
         &nbsp;&nbsp;Begins <i class="fa-solid fa-heart"></i>
       </h1>
     </div>
+
     <!-- 2. 초대글 편지 이미지 & 텍스트 오버레이 섹션 -->
     <div class="letter-section">
       <img class="letter-bg-img" src="sec2-letter2.png" alt="초대글 배경">
@@ -1665,6 +1666,7 @@
         </div>
       </div>
     </div> 
+
     <!-- 3. 부모님 메시지 & 어릴적 사진 섹션 -->
     <div class="sec3-container">
       <div class="groom-block">
@@ -1688,47 +1690,29 @@
         <img class="bride-letter-img" src="yr_mommy.png" alt="신부 부모님 편지">
       </div>
     </div> 
+
     <!-- 4. 웨딩 앨범 섹션 -->
-<div class="sec4-container">
-  <div class="click-me-wrapper">
-    <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
-    <div class="click-me-text">
-      <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span class="excl">!</span><span class="excl">!</span>
-    </div>
-    <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
-  </div>
+    <div class="sec4-container">
+      <div class="click-me-wrapper">
+        <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
+        <div class="click-me-text">
+          <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span class="excl">!</span><span class="excl">!</span>
+        </div>
+        <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
+      </div>
 
-  <div class="album-cover-btn" onclick="openAlbumModal()">
-    <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
-  </div>
+      <div class="album-cover-btn" onclick="openAlbumModal()">
+        <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
+      </div>
 
-  <div class="album-notice-wrapper">
-    <img src="sec4_arrow_purple.png" class="purple-arrow" alt="화살표">
-    <div class="album-notice-text">
-      앨범을 누르시면<br>저희 사진을 볼 수 있어요!
-    </div>
-  </div>
-</div> 
+      <div class="album-notice-wrapper">
+        <img src="sec4_arrow_purple.png" class="purple-arrow" alt="화살표">
+        <div class="album-notice-text">
+          앨범을 누르시면<br>저희 사진을 볼 수 있어요!
+        </div>
+      </div>
+    </div> 
 
-<!-- 기본 이미지 슬라이더 모달 -->
-<div id="albumModal" class="album-modal">
-  <div class="modal-close-btn" onclick="closeAlbumModal()">&times;</div>
-  
-  <!-- 이전 / 다음 버튼 -->
-  <button class="modal-nav-btn prev-btn" onclick="prevSlide(event)">&#10094;</button>
-  <button class="modal-nav-btn next-btn" onclick="nextSlide(event)">&#10095;</button>
-
-  <!-- 이미지 및 인디케이터 컨테이너 -->
-  <div class="modal-content-wrapper">
-    <div class="modal-img-container">
-      <img id="modalImg" src="scene_1.jpg" alt="웨딩 사진">
-    </div>
-    <div class="modal-counter">
-      <span id="currentIndex">1</span> / <span id="totalIndex">35</span>
-    </div>
-  </div>
-</div>
-    
     <!-- 5. 신랑,신부 메시지 -->
     <section class="section5">
       <div class="sec5-container">
@@ -1802,25 +1786,18 @@
         </div>
       </div>
     </section>
-    <!-- 7_D-Day 디데이 섹션 -->
+
+    <!-- 7. D-Day 디데이 섹션 -->
     <section class="dday-section">
-      <!-- 배경 주변 장식 하트 (좌측 상단, 우측 하단에 동일 이미지 적용) -->
       <img src="sec7_heart.png" class="dday-decor-heart-top" alt="하트">
       <img src="sec7_heart.png" class="dday-decor-heart-bottom" alt="하트">
-    
+
       <div class="dday-cloud-wrapper">
-        <!-- 검은 구름 배경 -->
         <img src="sec7_cloud.png" class="dday-cloud-bg" alt="구름 배경">
-        
-        <!-- 우측 상단 핑크 화살표 -->
         <img src="sec7_arrow.png" class="dday-decor-arrow" alt="화살표">
-    
-        <!-- 구름 내부 디데이 텍스트 영역 -->
+
         <div class="dday-content">
-          <!-- 1번 문구: 실시간 타이머 (JS로 업데이트) -->
           <div id="ddayTimer" class="dday-timer">00일 00시 00분 00초</div>
-    
-          <!-- 2번 문구: 메인 안내 텍스트 -->
           <div class="dday-text-main">
             <span class="name-groom">철민</span><span class="name-bride">&nbsp;·&nbsp;유리</span>의 결혼식이<br>
             <span id="ddayDays">0</span>일 남았습니다.
@@ -1828,37 +1805,31 @@
         </div>
       </div>
     </section>
-    <!-- 8section 오시는 길 -->
+
+    <!-- 8. 오시는 길 섹션 -->
     <section id="section8" class="location-section">
-      <!-- 1. 상단 오시는 길 뱃지 -->
       <div class="oval-badge">
         <div class="oval-badge-inner">
           <span class="oval-badge-text">오시는 길</span>
         </div>
       </div>
-    
-      <!-- 2. 지도 영역 (카카오 지도 또는 iframe) -->
+
       <div class="map-container">
         <div id="map"></div>
-        <!-- API 키 미사용 시 사용할 수 있는 Kakao Map iframe 백업 (기본 숨김 처리 가능) -->
-        <!-- <iframe class="map-iframe" src="https://m.map.kakao.com/actions/detailMapView?id=12345" frameborder="0"></iframe> -->
       </div>
-    
-      <!-- 3. 주소 및 복사하기 버튼 -->
+
       <div class="address-container">
         <div class="address-text">
           <p class="address-main">인천 부평구 갈산동 178-1</p>
           <p class="address-sub">웨스턴 팰리스 웨딩홀</p>
         </div>
-        <!-- 재사용 가능한 복사하기 컴포넌트 버튼 -->
         <button type="button" class="btn-copy" onclick="copyToClipboard('인천 부평구 갈산동 178-1 웨스턴 팰리스 웨딩홀')">
           복사하기
         </button>
       </div>
       <hr class="section-divider">
-      <!-- 4. 교통 및 주차 안내 정보 -->
+
       <div class="transport-info-list">
-        <!-- 주차 안내 -->
         <div class="transport-item">
           <div class="transport-header">
             <img src="parking_icon.png" alt="주차 아이콘" class="info-icon">
@@ -1869,8 +1840,7 @@
             <p>갈산역 공영주차장 2시간 무료</p>
           </div>
         </div>
-    
-        <!-- 지하철 이용 -->
+
         <div class="transport-item">
           <div class="transport-header">
             <img src="subway_icon.png" alt="지하철 아이콘" class="info-icon">
@@ -1880,8 +1850,7 @@
             <p>인천1호선 갈산역 2번 출구 - 도보 1분</p>
           </div>
         </div>
-    
-        <!-- 버스 이용 -->
+
         <div class="transport-item">
           <div class="transport-header">
             <img src="bus_icon.png" alt="버스 아이콘" class="info-icon">
@@ -1893,9 +1862,9 @@
         </div>
       </div>
     </section>
-    <!-- section9. 마음 전하실 곳 -->
+
+    <!-- 9. 마음 전하실 곳 섹션 -->
     <section id="section9" class="bank-section">
-      <!-- 1. 상단 타이틀 (section8 오시는 길과 동일한 뱃지 스타일) -->
       <div class="bank-title-container">
         <div class="oval-badge">
           <div class="oval-badge-inner">
@@ -1903,14 +1872,14 @@
           </div>
         </div>
       </div>
-    
-      <!-- 2. 신랑 측 계좌번호 -->
+
+      <!-- 신랑 측 계좌번호 -->
       <div class="bank-group-container">
         <div class="bank-group-header">
           <span class="bank-group-title">🤵🏻‍♂️ 신랑 측 계좌번호</span>
         </div>
         <div class="bank-header-line"></div>
-        
+
         <div class="bank-account-list">
           <div class="bank-account-item">
             <div class="bank-account-info">
@@ -1918,14 +1887,14 @@
             </div>
             <button type="button" class="bank-copy-btn" onclick="copyAccount('농협 352-0431-3129-03')">복사하기</button>
           </div>
-    
+
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">국민은행 228-24-0278-357<br>정기준</p>
             </div>
             <button type="button" class="bank-copy-btn" onclick="copyAccount('국민은행 228-24-0278-357')">복사하기</button>
           </div>
-    
+
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">우리은행 1002-730-313767<br>이경화</p>
@@ -1934,14 +1903,14 @@
           </div>
         </div>
       </div>
-    
-      <!-- 3. 신부 측 계좌번호 -->
+
+      <!-- 신부 측 계좌번호 -->
       <div class="bank-group-container">
         <div class="bank-group-header">
           <span class="bank-group-title">👰🏻‍♀️ 신부 측 계좌번호</span>
         </div>
         <div class="bank-header-line"></div>
-        
+
         <div class="bank-account-list">
           <div class="bank-account-item">
             <div class="bank-account-info">
@@ -1949,14 +1918,14 @@
             </div>
             <button type="button" class="bank-copy-btn" onclick="copyAccount('농협 130051-51-095784')">복사하기</button>
           </div>
-    
+
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">국민은행 646801-01-269377<br>최만순</p>
             </div>
             <button type="button" class="bank-copy-btn" onclick="copyAccount('국민은행 646801-01-269377')">복사하기</button>
           </div>
-    
+
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">신한은행 110-32872-7772<br>경창희</p>
@@ -1966,60 +1935,75 @@
         </div>
       </div>
     </section>
-    <!-- section10. 방명록 섹션 -->
-  <section id="section10" class="guestbook-section">
-  
-    <!-- 방명록 말풍선 목록 리스트 (JavaScript로 동적 출력) -->
-    <div id="guestbookList" class="guestbook-list"></div>
-  
-    <!-- 페이지네이션 (도트 형태 / 4개 초과 시 출력) -->
-    <div id="guestbookPagination" class="guestbook-pagination"></div>
-  
-    <!-- 버튼 영역 (방명록 쓰기 / 방명록 관리) -->
-    <div class="guestbook-btn-group">
-      <button type="button" class="btn-guestbook-write" onclick="openWriteModal()">방명록 쓰기</button>
-      <button type="button" class="btn-guestbook-manage" onclick="openManageModal()">방명록 관리</button>
-    </div>
-  </section>
 
-  <!-- Section 11 -->
-  <section class="section11">
-    <div class="sec11-container">
-      <!-- 반려동물 이미지 -->
-      <img src="animal.png" alt="반려동물 이미지" class="sec11-animal-img">
-  
-      <!-- 영문 타이틀 -->
-      <h2 class="sec11-title-en">the Beginning of<br>Forever</h2>
-  
-      <!-- 서브 타이틀 및 메시지 -->
-      <div class="sec11-message">
-        <p class="sec11-subtitle">[영원토록 함께할 날들의 시작]</p>
-        <div class="sec11-dots">
-          <span>.</span>
-          <span>.</span>
-          <span>.</span>
-        </div>
-        <p class="sec11-text">
-          따뜻한 축하를 건네주신 모든 분께<br>
-          진심으로 감사드립니다.<br>
-          행복한 모습으로 보답하겠습니다.
-        </p>
+    <!-- 10. 방명록 섹션 -->
+    <section id="section10" class="guestbook-section">
+      <div id="guestbookList" class="guestbook-list"></div>
+      <div id="guestbookPagination" class="guestbook-pagination"></div>
+
+      <div class="guestbook-btn-group">
+        <button type="button" class="btn-guestbook-write" onclick="openWriteModal()">방명록 쓰기</button>
+        <button type="button" class="btn-guestbook-manage" onclick="openManageModal()">방명록 관리</button>
       </div>
-  
-      <!-- 링크 복사 버튼 -->
-      <button type="button" class="sec11-copy-btn" onclick="copyInvitationLink()">
-        모바일 청첩장 링크 복사하기
-      </button>
-  
-      <!-- 푸터 카피라이트 -->
-      <footer class="sec11-footer">
-        <p>©신부 유리가 한 땀 한 땀 디자인하고 개발한 청첩장</p>
-        <p>©Designed & Developed by choiyouree</p>
-      </footer>
+    </section>
+
+    <!-- 11. 푸터 섹션 -->
+    <section class="section11">
+      <div class="sec11-container">
+        <img src="animal.png" alt="반려동물 이미지" class="sec11-animal-img">
+
+        <h2 class="sec11-title-en">the Beginning of<br>Forever</h2>
+
+        <div class="sec11-message">
+          <p class="sec11-subtitle">[영원토록 함께할 날들의 시작]</p>
+          <div class="sec11-dots">
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </div>
+          <p class="sec11-text">
+            따뜻한 축하를 건네주신 모든 분께<br>
+            진심으로 감사드립니다.<br>
+            행복한 모습으로 보답하겠습니다.
+          </p>
+        </div>
+
+        <button type="button" class="sec11-copy-btn" onclick="copyInvitationLink()">
+          모바일 청첩장 링크 복사하기
+        </button>
+
+        <footer class="sec11-footer">
+          <p>©신부 유리가 한 땀 한 땀 디자인하고 개발한 청첩장</p>
+          <p>©Designed &amp; Developed by choiyouree</p>
+        </footer>
+      </div>
+    </section>
+
+  </div> <!-- .wedding-card 닫기 -->
+
+
+  <!-- =================================================== -->
+  <!-- 🔥 모든 모달 영역은 .wedding-card 밖, body 직속에 위치 -->
+  <!-- =================================================== -->
+
+  <!-- [모달 1] 앨범 사진 슬라이더 모달 -->
+  <div id="albumModal" class="album-modal">
+    <div class="modal-close-btn" onclick="closeAlbumModal()">&times;</div>
+
+    <button class="modal-nav-btn prev-btn" onclick="prevSlide(event)">&#10094;</button>
+    <button class="modal-nav-btn next-btn" onclick="nextSlide(event)">&#10095;</button>
+
+    <div class="modal-content-wrapper">
+      <div class="modal-img-container">
+        <img id="modalImg" src="scene_1.jpg" alt="웨딩 사진">
+      </div>
+      <div class="modal-counter">
+        <span id="currentIndex">1</span> / <span id="totalIndex">35</span>
+      </div>
     </div>
-  </section>
-    
-  <!-- [모달 1] 방명록 작성 모달 -->
+  </div>
+
+  <!-- [모달 2] 방명록 작성 모달 -->
   <div id="writeModal" class="gb-modal-overlay">
     <div class="gb-modal-content">
       <h3 class="gb-modal-title">방명록 작성</h3>
@@ -2041,8 +2025,8 @@
       </div>
     </div>
   </div>
-  
-  <!-- [모달 2] 방명록 관리/수정/삭제 모달 -->
+
+  <!-- [모달 3] 방명록 관리/수정/삭제 모달 -->
   <div id="manageModal" class="gb-modal-overlay">
     <div class="gb-modal-content gb-modal-manage">
       <div class="gb-modal-header">
@@ -2050,34 +2034,60 @@
         <button type="button" class="gb-close-icon" onclick="closeManageModal()">✕</button>
       </div>
       <p class="gb-manage-desc">내가 작성한 글을 수정하거나 삭제할 수 있습니다.</p>
-      
+
       <div id="manageList" class="gb-manage-list"></div>
-  
+
       <div class="gb-modal-btn-group">
         <button type="button" class="gb-btn-cancel" onclick="closeManageModal()">닫기</button>
       </div>
     </div>
   </div>
-  
-    </div> <!-- .wedding-card 닫기 -->
-  
-
   <!-- JavaScript 동작 스크립트 -->
 <script>
   // ==========================================
   // 1. 전역 변수 선언 및 초기화
   // ==========================================
-  const targetDate = new Date("2026-11-21T11:00:00").getTime(); // 예시 날짜 (필요시 수정)
-  const ITEMS_PER_PAGE = 4;
+  const targetDate = new Date("2026-11-21T11:00:00").getTime(); // 예시 날짜
+  const ITEMS_PER_PAGE = 3; // 한 페이지당 보여줄 방명록 개수
   let currentPage = 1;
-  let guestbookData = JSON.parse(localStorage.getItem('wedding_guestbook')) || [
-    { id: 1, author: "신랑친구", password: "123", text: "결혼을 진심으로 축하한다!" },
-    { id: 2, author: "신부친구", password: "123", text: "세상에서 제일 예쁜 신부 💕" }
-  ];
+  let guestbookData = [];
 
-  // DOM 로드 완료 시 방명록 초판 렌더링
+  // 앨범 관련 변수
+  const albumImages = Array.from({ length: 35 }, (_, i) => `scene_${i + 1}.jpg`);
+  let currentSlideIndex = 0;
+
+  // 모달 내부 슬라이드 스와이프 감지용
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  // 앨범 버튼 오작동 방지용 (터치 이동 거리 측정)
+  let btnTouchStartY = 0;
+  let btnTouchStartX = 0;
+
+  // BGM 변수
+  let isPlaying = false;
+
+  // ==========================================
+  // 2. Firebase 설정 및 초기화
+  // ==========================================
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQOyahDoHhlxQlklqOHensfBLlcz9ks4Y",
+    authDomain: "my-wedding-card-ea8b6.firebaseapp.com",
+    projectId: "my-wedding-card-ea8b6",
+    storageBucket: "my-wedding-card-ea8b6.firebasestorage.app",
+    messagingSenderId: "740378029645",
+    appId: "1:740378029645:web:9bec5aad8ff59fea307604",
+    measurementId: "G-9WSVJG1VHM"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
+
+  // DOM 로드 완료 시 초기화 함수 실행
   document.addEventListener("DOMContentLoaded", function () {
-    renderGuestbook();
+    initGuestbookListener();
   });
 
   // ==========================================
@@ -2115,140 +2125,116 @@
   updateDday();
   setInterval(updateDday, 1000);
 
-// ==========================================
-// 4. 앨범 모달 로직 (오버스크롤 방지 & 터치 오작동 완벽 차단)
-// ==========================================
-
-const albumImages = Array.from({ length: 35 }, (_, i) => `scene_${i + 1}.jpg`);
-let currentSlideIndex = 0;
-
-// 모달 내부 슬라이드 스와이프 감지용
-let touchStartX = 0;
-let touchEndX = 0;
-
-// 앨범 버튼 오작동 방지용 (터치 이동 거리 측정)
-let btnTouchStartY = 0;
-let btnTouchStartX = 0;
-
-function updateModalImage() {
-  const imgEl = document.getElementById('modalImg');
-  const indexEl = document.getElementById('currentIndex');
-  
-  if (imgEl) {
-    imgEl.src = albumImages[currentSlideIndex];
-  }
-  if (indexEl) {
-    indexEl.textContent = currentSlideIndex + 1;
-  }
-}
-
-function openAlbumModal(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  
-  const modal = document.getElementById('albumModal');
-  const totalEl = document.getElementById('totalIndex');
-  
-  if (totalEl) {
-    totalEl.textContent = albumImages.length;
-  }
-  
-  currentSlideIndex = 0;
-  updateModalImage();
-  
-  if (modal) {
-    modal.classList.add('active');
-    // 🔥 모달 열릴 때 배경 스크롤 차단
-    document.body.classList.add('modal-open');
-  }
-}
-
-function closeAlbumModal() {
-  const modal = document.getElementById('albumModal');
-  if (modal) {
-    modal.classList.remove('active');
-    // 🔥 모달 닫힐 때 배경 스크롤 다시 허용
-    document.body.classList.remove('modal-open');
-  }
-}
-
-function prevSlide(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  currentSlideIndex = (currentSlideIndex - 1 + albumImages.length) % albumImages.length;
-  updateModalImage();
-}
-
-function nextSlide(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  currentSlideIndex = (currentSlideIndex + 1) % albumImages.length;
-  updateModalImage();
-}
-
-// ==========================================
-// 이벤트 바인딩 (스와이프 + 클릭 판정 강화)
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-  const albumBtn = document.querySelector('.album-cover-btn');
-
-  if (albumBtn) {
-    // 터치 시작 시 좌표 기록
-    albumBtn.addEventListener('touchstart', (e) => {
-      btnTouchStartX = e.touches[0].clientX;
-      btnTouchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    // 터치 끝났을 때 이동 거리를 계산하여 '스크롤'이 아닌 '명확한 터치'일 때만 모달 열기
-    albumBtn.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-
-      const moveX = Math.abs(touchEndX - btnTouchStartX);
-      const moveY = Math.abs(touchEndY - btnTouchStartY);
-
-      // 손가락이 10px 이상 이동한 경우(스크롤하는 중인 경우) 모달 열지 않음
-      if (moveX < 10 && moveY < 10) {
-        e.preventDefault();
-        openAlbumModal(e);
-      }
-    });
-  }
-
-  // 모달 내부 이미지 터치 및 스와이프 처리
-  const modalImg = document.getElementById('modalImg');
-
-  if (modalImg) {
-    // 우클릭/길게 누르기 메뉴 차단
-    modalImg.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-    });
-
-    // 스와이프 시작 지점 저장
-    modalImg.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    // 스와이프 끝난 지점 저장 및 슬라이드 이동
-    modalImg.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
-  }
-
-  function handleSwipe() {
-    const swipeThreshold = 50; // 50px 이상 쓸어넘겼을 때 동작
-    const diffX = touchEndX - touchStartX;
-
-    if (diffX < -swipeThreshold) {
-      nextSlide();
-    } else if (diffX > swipeThreshold) {
-      prevSlide();
+  // ==========================================
+  // 4. 앨범 모달 로직 (오버스크롤 방지 & 터치 오작동 완벽 차단)
+  // ==========================================
+  function updateModalImage() {
+    const imgEl = document.getElementById('modalImg');
+    const indexEl = document.getElementById('currentIndex');
+    
+    if (imgEl) {
+      imgEl.src = albumImages[currentSlideIndex];
+    }
+    if (indexEl) {
+      indexEl.textContent = currentSlideIndex + 1;
     }
   }
-});
+
+  function openAlbumModal(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    
+    const modal = document.getElementById('albumModal');
+    const totalEl = document.getElementById('totalIndex');
+    
+    if (totalEl) {
+      totalEl.textContent = albumImages.length;
+    }
+    
+    currentSlideIndex = 0;
+    updateModalImage();
+    
+    if (modal) {
+      modal.classList.add('active');
+      document.body.classList.add('modal-open');
+    }
+  }
+
+  function closeAlbumModal() {
+    const modal = document.getElementById('albumModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+    }
+  }
+
+  function prevSlide(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    currentSlideIndex = (currentSlideIndex - 1 + albumImages.length) % albumImages.length;
+    updateModalImage();
+  }
+
+  function nextSlide(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    currentSlideIndex = (currentSlideIndex + 1) % albumImages.length;
+    updateModalImage();
+  }
+
+  // 앨범 스와이프 및 터치 이벤트 바인딩
+  document.addEventListener('DOMContentLoaded', () => {
+    const albumBtn = document.querySelector('.album-cover-btn');
+
+    if (albumBtn) {
+      albumBtn.addEventListener('touchstart', (e) => {
+        btnTouchStartX = e.touches[0].clientX;
+        btnTouchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      albumBtn.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+
+        const moveX = Math.abs(touchEndX - btnTouchStartX);
+        const moveY = Math.abs(touchEndY - btnTouchStartY);
+
+        if (moveX < 10 && moveY < 10) {
+          e.preventDefault();
+          openAlbumModal(e);
+        }
+      });
+    }
+
+    const modalImg = document.getElementById('modalImg');
+
+    if (modalImg) {
+      modalImg.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+      });
+
+      modalImg.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      modalImg.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+    }
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diffX = touchEndX - touchStartX;
+
+      if (diffX < -swipeThreshold) {
+        nextSlide();
+      } else if (diffX > swipeThreshold) {
+        prevSlide();
+      }
+    }
+  });
+
   // ==========================================
   // 5. BGM 오디오 제어 로직
   // ==========================================
-  let isPlaying = false;
-
   function playAudio() {
     const bgm = document.getElementById('bgm');
     const bgmBtn = document.getElementById('bgmBtn');
@@ -2378,266 +2364,240 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.body.removeChild(textArea);
   }
-// 방명록 기
+
   // ==========================================
-// 0. Firebase 설정 및 초기화
-// ==========================================
-const firebaseConfig = {
-  apiKey: "AIzaSyCQOyahDoHhlxQlklqOHensfBLlcz9ks4Y",
-  authDomain: "my-wedding-card-ea8b6.firebaseapp.com",
-  projectId: "my-wedding-card-ea8b6",
-  storageBucket: "my-wedding-card-ea8b6.firebasestorage.app",
-  messagingSenderId: "740378029645",
-  appId: "1:740378029645:web:9bec5aad8ff59fea307604",
-  measurementId: "G-9WSVJG1VHM"
-};
-
-// Firebase 중복 초기화 방지
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-const db = firebase.firestore();
-
-// ==========================================
-// 7. 방명록 로직 (Firebase 데이터베이스 연동)
-// ==========================================
-let guestbookData = [];
-const ITEMS_PER_PAGE = 3; // 한 페이지당 보여줄 방명록 개수
-let currentPage = 1;
-
-// Firebase에서 실시간 데이터 불러오기 감지 함수
-function initGuestbookListener() {
-  db.collection("guestbook")
-    .orderBy("createdAt", "desc") // 최신순 정렬
-    .onSnapshot((snapshot) => {
-      guestbookData = snapshot.docs.map(doc => ({
-        id: doc.id, // Firestore 문서 ID (수정/삭제 시 필요)
-        ...doc.data()
-      }));
-      renderGuestbook();
-      
-      // 관리 모달이 열려있는 상태라면 관리 목록도 자동 갱신
-      const manageModal = document.getElementById('manageModal');
-      if (manageModal && manageModal.classList.contains('active')) {
-        renderManageList();
-      }
-    }, (error) => {
-      console.error("방명록 로딩 중 오류 발생:", error);
-    });
-}
-
-// 문서 로드 완료 시 실시간 수신기 등록
-document.addEventListener('DOMContentLoaded', () => {
-  initGuestbookListener();
-});
-
-function renderGuestbook() {
-  const listEl = document.getElementById('guestbookList');
-  const paginationEl = document.getElementById('guestbookPagination');
-  
-  if (!listEl || !paginationEl) return;
-
-  listEl.innerHTML = '';
-  paginationEl.innerHTML = '';
-
-  const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
-  if (currentPage > totalPages) currentPage = totalPages;
-
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
-  pageItems.forEach((item, index) => {
-    const isRight = index % 2 === 0;
-    const directionClass = isRight ? 'right' : 'left';
-    const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
-
-    const itemEl = document.createElement('div');
-    itemEl.className = `gb-item ${directionClass}`;
-    
-    itemEl.innerHTML = `
-      <div class="gb-avatar">${avatar}</div>
-      <div class="gb-bubble">
-        <div class="gb-text">${escapeHtml(item.text)}</div>
-        <div class="gb-author">-${escapeHtml(item.author)}-</div>
-      </div>
-    `;
-    listEl.appendChild(itemEl);
-  });
-
-  if (guestbookData.length > ITEMS_PER_PAGE) {
-    const maxVisibleDots = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisibleDots / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisibleDots - 1);
-
-    if (endPage - startPage + 1 < maxVisibleDots) {
-      startPage = Math.max(1, endPage - maxVisibleDots + 1);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      const dot = document.createElement('div');
-      dot.className = `gb-dot ${i === currentPage ? 'active' : ''}`;
-      dot.onclick = () => {
-        currentPage = i;
+  // 7. 방명록 로직 (Firebase 데이터베이스 연동)
+  // ==========================================
+  function initGuestbookListener() {
+    db.collection("guestbook")
+      .orderBy("createdAt", "desc")
+      .onSnapshot((snapshot) => {
+        guestbookData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
         renderGuestbook();
-      };
-      paginationEl.appendChild(dot);
-    }
-  }
-}
-
-function openWriteModal() {
-  document.getElementById('writeModal').classList.add('active');
-}
-
-function closeWriteModal() {
-  document.getElementById('writeModal').classList.remove('active');
-  clearWriteInputs();
-}
-
-function clearWriteInputs() {
-  document.getElementById('gbAuthor').value = '';
-  document.getElementById('gbPassword').value = '';
-  document.getElementById('gbText').value = '';
-}
-
-// 방명록 등록 (Firestore 서버 저장)
-async function submitGuestbook() {
-  const author = document.getElementById('gbAuthor').value.trim();
-  const password = document.getElementById('gbPassword').value.trim();
-  const text = document.getElementById('gbText').value.trim();
-
-  if (!author || !password || !text) {
-    alert('모든 항목을 입력해 주세요.');
-    return;
+        
+        const manageModal = document.getElementById('manageModal');
+        if (manageModal && manageModal.classList.contains('active')) {
+          renderManageList();
+        }
+      }, (error) => {
+        console.error("방명록 로딩 중 오류 발생:", error);
+      });
   }
 
-  try {
-    // Firestore guestbook 컬렉션에 등록
-    await db.collection("guestbook").add({
-      author: author,
-      password: password,
-      text: text,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp() // 서버 현재 시간
+  function renderGuestbook() {
+    const listEl = document.getElementById('guestbookList');
+    const paginationEl = document.getElementById('guestbookPagination');
+    
+    if (!listEl || !paginationEl) return;
+
+    listEl.innerHTML = '';
+    paginationEl.innerHTML = '';
+
+    const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    pageItems.forEach((item, index) => {
+      const isRight = index % 2 === 0;
+      const directionClass = isRight ? 'right' : 'left';
+      const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
+
+      const itemEl = document.createElement('div');
+      itemEl.className = `gb-item ${directionClass}`;
+      
+      itemEl.innerHTML = `
+        <div class="gb-avatar">${avatar}</div>
+        <div class="gb-bubble">
+          <div class="gb-text">${escapeHtml(item.text)}</div>
+          <div class="gb-author">-${escapeHtml(item.author)}-</div>
+        </div>
+      `;
+      listEl.appendChild(itemEl);
     });
 
-    currentPage = 1; // 등록 후 첫 페이지로 이동
-    closeWriteModal();
-    alert('방명록이 등록되었습니다. 💕');
-  } catch (error) {
-    console.error("방명록 작성 오류:", error);
-    alert('저장에 실패했습니다. 다시 시도해 주세요.');
-  }
-}
+    if (guestbookData.length > ITEMS_PER_PAGE) {
+      const maxVisibleDots = 5;
+      let startPage = Math.max(1, currentPage - Math.floor(maxVisibleDots / 2));
+      let endPage = Math.min(totalPages, startPage + maxVisibleDots - 1);
 
-function openManageModal() {
-  renderManageList();
-  document.getElementById('manageModal').classList.add('active');
-}
+      if (endPage - startPage + 1 < maxVisibleDots) {
+        startPage = Math.max(1, endPage - maxVisibleDots + 1);
+      }
 
-function closeManageModal() {
-  document.getElementById('manageModal').classList.remove('active');
-}
-
-function renderManageList() {
-  const container = document.getElementById('manageList');
-  if (!container) return;
-  container.innerHTML = '';
-
-  if (guestbookData.length === 0) {
-    container.innerHTML = '<p style="text-align:center; font-size:13px; color:#999;">작성된 방명록이 없습니다.</p>';
-    return;
+      for (let i = startPage; i <= endPage; i++) {
+        const dot = document.createElement('div');
+        dot.className = `gb-dot ${i === currentPage ? 'active' : ''}`;
+        dot.onclick = () => {
+          currentPage = i;
+          renderGuestbook();
+        };
+        paginationEl.appendChild(dot);
+      }
+    }
   }
 
-  guestbookData.forEach(item => {
-    const manageItem = document.createElement('div');
-    manageItem.className = 'gb-manage-item';
-    
-    // Firestore 문서 ID(item.id)를 따옴표('')로 감싸 전달합니다.
-    manageItem.innerHTML = `
-      <div class="gb-manage-info">
-        <strong>${escapeHtml(item.author)}</strong>: ${escapeHtml(item.text)}
-      </div>
-      <div class="gb-manage-actions">
-        <button type="button" onclick="editGuestbook('${item.id}')">수정</button>
-        <button type="button" onclick="deleteGuestbook('${item.id}')">삭제</button>
-      </div>
-    `;
-    container.appendChild(manageItem);
-  });
-}
-
-// 방명록 수정 (Firestore 업데이트)
-async function editGuestbook(id) {
-  const target = guestbookData.find(item => item.id === id);
-  if (!target) return;
-
-  const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
-  if (inputPw === null) return;
-
-  if (inputPw !== target.password) {
-    alert('비밀번호가 일치하지 않습니다.');
-    return;
+  function openWriteModal() {
+    const writeModal = document.getElementById('writeModal');
+    if (writeModal) writeModal.classList.add('active');
   }
 
-  const newText = prompt('수정할 내용을 입력하세요:', target.text);
-  if (newText && newText.trim() !== '') {
+  function closeWriteModal() {
+    const writeModal = document.getElementById('writeModal');
+    if (writeModal) writeModal.classList.remove('active');
+    clearWriteInputs();
+  }
+
+  function clearWriteInputs() {
+    const author = document.getElementById('gbAuthor');
+    const password = document.getElementById('gbPassword');
+    const text = document.getElementById('gbText');
+
+    if (author) author.value = '';
+    if (password) password.value = '';
+    if (text) text.value = '';
+  }
+
+  async function submitGuestbook() {
+    const author = document.getElementById('gbAuthor')?.value.trim();
+    const password = document.getElementById('gbPassword')?.value.trim();
+    const text = document.getElementById('gbText')?.value.trim();
+
+    if (!author || !password || !text) {
+      alert('모든 항목을 입력해 주세요.');
+      return;
+    }
+
     try {
-      await db.collection("guestbook").doc(id).update({
-        text: newText.trim()
+      await db.collection("guestbook").add({
+        author: author,
+        password: password,
+        text: text,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-      alert('수정되었습니다.');
+
+      currentPage = 1;
+      closeWriteModal();
+      alert('방명록이 등록되었습니다. 💕');
     } catch (error) {
-      console.error("방명록 수정 오류:", error);
-      alert('수정에 실패했습니다.');
+      console.error("방명록 작성 오류:", error);
+      alert('저장에 실패했습니다. 다시 시도해 주세요.');
     }
   }
-}
 
-// 방명록 삭제 (Firestore 삭제)
-async function deleteGuestbook(id) {
-  const target = guestbookData.find(item => item.id === id);
-  if (!target) return;
-
-  const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
-  if (inputPw === null) return;
-
-  if (inputPw !== target.password) {
-    alert('비밀번호가 일치하지 않습니다.');
-    return;
+  function openManageModal() {
+    renderManageList();
+    const manageModal = document.getElementById('manageModal');
+    if (manageModal) manageModal.classList.add('active');
   }
 
-  if (confirm('정말 삭제하시겠습니까?')) {
-    try {
-      await db.collection("guestbook").doc(id).delete();
-      alert('삭제되었습니다.');
-    } catch (error) {
-      console.error("방명록 삭제 오류:", error);
-      alert('삭제에 실패했습니다.');
+  function closeManageModal() {
+    const manageModal = document.getElementById('manageModal');
+    if (manageModal) manageModal.classList.remove('active');
+  }
+
+  function renderManageList() {
+    const container = document.getElementById('manageList');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (guestbookData.length === 0) {
+      container.innerHTML = '<p style="text-align:center; font-size:13px; color:#999;">작성된 방명록이 없습니다.</p>';
+      return;
+    }
+
+    guestbookData.forEach(item => {
+      const manageItem = document.createElement('div');
+      manageItem.className = 'gb-manage-item';
+      
+      manageItem.innerHTML = `
+        <div class="gb-manage-info">
+          <strong>${escapeHtml(item.author)}</strong>: ${escapeHtml(item.text)}
+        </div>
+        <div class="gb-manage-actions">
+          <button type="button" onclick="editGuestbook('${item.id}')">수정</button>
+          <button type="button" onclick="deleteGuestbook('${item.id}')">삭제</button>
+        </div>
+      `;
+      container.appendChild(manageItem);
+    });
+  }
+
+  async function editGuestbook(id) {
+    const target = guestbookData.find(item => item.id === id);
+    if (!target) return;
+
+    const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
+    if (inputPw === null) return;
+
+    if (inputPw !== target.password) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    const newText = prompt('수정할 내용을 입력하세요:', target.text);
+    if (newText && newText.trim() !== '') {
+      try {
+        await db.collection("guestbook").doc(id).update({
+          text: newText.trim()
+        });
+        alert('수정되었습니다.');
+      } catch (error) {
+        console.error("방명록 수정 오류:", error);
+        alert('수정에 실패했습니다.');
+      }
     }
   }
-}
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+  async function deleteGuestbook(id) {
+    const target = guestbookData.find(item => item.id === id);
+    if (!target) return;
 
-// 모달 영역 바깥 클릭 시 닫기
-window.addEventListener('click', function(event) {
-  const writeModal = document.getElementById('writeModal');
-  const manageModal = document.getElementById('manageModal');
-  const albumModal = document.getElementById('albumModal');
-  
-  if (event.target === writeModal) closeWriteModal();
-  if (event.target === manageModal) closeManageModal();
-  if (albumModal && event.target === albumModal) {
-    if (typeof closeAlbumModal === 'function') closeAlbumModal();
+    const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
+    if (inputPw === null) return;
+
+    if (inputPw !== target.password) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    if (confirm('정말 삭제하시겠습니까?')) {
+      try {
+        await db.collection("guestbook").doc(id).delete();
+        alert('삭제되었습니다.');
+      } catch (error) {
+        console.error("방명록 삭제 오류:", error);
+        alert('삭제에 실패했습니다.');
+      }
+    }
   }
-});
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  // 모달 영역 바깥 클릭 시 닫기
+  window.addEventListener('click', function(event) {
+    const writeModal = document.getElementById('writeModal');
+    const manageModal = document.getElementById('manageModal');
+    const albumModal = document.getElementById('albumModal');
+    
+    if (event.target === writeModal) closeWriteModal();
+    if (event.target === manageModal) closeManageModal();
+    if (albumModal && event.target === albumModal) {
+      if (typeof closeAlbumModal === 'function') closeAlbumModal();
+    }
+  });
+
   // ==========================================
   // 8. 모바일 화면 줌 방지
   // ==========================================
@@ -2661,45 +2621,37 @@ window.addEventListener('click', function(event) {
   });
 
   // ==========================================
-// 카카오 지도 초기화 및 마커 생성
-// ==========================================
-function initKakaoMap() {
-  const container = document.getElementById('map');
-  if (!container) return;
+  // 9. 카카오 지도 초기화 및 마커 생성
+  // ==========================================
+  function initKakaoMap() {
+    const container = document.getElementById('map');
+    if (!container) return;
 
-  // 인천 웨스턴팰리스 
-  const lat = 37.5158768;  // 위도
-  const lng = 126.7224966; // 경도
-  const options = {
-    center: new kakao.maps.LatLng(lat, lng), // 지도 중심좌표
-    level: 3 // 지도 확대 레벨
-  };
+    const lat = 37.5158768;  // 위도
+    const lng = 126.7224966; // 경도
+    const options = {
+      center: new kakao.maps.LatLng(lat, lng),
+      level: 3
+    };
 
-  // 지도 객체 생성
-  const map = new kakao.maps.Map(container, options);
+    const map = new kakao.maps.Map(container, options);
+    const markerPosition = new kakao.maps.LatLng(lat, lng);
+    const marker = new kakao.maps.Marker({
+      position: markerPosition
+    });
 
-  // 마커가 표시될 위치
-  const markerPosition = new kakao.maps.LatLng(lat, lng);
+    marker.setMap(map);
+  }
 
-  // 마커 생성
-  const marker = new kakao.maps.Marker({
-    position: markerPosition
-  });
-
-  // 마커가 지도 위에 표시되도록 설정
-  marker.setMap(map);
-}
-
-// SDK 로드가 완료된 후 지도 생성 함수 실행
-if (window.kakao && window.kakao.maps) {
-  kakao.maps.load(initKakaoMap);
-} else {
-  window.addEventListener('load', () => {
-    if (window.kakao && window.kakao.maps) {
-      kakao.maps.load(initKakaoMap);
-    }
-  });
-}
+  if (window.kakao && window.kakao.maps) {
+    kakao.maps.load(initKakaoMap);
+  } else {
+    window.addEventListener('load', () => {
+      if (window.kakao && window.kakao.maps) {
+        kakao.maps.load(initKakaoMap);
+      }
+    });
+  }
 </script>
 </body>
 </html>
