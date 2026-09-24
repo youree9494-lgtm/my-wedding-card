@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- 하얀색 하트 파비콘 설정 -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤍</text></svg>">
-  <!-- 카카오 지도 API -->
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97efe4ac977cffdbea326517a6eb3adb&autoload=false"></script>
+  <!-- 카카오 지도 API (https: 추가) -->
+  <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=97efe4ac977cffdbea326517a6eb3adb&autoload=false"></script>
   <!-- Firebase SDK (Version 9+) -->
   <!-- <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script> -->
@@ -215,7 +215,7 @@
         
         /* 🔥 상단 여백 및 오른쪽으로 20px 이동 지정 */
         margin-top: 190px;
-        transform: translateX(20px); /* 전체 박스(글자+줄눈)를 오른쪽으로 20px 이동 */
+        transform: translateX(6px); /* 전체 박스(글자+줄눈)를 오른쪽으로 20px 이동 */
       
         /* 🔥 CSS로 38px 간격의 편지지 연회색 줄눈 반복 생성 */
         background-image: linear-gradient(to bottom, transparent 37px, #EDE3DF 37px);
@@ -2599,6 +2599,47 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('gesturestart', function(event) {
     event.preventDefault();
   });
+
+  // ==========================================
+// 카카오 지도 초기화 및 마커 생성
+// ==========================================
+function initKakaoMap() {
+  const container = document.getElementById('map');
+  if (!container) return;
+
+  // 인천 웨스턴팰리스 (예시 좌표: 필요시 위도/경도 값 변경)
+  const lat = 37.4563;  // 위도
+  const lng = 126.7052; // 경도
+  const options = {
+    center: new kakao.maps.LatLng(lat, lng), // 지도 중심좌표
+    level: 3 // 지도 확대 레벨
+  };
+
+  // 지도 객체 생성
+  const map = new kakao.maps.Map(container, options);
+
+  // 마커가 표시될 위치
+  const markerPosition = new kakao.maps.LatLng(lat, lng);
+
+  // 마커 생성
+  const marker = new kakao.maps.Marker({
+    position: markerPosition
+  });
+
+  // 마커가 지도 위에 표시되도록 설정
+  marker.setMap(map);
+}
+
+// SDK 로드가 완료된 후 지도 생성 함수 실행
+if (window.kakao && window.kakao.maps) {
+  kakao.maps.load(initKakaoMap);
+} else {
+  window.addEventListener('load', () => {
+    if (window.kakao && window.kakao.maps) {
+      kakao.maps.load(initKakaoMap);
+    }
+  });
+}
 </script>
 </body>
 </html>
