@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>정철민 · 최유리 결혼합니다🕊️</title>
+  <title>정철민 · 최유리 결혼합니다</title>
   <!-- 공유용 제목 (타이틀) -->
   <meta property="og:title" content="정철민 · 최유리 결혼합니다🕊️">
   <!-- 공유용 설명 (서브타이틀) -->
@@ -1098,49 +1098,28 @@
       margin-bottom: 25px;
     }
     
-    /* 방명록 아이템 (좌/우 반전 레이아웃) */
+    /* 방명록 아이템 공통 레이아웃 */
     .gb-item {
       display: flex;
       align-items: flex-end;
       gap: 8px;
       position: relative;
       width: 100%;
+      box-sizing: border-box;
     }
     
-    /* 오른쪽 말풍선 (우측 정렬) */
+    /* ==========================================
+       오른쪽 타입: [말풍선 + 오른쪽 꼬리표] ---- [오른쪽 이모지]
+       ========================================== */
     .gb-item.right {
-      flex-direction: row;
-      justify-content: flex-end;
+      flex-direction: row-reverse; /* HTML 순서를 반대로 뒤집어 말풍선이 왼쪽, 이모지가 오른쪽에 오도록 설정 */
+      justify-content: flex-start;
     }
     
-    /* 왼쪽 말풍선 (좌측 정렬) */
-    .gb-item.left {
-      flex-direction: row-reverse;
-      justify-content: flex-end;
-    }
-    
-    /* 이모지 프로필 아이콘 */
-    .gb-avatar {
-      font-size: 24px;
-      line-height: 1;
-      user-select: none;
-      margin-bottom: 2px;
-    }
-    
-    /* 말풍선 본체 */
-    .gb-bubble {
-      position: relative;
-      background-color: #FFFFFF;
-      padding: 14px 18px;
-      border-radius: 18px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      max-width: 75%;
-      word-break: break-word;
-    }
-    
-    /* 오른쪽 말풍선 꼬리 */
     .gb-item.right .gb-bubble {
+      flex: 1; /* 남아있는 전체 폭을 꽉 채움 */
       border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 18px;
     }
     
     .gb-item.right .gb-bubble::after {
@@ -1152,11 +1131,21 @@
       height: 0;
       border-left: 10px solid #FFFFFF;
       border-top: 8px solid transparent;
+      border-right: none;
     }
     
-    /* 왼쪽 말풍선 꼬리 */
+    /* ==========================================
+       왼쪽 타입: [왼쪽 이모지] ---- [왼쪽 꼬리표 + 말풍선]
+       ========================================== */
+    .gb-item.left {
+      flex-direction: row; /* 기본 순서 유지: 이모지 -> 말풍선 */
+      justify-content: flex-start;
+    }
+    
     .gb-item.left .gb-bubble {
+      flex: 1; /* 남아있는 전체 폭을 꽉 채움 */
       border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 18px;
     }
     
     .gb-item.left .gb-bubble::after {
@@ -1168,6 +1157,18 @@
       height: 0;
       border-right: 10px solid #FFFFFF;
       border-top: 8px solid transparent;
+      border-left: none;
+    }
+    
+    /* 말풍선 공통 스타일 (max-width 제약 제거) */
+    .gb-bubble {
+      position: relative;
+      background-color: #FFFFFF;
+      padding: 14px 18px;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      word-break: break-word;
+      /* 기존 max-width: 75% 를 제거하여 flex: 1 이 정상 적용되도록 함 */
     }
     
     /* 방명록 텍스트 스펙 */
@@ -1707,7 +1708,7 @@
     
           <!-- 2번 문구: 메인 안내 텍스트 -->
           <div class="dday-text-main">
-            <span class="name-groom">철민</span><span class="name-bride">·유리</span>의 결혼식이<br>
+            <span class="name-groom">철민</span><span class="name-bride">&nbsp;·&nbsp;유리</span>의 결혼식이<br>
             <span id="ddayDays">0</span>일 남았습니다.
           </div>
         </div>
@@ -2178,13 +2179,17 @@
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
+    // renderGuestbook 함수 내부 itemEl.innerHTML 부분 수정
     pageItems.forEach((item, index) => {
       const isRight = index % 2 === 0;
       const directionClass = isRight ? 'right' : 'left';
       const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
-
+    
       const itemEl = document.createElement('div');
       itemEl.className = `gb-item ${directionClass}`;
+      
+      // 오른쪽/왼쪽 구분 없이 항상 [이모지 -> 말풍선] 순서로 생성합니다.
+      // 위치 정렬 및 순서 뒤집기는 CSS flex-direction에서 처리합니다.
       itemEl.innerHTML = `
         <div class="gb-avatar">${avatar}</div>
         <div class="gb-bubble">
