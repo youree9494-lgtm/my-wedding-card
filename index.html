@@ -608,7 +608,6 @@
       width: 100%;
       display: block;
       position: relative;
-      z-index: 1; /* 편지지 배경은 그룹 내 1번 레이어 */
     }
     
     .letter-text-img-yr {
@@ -618,6 +617,10 @@
       width: 90%;
       height: 100%;
       object-fit: contain;
+    }
+
+    .letter-bg-cm {
+      z-index:0;
     }
     
     /* [수정] 신부 편지 글씨 이미지를 그룹 내에서도 최상단으로 설정 */
@@ -1675,7 +1678,7 @@
         <img src="sec5_photo_black1.png" class="item photo-black1" alt="사진 블랙 1">
 
         <div class="item letter-yr-group">
-          <img src="sec5_yr_letter_bg.png" class="letter-bg" alt="편지지 배경">
+          <img src="sec5_yr_letter_bg.png" class="letter-bg-cm" alt="편지지 배경">
           <img src="sec5_yr_letter.png" class="letter-text-img-cm" alt="편지 글씨">
         </div>
       </div>
