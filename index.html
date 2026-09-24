@@ -17,8 +17,8 @@
   <!-- 카카오 지도 API (https: 추가) -->
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=97efe4ac977cffdbea326517a6eb3adb&autoload=false"></script>
   <!-- Firebase SDK (Version 9+) -->
-  <!-- <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
   
   <style>
@@ -2029,7 +2029,7 @@
       </div>
       <div class="gb-form-group">
         <label for="gbPassword">비밀번호 (수정/삭제용)</label>
-        <input type="password" id="gbPassword" placeholder="비밀번호 4자리" maxlength="10">
+        <input type="password" id="gbPassword" placeholder="비밀번호 4자리" maxlength="10" inputmode="numeric">
       </div>
       <div class="gb-form-group">
         <label for="gbText">내용</label>
@@ -2378,206 +2378,266 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.body.removeChild(textArea);
   }
+// 방명록 기
+  // ==========================================
+// 0. Firebase 설정 및 초기화
+// ==========================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCQOyahDoHhlxQlklqOHensfBLlcz9ks4Y",
+  authDomain: "my-wedding-card-ea8b6.firebaseapp.com",
+  projectId: "my-wedding-card-ea8b6",
+  storageBucket: "my-wedding-card-ea8b6.firebasestorage.app",
+  messagingSenderId: "740378029645",
+  appId: "1:740378029645:web:9bec5aad8ff59fea307604",
+  measurementId: "G-9WSVJG1VHM"
+};
 
-  // ==========================================
-  // 7. 방명록 로직 (저장, 렌더링, 등록, 수정, 삭제)
-  // ==========================================
-  function saveData() {
-    localStorage.setItem('wedding_guestbook', JSON.stringify(guestbookData));
-  }
-  
-  function renderGuestbook() {
-    const listEl = document.getElementById('guestbookList');
-    const paginationEl = document.getElementById('guestbookPagination');
-    
-    if (!listEl || !paginationEl) return;
-  
-    listEl.innerHTML = '';
-    paginationEl.innerHTML = '';
-  
-    const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
-    if (currentPage > totalPages) currentPage = totalPages;
-  
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  
-    pageItems.forEach((item, index) => {
-      const isRight = index % 2 === 0;
-      const directionClass = isRight ? 'right' : 'left';
-      const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
-    
-      const itemEl = document.createElement('div');
-      itemEl.className = `gb-item ${directionClass}`;
+// Firebase 중복 초기화 방지
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.firestore();
+
+// ==========================================
+// 7. 방명록 로직 (Firebase 데이터베이스 연동)
+// ==========================================
+let guestbookData = [];
+const ITEMS_PER_PAGE = 3; // 한 페이지당 보여줄 방명록 개수
+let currentPage = 1;
+
+// Firebase에서 실시간 데이터 불러오기 감지 함수
+function initGuestbookListener() {
+  db.collection("guestbook")
+    .orderBy("createdAt", "desc") // 최신순 정렬
+    .onSnapshot((snapshot) => {
+      guestbookData = snapshot.docs.map(doc => ({
+        id: doc.id, // Firestore 문서 ID (수정/삭제 시 필요)
+        ...doc.data()
+      }));
+      renderGuestbook();
       
-      itemEl.innerHTML = `
-        <div class="gb-avatar">${avatar}</div>
-        <div class="gb-bubble">
-          <div class="gb-text">${escapeHtml(item.text)}</div>
-          <div class="gb-author">-${escapeHtml(item.author)}-</div>
-        </div>
-      `;
-      listEl.appendChild(itemEl);
-    });
-  
-    if (guestbookData.length > ITEMS_PER_PAGE) {
-      const maxVisibleDots = 5;
-      let startPage = Math.max(1, currentPage - Math.floor(maxVisibleDots / 2));
-      let endPage = Math.min(totalPages, startPage + maxVisibleDots - 1);
-  
-      if (endPage - startPage + 1 < maxVisibleDots) {
-        startPage = Math.max(1, endPage - maxVisibleDots + 1);
+      // 관리 모달이 열려있는 상태라면 관리 목록도 자동 갱신
+      const manageModal = document.getElementById('manageModal');
+      if (manageModal && manageModal.classList.contains('active')) {
+        renderManageList();
       }
-  
-      for (let i = startPage; i <= endPage; i++) {
-        const dot = document.createElement('div');
-        dot.className = `gb-dot ${i === currentPage ? 'active' : ''}`;
-        dot.onclick = () => {
-          currentPage = i;
-          renderGuestbook();
-        };
-        paginationEl.appendChild(dot);
-      }
-    }
-  }
-  
-  function openWriteModal() {
-    document.getElementById('writeModal').classList.add('active');
-  }
-  
-  function closeWriteModal() {
-    document.getElementById('writeModal').classList.remove('active');
-    clearWriteInputs();
-  }
-  
-  function clearWriteInputs() {
-    document.getElementById('gbAuthor').value = '';
-    document.getElementById('gbPassword').value = '';
-    document.getElementById('gbText').value = '';
-  }
-  
-  function submitGuestbook() {
-    const author = document.getElementById('gbAuthor').value.trim();
-    const password = document.getElementById('gbPassword').value.trim();
-    const text = document.getElementById('gbText').value.trim();
-  
-    if (!author || !password || !text) {
-      alert('모든 항목을 입력해 주세요.');
-      return;
-    }
-  
-    const newItem = {
-      id: Date.now(),
-      author,
-      password,
-      text
-    };
-  
-    guestbookData.unshift(newItem);
-    saveData();
-    currentPage = 1;
-    renderGuestbook();
-    closeWriteModal();
-    alert('방명록이 등록되었습니다. 💕');
-  }
-  
-  function openManageModal() {
-    renderManageList();
-    document.getElementById('manageModal').classList.add('active');
-  }
-  
-  function closeManageModal() {
-    document.getElementById('manageModal').classList.remove('active');
-  }
-  
-  function renderManageList() {
-    const container = document.getElementById('manageList');
-    if (!container) return;
-    container.innerHTML = '';
-  
-    if (guestbookData.length === 0) {
-      container.innerHTML = '<p style="text-align:center; font-size:13px; color:#999;">작성된 방명록이 없습니다.</p>';
-      return;
-    }
-  
-    guestbookData.forEach(item => {
-      const manageItem = document.createElement('div');
-      manageItem.className = 'gb-manage-item';
-      manageItem.innerHTML = `
-        <div class="gb-manage-info">
-          <strong>${escapeHtml(item.author)}</strong>: ${escapeHtml(item.text)}
-        </div>
-        <div class="gb-manage-actions">
-          <button type="button" onclick="editGuestbook(${item.id})">수정</button>
-          <button type="button" onclick="deleteGuestbook(${item.id})">삭제</button>
-        </div>
-      `;
-      container.appendChild(manageItem);
+    }, (error) => {
+      console.error("방명록 로딩 중 오류 발생:", error);
     });
-  }
-  
-  function editGuestbook(id) {
-    const target = guestbookData.find(item => item.id === id);
-    if (!target) return;
-  
-    const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
-    if (inputPw === null) return;
-  
-    if (inputPw !== target.password) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-  
-    const newText = prompt('수정할 내용을 입력하세요:', target.text);
-    if (newText && newText.trim() !== '') {
-      target.text = newText.trim();
-      saveData();
-      renderGuestbook();
-      renderManageList();
-      alert('수정되었습니다.');
-    }
-  }
-  
-  function deleteGuestbook(id) {
-    const target = guestbookData.find(item => item.id === id);
-    if (!target) return;
-  
-    const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
-    if (inputPw === null) return;
-  
-    if (inputPw !== target.password) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-  
-    if (confirm('정말 삭제하시겠습니까?')) {
-      guestbookData = guestbookData.filter(item => item.id !== id);
-      saveData();
-      renderGuestbook();
-      renderManageList();
-      alert('삭제되었습니다.');
-    }
-  }
-  
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
+}
 
-  // 모달 영역 바깥 클릭 시 닫기
-  window.addEventListener('click', function(event) {
-    const writeModal = document.getElementById('writeModal');
-    const manageModal = document.getElementById('manageModal');
-    const albumModal = document.getElementById('albumModal');
+// 문서 로드 완료 시 실시간 수신기 등록
+document.addEventListener('DOMContentLoaded', () => {
+  initGuestbookListener();
+});
+
+function renderGuestbook() {
+  const listEl = document.getElementById('guestbookList');
+  const paginationEl = document.getElementById('guestbookPagination');
+  
+  if (!listEl || !paginationEl) return;
+
+  listEl.innerHTML = '';
+  paginationEl.innerHTML = '';
+
+  const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  pageItems.forEach((item, index) => {
+    const isRight = index % 2 === 0;
+    const directionClass = isRight ? 'right' : 'left';
+    const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
+
+    const itemEl = document.createElement('div');
+    itemEl.className = `gb-item ${directionClass}`;
     
-    if (event.target === writeModal) closeWriteModal();
-    if (event.target === manageModal) closeManageModal();
-    if (event.target === albumModal) closeAlbumModal();
+    itemEl.innerHTML = `
+      <div class="gb-avatar">${avatar}</div>
+      <div class="gb-bubble">
+        <div class="gb-text">${escapeHtml(item.text)}</div>
+        <div class="gb-author">-${escapeHtml(item.author)}-</div>
+      </div>
+    `;
+    listEl.appendChild(itemEl);
   });
 
+  if (guestbookData.length > ITEMS_PER_PAGE) {
+    const maxVisibleDots = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisibleDots / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisibleDots - 1);
+
+    if (endPage - startPage + 1 < maxVisibleDots) {
+      startPage = Math.max(1, endPage - maxVisibleDots + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      const dot = document.createElement('div');
+      dot.className = `gb-dot ${i === currentPage ? 'active' : ''}`;
+      dot.onclick = () => {
+        currentPage = i;
+        renderGuestbook();
+      };
+      paginationEl.appendChild(dot);
+    }
+  }
+}
+
+function openWriteModal() {
+  document.getElementById('writeModal').classList.add('active');
+}
+
+function closeWriteModal() {
+  document.getElementById('writeModal').classList.remove('active');
+  clearWriteInputs();
+}
+
+function clearWriteInputs() {
+  document.getElementById('gbAuthor').value = '';
+  document.getElementById('gbPassword').value = '';
+  document.getElementById('gbText').value = '';
+}
+
+// 방명록 등록 (Firestore 서버 저장)
+async function submitGuestbook() {
+  const author = document.getElementById('gbAuthor').value.trim();
+  const password = document.getElementById('gbPassword').value.trim();
+  const text = document.getElementById('gbText').value.trim();
+
+  if (!author || !password || !text) {
+    alert('모든 항목을 입력해 주세요.');
+    return;
+  }
+
+  try {
+    // Firestore guestbook 컬렉션에 등록
+    await db.collection("guestbook").add({
+      author: author,
+      password: password,
+      text: text,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp() // 서버 현재 시간
+    });
+
+    currentPage = 1; // 등록 후 첫 페이지로 이동
+    closeWriteModal();
+    alert('방명록이 등록되었습니다. 💕');
+  } catch (error) {
+    console.error("방명록 작성 오류:", error);
+    alert('저장에 실패했습니다. 다시 시도해 주세요.');
+  }
+}
+
+function openManageModal() {
+  renderManageList();
+  document.getElementById('manageModal').classList.add('active');
+}
+
+function closeManageModal() {
+  document.getElementById('manageModal').classList.remove('active');
+}
+
+function renderManageList() {
+  const container = document.getElementById('manageList');
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (guestbookData.length === 0) {
+    container.innerHTML = '<p style="text-align:center; font-size:13px; color:#999;">작성된 방명록이 없습니다.</p>';
+    return;
+  }
+
+  guestbookData.forEach(item => {
+    const manageItem = document.createElement('div');
+    manageItem.className = 'gb-manage-item';
+    
+    // Firestore 문서 ID(item.id)를 따옴표('')로 감싸 전달합니다.
+    manageItem.innerHTML = `
+      <div class="gb-manage-info">
+        <strong>${escapeHtml(item.author)}</strong>: ${escapeHtml(item.text)}
+      </div>
+      <div class="gb-manage-actions">
+        <button type="button" onclick="editGuestbook('${item.id}')">수정</button>
+        <button type="button" onclick="deleteGuestbook('${item.id}')">삭제</button>
+      </div>
+    `;
+    container.appendChild(manageItem);
+  });
+}
+
+// 방명록 수정 (Firestore 업데이트)
+async function editGuestbook(id) {
+  const target = guestbookData.find(item => item.id === id);
+  if (!target) return;
+
+  const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
+  if (inputPw === null) return;
+
+  if (inputPw !== target.password) {
+    alert('비밀번호가 일치하지 않습니다.');
+    return;
+  }
+
+  const newText = prompt('수정할 내용을 입력하세요:', target.text);
+  if (newText && newText.trim() !== '') {
+    try {
+      await db.collection("guestbook").doc(id).update({
+        text: newText.trim()
+      });
+      alert('수정되었습니다.');
+    } catch (error) {
+      console.error("방명록 수정 오류:", error);
+      alert('수정에 실패했습니다.');
+    }
+  }
+}
+
+// 방명록 삭제 (Firestore 삭제)
+async function deleteGuestbook(id) {
+  const target = guestbookData.find(item => item.id === id);
+  if (!target) return;
+
+  const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
+  if (inputPw === null) return;
+
+  if (inputPw !== target.password) {
+    alert('비밀번호가 일치하지 않습니다.');
+    return;
+  }
+
+  if (confirm('정말 삭제하시겠습니까?')) {
+    try {
+      await db.collection("guestbook").doc(id).delete();
+      alert('삭제되었습니다.');
+    } catch (error) {
+      console.error("방명록 삭제 오류:", error);
+      alert('삭제에 실패했습니다.');
+    }
+  }
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// 모달 영역 바깥 클릭 시 닫기
+window.addEventListener('click', function(event) {
+  const writeModal = document.getElementById('writeModal');
+  const manageModal = document.getElementById('manageModal');
+  const albumModal = document.getElementById('albumModal');
+  
+  if (event.target === writeModal) closeWriteModal();
+  if (event.target === manageModal) closeManageModal();
+  if (albumModal && event.target === albumModal) {
+    if (typeof closeAlbumModal === 'function') closeAlbumModal();
+  }
+});
   // ==========================================
   // 8. 모바일 화면 줌 방지
   // ==========================================
