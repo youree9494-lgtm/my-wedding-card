@@ -142,17 +142,17 @@
     .letter-section {
       position: relative;
       width: 100%;
-      margin-top: -118px; /* 헤더 상단 이미지와 겹치게 배치 */
+      margin-top: -118px;
       z-index: 1;
     }
-
-    /* 배경 이미지 */
+    
+    /* 배경 이미지 (줄선 제거된 이미지 사용) */
     .letter-bg-img {
       width: 100%;
       height: auto;
       display: block;
     }
-
+    
     /* 편지 배경 위 텍스트 오버레이 영역 */
     .letter-content-overlay {
       position: absolute;
@@ -165,7 +165,7 @@
       align-items: center;
       padding-top: 247px;
     }
-
+    
     /* 1. 정철민 · 최유리 스타일 */
     .couple-names {
       font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
@@ -176,7 +176,7 @@
       -webkit-text-stroke: 0.31px #222222;
       margin-bottom: 1px;
     }
-
+    
     /* 2. 일시 및 장소 스타일 */
     .wedding-date-location {
       font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
@@ -187,23 +187,30 @@
       line-height: 1.4;
       margin-bottom: 110px;
     }
-
-    /* 3. 초대글 본문 문구 스타일 */
+    
+    /* 3. 초대글 본문 문구 스타일 (CSS 줄눈 생성 적용) */
     .letter-text-main {
       font-family: 'Nanum DdarEGeEomMaGa', 'Nanum Pen Script', cursive, sans-serif;
       font-size: 23px;
-      line-height: 38px;
+      line-height: 38px; /* 🔥 글자 줄높이 */
       letter-spacing: 0.02em;
       color: #000000;
       text-align: center;
       -webkit-text-stroke: 0.5px #000000;
       width: 80%;
-      margin-top: 202px;
+      margin-top: 190px;
+    
+      /* 🔥 CSS로 38px 간격의 편지지 연회색 줄눈 반복 생성 */
+      background-image: linear-gradient(to bottom, transparent 37px, #EDE3DF 37px);
+      background-size: 100% 38px; /* line-height(38px)와 완벽히 일치하게 설정 */
+      background-position: 0 0;
     }
-
+    
+    /* 문단 간격도 줄눈 간격(38px)의 배수로 맞춰 어긋남 방지 */
     .letter-text-main p {
-      margin-bottom: 42px;
+      margin-bottom: 38px; /* 한 줄 공백 */
     }
+    
     .letter-text-main p:last-child {
       margin-bottom: 0;
     }
@@ -1247,68 +1254,78 @@
       color: #666666;
     }
     
-    /* 3. 페이지네이션 (도트) */
-    .guestbook-pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 30px;
-    }
-    
-    .gb-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #E2B2C9;
-      opacity: 0.5;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    
-    .gb-dot.active {
-      opacity: 1;
-      transform: scale(1.2);
-      background-color: #D780B5;
-    }
-    
-    /* 4. 하단 버튼 영역 */
-    .guestbook-btn-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-    }
-    
-    .btn-guestbook-write {
-      width: 180px;
-      height: 44px;
-      background-color: #D780B5; /* 메인 핑크 컬러 */
-      color: #FFFFFF;
-      font-family: 'NanumSquare Neo', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(215, 128, 181, 0.3);
-      transition: background-color 0.2s ease;
-    }
-    
-    .btn-guestbook-write:hover {
-      background-color: #C36FA2;
-    }
-    
-    .btn-guestbook-manage {
-      background: none;
-      border: none;
-      font-family: 'NanumSquare Neo', sans-serif;
-      font-size: 12px;
-      color: #888888;
-      text-decoration: underline;
-      cursor: pointer;
-    }
+    /* 방명록 슬라이드/목록 컨테이너에 하단 여백 추가 (카드와 도트 간격 확보) */
+.guestbook-page-container,
+.guestbook-list,
+.guestbook-wrapper {
+  padding-bottom: 20px !important; /* 카드 아래쪽에 여백을 줘서 도트가 밀려나게 함 */
+}
+
+/* 3. 페이지네이션 (도트) */
+.guestbook-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;    /* 🔥 상단 방명록 카드와의 여백 추가 */
+  margin-bottom: 25px; /* 하단 버튼 영역과의 여백 */
+  position: relative;  /* 🔥 위치 겹침 방지 */
+  z-index: 5;
+}
+
+.gb-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #E2B2C9;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gb-dot.active {
+  opacity: 1;
+  transform: scale(1.2);
+  background-color: #D780B5;
+}
+
+/* 4. 하단 버튼 영역 */
+.guestbook-btn-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.btn-guestbook-write {
+  width: 180px;
+  height: 44px;
+  background-color: #D780B5;
+  color: #FFFFFF;
+  font-family: 'NanumSquare Neo', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(215, 128, 181, 0.3);
+  transition: background-color 0.2s ease;
+}
+
+.btn-guestbook-write:hover {
+  background-color: #C36FA2;
+}
+
+.btn-guestbook-manage {
+  background: none;
+  border: none;
+  font-family: 'NanumSquare Neo', sans-serif;
+  font-size: 12px;
+  color: #888888;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
     /* ==========================================
        공통 모달 (Modal UI)
