@@ -1573,11 +1573,12 @@
 </head>
 <body>
   <!-- BGM 음악 오디오 태그 -->
-  <audio id="bgm" src="360.mp4" loop></audio>
-  <!-- 우측 상단 노래 표시 컨트롤 버튼 -->
-  <button id="bgmBtn" class="bgm-btn" onclick="toggleBgm()" title="배경음악 재생/일시정지">
-    <i class="fa-solid fa-music"></i>
-  </button>
+    <audio id="bgm" src="360.mp4" preload="auto" loop playsinline></audio>
+    
+    <!-- 우측 상단 노래 표시 컨트롤 버튼 -->
+    <button id="bgmBtn" class="bgm-btn" onclick="toggleBgm()" title="배경음악 재생/일시정지">
+      <i class="fa-solid fa-music"></i>
+    </button>
   <div class="wedding-card">
     <!-- 1. 헤더 섹션 -->
     <div class="header-section">
@@ -2122,43 +2123,60 @@
     }
   }
 
-  // ==========================================
-  // 5. BGM 오디오 제어 로직
-  // ==========================================
-  function playAudio() {
-    const bgm = document.getElementById('bgm');
-    const bgmBtn = document.getElementById('bgmBtn');
-    if (!isPlaying && bgm) {
-      bgm.play().then(() => {
-        isPlaying = true;
-        if (bgmBtn) bgmBtn.classList.add('playing');
-      }).catch(err => {});
-    }
-  }
+ // ==========================================
+// 5. BGM 오디오 제어 로직
+// ==========================================
+let isPlaying = false; // 전역 변수 선언 필수
 
-  function toggleBgm() {
-    const bgm = document.getElementById('bgm');
-    const bgmBtn = document.getElementById('bgmBtn');
-    if (isPlaying) {
-      if (bgm) bgm.pause();
-      if (bgmBtn) bgmBtn.classList.remove('playing');
+function playAudio() {
+  const bgm = document.getElementById('bgm');
+  const bgmBtn = document.getElementById('bgmBtn');
+  
+  if (!isPlaying && bgm) {
+    bgm.play().then(() => {
+      isPlaying = true;
+      if (bgmBtn) bgmBtn.classList.add('playing');
+    }).catch(err => {
+      console.warn("BGM 재생 실패 (유저 인터랙션 필요):", err);
       isPlaying = false;
-    } else {
-      playAudio();
-    }
+    });
   }
+}
 
-  // 사용자 첫 터치/클릭/스크롤 시 BGM 자동재생 허용
-  const enableAudioOnInteraction = () => {
+function toggleBgm() {
+  const bgm = document.getElementById('bgm');
+  const bgmBtn = document.getElementById('bgmBtn');
+  
+  if (isPlaying) {
+    if (bgm) bgm.pause();
+    if (bgmBtn) bgmBtn.classList.remove('playing');
+    isPlaying = false;
+  } else {
     playAudio();
+  }
+}
+
+// 사용자 첫 터치/클릭 시 BGM 자동재생 처리
+const enableAudioOnInteraction = () => {
+  const bgm = document.getElementById('bgm');
+  if (!bgm) return;
+
+  bgm.play().then(() => {
+    isPlaying = true;
+    const bgmBtn = document.getElementById('bgmBtn');
+    if (bgmBtn) bgmBtn.classList.add('playing');
+
+    // ★ 재생 성공 시에만 이벤트 리스너 제거
     window.removeEventListener('touchstart', enableAudioOnInteraction);
     window.removeEventListener('click', enableAudioOnInteraction);
-    window.removeEventListener('scroll', enableAudioOnInteraction);
-  };
+  }).catch(() => {
+    // 재생 차단 시 차후 터치로 다시 재생될 수 있도록 이벤트를 남겨둡니다.
+  });
+};
 
-  window.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
-  window.addEventListener('click', enableAudioOnInteraction, { once: true });
-  window.addEventListener('scroll', enableAudioOnInteraction, { once: true });
+// 모바일 터치 및 클릭 이벤트 등록 (scroll은 차단 이슈로 제외)
+window.addEventListener('touchstart', enableAudioOnInteraction);
+window.addEventListener('click', enableAudioOnInteraction);
 
   // ==========================================
   // 6. 클립보드 복사 기능 (계좌번호 및 주소, 링크)
