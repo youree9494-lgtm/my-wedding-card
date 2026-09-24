@@ -383,7 +383,9 @@
       width: 320px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      z-index: 2;
+      z-index: 10 !important; /* 주변 요소보다 확실히 위에 오도록 수정 */
+      -webkit-tap-highlight-color: transparent; /* 모바일 터치 시 반짝임 방지 및 즉시 반응 */
+      touch-action: manipulation; /* 모바일 터치 지연 방지 */
     }
     
     .album-cover-btn:hover {
@@ -1706,7 +1708,7 @@
         <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
       </div>
 
-      <div class="album-cover-btn" onclick="openAlbumModal()">
+      <div class="album-cover-btn" onclick="openAlbumModal()" ontouchstart="openAlbumModal()">
         <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
       </div>
 
@@ -2337,54 +2339,78 @@
   setInterval(updateDday, 1000);
 
   // ==========================================
-  // 4. 앨범 모달 로직
-  // ==========================================
-  function openAlbumModal() {
-    const modal = document.getElementById('albumModal');
-    if (modal) {
-      modal.classList.add('active');
-    }
-  }
-
-  function flipPage(element) {
-  element.classList.toggle('flipped');
-  
-  const bookEl = element.closest('.book-container');
-  const pages = bookEl.querySelectorAll('.book-page');
-
-  // 애니메이션 시간(0.8초)이 끝난 직후 z-index 순서를 정리하여 미리 보이는 현상 방지
-  setTimeout(() => {
-    pages.forEach((page, index) => {
-      if (page.classList.contains('flipped')) {
-        page.style.zIndex = index + 1;
-      } else {
-        page.style.zIndex = pages.length - index;
+    // 4. 앨범 모달 로직 (모바일 터치 완벽 대응)
+    // ==========================================
+    let isOpening = false;
+    
+    function openAlbumModal(e) {
+      if (e) {
+        e.preventDefault(); // 모바일 중복 터치 이벤트 방지
       }
-    });
-  }, 400); // 회전 반환점(90도)을 지나는 시점에 z-index 교체
-
-  const firstPage = pages[0];
-  if (firstPage && firstPage.classList.contains('flipped')) {
-    bookEl.classList.add('opened');
-  } else if (bookEl) {
-    bookEl.classList.remove('opened');
-  }
-}
-  
-  function closeAlbumModal() {
-    const modal = document.getElementById('albumModal');
-    if (modal) {
-      modal.classList.remove('active');
+      
+      if (isOpening) return;
+      isOpening = true;
+    
+      const modal = document.getElementById('albumModal');
+      if (modal) {
+        modal.classList.add('active');
+      }
+    
       setTimeout(() => {
-        const pages = document.querySelectorAll('.book-page');
-        pages.forEach(page => page.classList.remove('flipped'));
-        const bookEl = document.querySelector('.book-container');
-        if (bookEl) {
-          bookEl.classList.remove('opened');
-        }
+        isOpening = false;
       }, 300);
     }
-  }
+    
+    function flipPage(element) {
+      element.classList.toggle('flipped');
+      
+      const bookEl = element.closest('.book-container');
+      const pages = bookEl.querySelectorAll('.book-page');
+    
+      // 애니메이션 시간(0.8초)이 끝난 직후 z-index 순서를 정리하여 미리 보이는 현상 방지
+      setTimeout(() => {
+        pages.forEach((page, index) => {
+          if (page.classList.contains('flipped')) {
+            page.style.zIndex = index + 1;
+          } else {
+            page.style.zIndex = pages.length - index;
+          }
+        });
+      }, 400);
+    
+      const firstPage = pages[0];
+      if (firstPage && firstPage.classList.contains('flipped')) {
+        bookEl.classList.add('opened');
+      } else if (bookEl) {
+        bookEl.classList.remove('opened');
+      }
+    }
+    
+    function closeAlbumModal() {
+      const modal = document.getElementById('albumModal');
+      if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+          const pages = document.querySelectorAll('.book-page');
+          pages.forEach(page => page.classList.remove('flipped'));
+          const bookEl = document.querySelector('.book-container');
+          if (bookEl) {
+            bookEl.classList.remove('opened');
+          }
+        }, 300);
+      }
+    }
+
+    // DOM 로드 완료 후 모바일 전용 이벤트 추가 바인딩 (안전장치)
+    document.addEventListener('DOMContentLoaded', () => {
+      const albumBtn = document.querySelector('.album-cover-btn');
+      if (albumBtn) {
+        albumBtn.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          openAlbumModal();
+        });
+      }
+    });
 
   // ==========================================
   // 5. BGM 오디오 제어 로직
