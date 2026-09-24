@@ -3,31 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>정철민 · 최유리 결혼식에 소중한 분들을 초대합니다🕊️</title>
+  <title>정철민 · 최유리 결혼합니다🕊️</title>
   <!-- 공유용 제목 (타이틀) -->
-  <meta property="og:title" content="정철민 · 최유리 결혼식에 소중한 분들을 초대합니다🕊️">
+  <meta property="og:title" content="정철민 · 최유리 결혼합니다🕊️">
   <!-- 공유용 설명 (서브타이틀) -->
   <meta property="og:description" content="2026.11.14 토요일 오후 5시 20분 | 인천 웨스턴팰리스 팰리스홀">
   <!-- 공유용 썸네일 이미지 (필수) -->
   <meta property="og:image" content="https://youree9494-lgtm.github.io/my-wedding-card/sec1-bg.png">
   <!-- FontAwesome 아이콘 라이브러리 (하트 및 음표) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- 하얀색 하트 파비콘 설정 -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤍</text></svg>">
   <!-- 1. 카카오 지도 SDK 스크립트  -->
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY&libraries=services"></script>
 
   <style>
-    /* 1. 커스텀 폰트 불러오기 */
+    /* 1-1. FreakArt Personal Use */
     @font-face {
       font-family: 'FreakArt Personal Use';
-      src: url('FreakArt-Personal-Use.ttf') format('truetype');
+      /* 실제 서버/폴더에 존재하는 폰트 파일명 및 경로와 정확히 일치해야 합니다 (대소문자 구분) */
+      src: url('FreakArt-Personal-Use.woff2') format('woff2'),
+           url('FreakArt-Personal-Use.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
       font-display: swap;
     }
-
+    
+    /* 1-2. GriunXHangeul Gowoon */
     @font-face {
       font-family: 'GriunXHangeul Gowoon';
-      src: url('GriunXHangeulGowoon.ttf') format('truetype'); /* 실제 ttf 파일 경로 지정 */
+      src: url('GriunXHangeulGowoon.woff2') format('woff2'),
+           url('GriunXHangeulGowoon.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    /* 1-3. Nanum DdarEGeEomMaGa (누락되었던 폰트 추가) */
+    @font-face {
+      font-family: 'Nanum DdarEGeEomMaGa';
+      src: url('NanumDdarEGeEomMaGa.woff2') format('woff2'),
+           url('NanumDdarEGeEomMaGa.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
       font-display: swap;
@@ -515,28 +531,28 @@
     .photo-pink1 {
       top: 100px;
       left: 20px;
-      width: 175px;
+      width: 190px;
       z-index: 1;
     }
     
     .letter-cm-group {
-      top: 60px;
-      right: 15px;
-      width: 230px;
+      top: 3px;
+      right: -3px;
+      width: 300px;
       z-index: 2;
     }
     
     .photo-pink2 {
       top: 300px;
       right: 25px;
-      width: 170px;
+      width: 180px;
       z-index: 3;
     }
     
     .photo-black1 {
-      top: 530px;
+      top: 622px;
       left: 35px;
-      width: 150px;
+      width: 158px;
       z-index: 4;
     }
     
@@ -552,11 +568,20 @@
       display: block;
     }
     
-    .letter-text-img {
+    .letter-text-img-yr {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
+      top: -19px;
+      left: 32px;
+      width: 90%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .letter-text-img-cm {
+      position: absolute;
+      top: -19px;
+      left: 32px;
+      width: 90%;
       height: 100%;
       object-fit: contain;
     }
@@ -695,7 +720,7 @@
     /* 1번 문구: 36일 23시 04분 40초 */
     .dday-timer {
       font-family: 'GriunXHangeul Gowoon', sans-serif;
-      font-size: 20px;
+      font-size: 22px;
       color: #FFFFFF;
       letter-spacing: 0;
       margin-bottom: 8px;
@@ -725,27 +750,28 @@
       position: absolute;
       top: 18px;
       right: 10px;
-      width: 42px;
+      width: 110px;
       height: auto;
       z-index: 3;
     }
     
     .dday-decor-heart-top {
       position: absolute;
-      top: 20px;
-      left: 55px;
-      width: 26px;
+      top: 39px;
+      left: 61px;
+      width: 39px;
       height: auto;
       z-index: 0;
     }
     
     .dday-decor-heart-bottom {
       position: absolute;
-      bottom: 35px;
-      right: 35px;
-      width: 22px;
+      bottom: 96px;
+      right: 25px;
+      width: 30px;
       height: auto;
       z-index: 0;
+      transform: rotate(54deg);
     }
   
     /* ==========================================
@@ -755,7 +781,7 @@
       width: 100%;
       max-width: 480px; /* 모바일 반응형 기본 규격 */
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 0px 40px 60px 40px;
       background-color: #ffffff;
       box-sizing: border-box;
       display: flex;
@@ -769,12 +795,13 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      width: 235.3px;           /* 피그마 너비 */
-      height: 79.86px;          /* 피그마 높이 */
-      background-color: #D780B5; /* 피그마 분홍색 */
-      border-radius: 50%;       /* 타원 형태 */
+      width: 235.3px;
+      height: 79.86px;
+      background-color: #D780B5;
+      border-radius: 50%;
       box-sizing: border-box;
-      margin-bottom: 24px;
+      margin-bottom: 60px;
+      margin-top: 150px;
     }
     
     .oval-badge-inner {
@@ -804,7 +831,7 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
     
     #map {
@@ -814,12 +841,13 @@
     
     /* 3. 주소 및 복사 버튼 */
     .address-container {
-      width: 100%;
+      width: 90px;
+      height: 30px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       padding: 0 4px;
-      margin-bottom: 20px;
+      margin-bottom: 45px;
       box-sizing: border-box;
     }
     
@@ -875,7 +903,7 @@
     .section-divider {
       width: 100%;
       border: none;
-      border-top: 1px solid #f2e6ee;
+      border-top: 1px solid #FFE2E9;
       margin: 10px 0 28px 0;
     }
     
@@ -884,7 +912,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 30px;
     }
     
     .transport-item {
@@ -897,12 +925,12 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 8px;
+      margin-bottom: 17px;
     }
     
     .info-icon {
-      width: 24px;
-      height: 24px;
+      width: 33px;
+      height: auto;
       object-fit: contain;
     }
     
@@ -915,7 +943,6 @@
     
     /* 서브 텍스트 스펙 (Inter Regular 16px, 자간 -3%) */
     .info-desc {
-      padding-left: 32px; /* 아이콘 너비 + gap 만큼 들여쓰기 */
     }
     
     .info-desc p {
@@ -936,7 +963,7 @@
    ========================================== */
 
     .bank-section {
-      padding: 60px 24px;
+      padding: 60px 40px;
       background-color: #FFF9F9; /* 이미지 배경 연한 핑크 톤 */
       box-sizing: border-box;
     }
@@ -950,7 +977,7 @@
     
     /* 2. 신랑/신부 그룹 컨테이너 */
     .bank-group-container {
-      margin-bottom: 35px;
+      margin-bottom: 60px;
     }
     
     .bank-group-container:last-child {
@@ -964,7 +991,7 @@
     
     .bank-group-title {
       font-family: 'NanumSquare Neo', sans-serif;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 700;
       color: #000000;
       line-height: 28px;
@@ -1044,7 +1071,7 @@
   
     
     .guestbook-section {
-      padding: 50px 20px 60px 20px;
+      padding: 50px 40px 60px 40px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -1418,23 +1445,6 @@
       display: block;
     }
     
-    /* 영문 폰트 (FreakArt Personal Use) */
-    @font-face {
-      font-family: 'FreakArt Personal Use';
-      src: url('FreakArtPersonalUse.woff2') format('woff2'),
-           url('FreakArtPersonalUse.ttf') format('truetype');
-      font-weight: bold;
-      font-style: normal;
-    }
-    
-    /* 한글 폰트 (GriunXHangeul Gowoon) */
-    @font-face {
-      font-family: 'GriunXHangeul Gowoon';
-      src: url('GriunXHangeulGowoon.woff2') format('woff2'),
-           url('GriunXHangeulGowoon.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-    }
     
     /* 영문 메인 타이틀 */
     .sec11-title-en {
@@ -1527,7 +1537,7 @@
     <div class="header-section">
       <h1 class="header-title">
         Our Wedding Story<br>
-        Begins <i class="fa-solid fa-heart"></i>
+        &nbsp;Begins <i class="fa-solid fa-heart"></i>
       </h1>
     </div>
     <!-- 2. 초대글 편지 이미지 & 텍스트 오버레이 섹션 -->
@@ -1611,7 +1621,7 @@
 
         <div class="item letter-cm-group">
           <img src="sec5_cm_letter_bg.png" class="letter-bg" alt="편지지 배경">
-          <img src="sec5_cm_letter.png" class="letter-text-img" alt="편지 글씨">
+          <img src="sec5_cm_letter.png" class="letter-text-img-yr" alt="편지 글씨">
         </div>
 
         <img src="sec5_photo_pink2.png" class="item photo-pink2" alt="사진 핑크 2">
@@ -1619,7 +1629,7 @@
 
         <div class="item letter-yr-group">
           <img src="sec5_yr_letter_bg.png" class="letter-bg" alt="편지지 배경">
-          <img src="sec5_yr_letter.png" class="letter-text-img" alt="편지 글씨">
+          <img src="sec5_yr_letter.png" class="letter-text-img-cm" alt="편지 글씨">
         </div>
       </div>
     </section>
@@ -1697,7 +1707,7 @@
     
           <!-- 2번 문구: 메인 안내 텍스트 -->
           <div class="dday-text-main">
-            <span class="name-groom">철민</span>, <span class="name-bride">유리</span>의 결혼식이<br>
+            <span class="name-groom">철민 · </span>, <span class="name-bride">유리</span>의 결혼식이<br>
             <span id="ddayDays">0</span>일 남았습니다.
           </div>
         </div>
