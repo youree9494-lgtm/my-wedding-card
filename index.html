@@ -374,18 +374,17 @@
       z-index: 3;
     }
     
-
     /* ==========================================
-   앨범 버튼 및 클릭 가림 방지 CSS (유지)
+   앨범 버튼 및 클릭 가림 방지 CSS
    ========================================== */
     .album-cover-btn {
       position: relative;
       width: 320px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      z-index: 10 !important; /* 주변 요소보다 확실히 위에 오도록 수정 */
-      -webkit-tap-highlight-color: transparent; /* 모바일 터치 시 반짝임 방지 및 즉시 반응 */
-      touch-action: manipulation; /* 모바일 터치 지연 방지 */
+      z-index: 10 !important;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     
     .album-cover-btn:hover {
@@ -429,175 +428,124 @@
       margin-top: 20px;
     }
     
-    /* 주변 영역 요소들이 앨범 버튼 클릭을 방지하지 않도록 설정 */
     .click-me-wrapper,
     .purple-arrow {
       pointer-events: none;
     }
     
     /* ==========================================
-       왼쪽 파스텔 핑크 하트 페이지 스타일
+       기본 앨범 모달 CSS (복잡한 3D 효과 제거)
        ========================================== */
-    .album-left-heart {
-      background-color: #fbebf2 !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: center !important;
-      align-items: center !important;
-      border: 1px solid #f2cfdf;
-      box-sizing: border-box;
-    }
-    
-    .album-left-heart .heart-icon {
-      font-size: 50px;
-      animation: pulseHeart 1.5s infinite ease-in-out;
-    }
-    
-    .album-left-heart .back-text {
-      font-family: 'NanumSquare Neo', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: #d780b5;
-      letter-spacing: 2px;
-      margin-top: 10px;
-    }
-    
-    @keyframes pulseHeart {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.12); }
-      100% { transform: scale(1); }
-    }
-    /* ==========================================
-   앨범 이동 및 확대 방지 추가 CSS
-   ========================================== */
-
-    /* 앨범이 닫혀있을 때 기본 위치 */
-    .book-container {
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateX(0);
-    }
-    
-    /* 표지가 펼쳐지면 오른쪽으로 이동하여 2면(좌/우)이 화면 중앙에 오도록 설정 */
-    .book-container.opened {
-      transform: translateX(50%); /* 모바일 화면 기준 중앙 정렬 */
-    }
-    
-    /* 터치 및 이미지 저장/확대 방지 */
-    .book-container img,
-    .book-page img {
-      -webkit-user-drag: none;
-      user-select: none;
-      -webkit-touch-callout: none; /* 길게 눌러서 이미지 저장 메뉴 띄우기 방지 */
-      touch-action: manipulation;   /* 더블 터치 확대 방지 */
-    }
-
-    /* 3D Flip Book Modal */
     .album-modal {
-      display: none; /* 기본 상태에서는 보이지 않도록 절대 설정 */
-      position: fixed !important; /* 화면에 항상 고정 */
+      display: none;
+      position: fixed !important;
       top: 0 !important;
       left: 0 !important;
       width: 100vw !important;
       height: 100vh !important;
-      background-color: rgba(0, 0, 0, 0.85);
-      z-index: 99999 !important; /* 메인 화면 맨 위에 떠 있도록 설정 */
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 99999 !important;
       justify-content: center;
       align-items: center;
-      backdrop-filter: blur(5px);
+      touch-action: pan-y;
     }
     
-    /* active 클래스가 추가되었을 때만 화면에 노출 */
     .album-modal.active {
       display: flex !important;
     }
-
+    
+    /* 닫기 버튼 */
     .modal-close-btn {
       position: absolute;
-      top: 20px;
-      right: 25px;
+      top: 15px;
+      right: 20px;
       color: #ffffff;
-      font-size: 35px;
+      font-size: 36px;
       cursor: pointer;
       z-index: 100001;
+      padding: 10px;
+      line-height: 1;
     }
-
-    .book-container {
-        width: 320px;
-        height: 440px;
-        position: relative;
-        perspective: 1500px;
-        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        transform: translateX(0);
-      }
-      
-      /* 펼쳐졌을 때 이동 (모바일/PC 구분) */
-      .book-container.opened {
-        transform: translateX(25%);
-      }
-      
-      /* 화면 가로가 좁은 모바일 화면 대응 */
-      @media screen and (max-width: 600px) {
-        .book-container.opened {
-          transform: translateX(15%); /* 모바일 화면에서는 잘리지 않도록 이동량 조절 */
-        }
-      }
-
-    .book-page {
-      width: 100%;
-      height: 100%;
+    
+    /* 좌/우 이동 화살표 버튼 */
+    .modal-nav-btn {
       position: absolute;
-      top: 0;
-      left: 0;
-      transform-origin: left center;
-      transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-      border-radius: 8px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: none;
+      font-size: 24px;
+      padding: 16px 12px;
       cursor: pointer;
+      z-index: 100001;
+      border-radius: 4px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .page-front, .page-back {
-      position: absolute;
+    
+    .modal-nav-btn:active {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+    
+    /* 이미지 및 텍스트 컨테이너 */
+    .modal-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 100%;
-      backface-visibility: hidden;
-      border-radius: 8px;
-      overflow: hidden;
-      background-color: #fff;
-      -webkit-backface-visibility: hidden !important;
-      backface-visibility: hidden !important;
-      transform-style: preserve-3d;
+      padding: 60px 50px 40px 50px;
+      box-sizing: border-box;
     }
-
-    .page-front img, .page-back img {
+    
+    .modal-img-container {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-
-    /* 2. 각 면이 회전 시 서로 간섭하지 않도록 기본 축 설정 */
-    .page-front {
-      z-index: 2;
-      transform: rotateY(0deg);
+    
+    /* 이미지 고유 비율 유지 핵심 설정 */
+    .modal-img-container img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      -webkit-user-drag: none;
+      user-select: none;
     }
-
-    .page-back {
-      z-index: 1;
-      transform: rotateY(180deg);
-    }
-
-    .book-page.flipped {
-      transform: rotateY(-180deg);
-    }
-
-    .album-hint {
-      position: absolute;
-      bottom: 30px;
+    
+    /* 카운터 표시 */
+    .modal-counter {
       color: #ffffff;
       font-size: 14px;
+      margin-top: 12px;
       font-family: sans-serif;
+      letter-spacing: 1px;
       opacity: 0.8;
     }
+    
+    /* 모바일 전용 여백 조절 */
+    @media screen and (max-width: 600px) {
+      .modal-content-wrapper {
+        padding: 50px 15px 30px 15px;
+      }
+      .modal-nav-btn {
+        padding: 12px 8px;
+        font-size: 20px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+   
 
     /* 5. 신랑신부 메시지 */
     .section5 {
@@ -1699,257 +1647,44 @@
       </div>
     </div> 
     <!-- 4. 웨딩 앨범 섹션 -->
-    <div class="sec4-container">
-      <div class="click-me-wrapper">
-        <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
-        <div class="click-me-text">
-          <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span class="excl">!</span><span class="excl">!</span>
-        </div>
-        <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
-      </div>
+<div class="sec4-container">
+  <div class="click-me-wrapper">
+    <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
+    <div class="click-me-text">
+      <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span class="excl">!</span><span class="excl">!</span>
+    </div>
+    <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
+  </div>
 
-      <div class="album-cover-btn" onclick="openAlbumModal()" ontouchstart="openAlbumModal()">
-        <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
-      </div>
+  <div class="album-cover-btn" onclick="openAlbumModal()">
+    <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
+  </div>
 
-      <div class="album-notice-wrapper">
-        <img src="sec4_arrow_purple.png" class="purple-arrow" alt="화살표">
-        <div class="album-notice-text">
-          앨범을 누르시면<br>저희 사진을 볼 수 있어요!
-        </div>
-      </div>
-    </div> 
+  <div class="album-notice-wrapper">
+    <img src="sec4_arrow_purple.png" class="purple-arrow" alt="화살표">
+    <div class="album-notice-text">
+      앨범을 누르시면<br>저희 사진을 볼 수 있어요!
+    </div>
+  </div>
+</div> 
 
-    <!-- 3D 입체 플립 앨범 모달 -->
+<!-- 기본 이미지 슬라이더 모달 -->
 <div id="albumModal" class="album-modal">
   <div class="modal-close-btn" onclick="closeAlbumModal()">&times;</div>
   
-  <div class="book-container">
-    <!-- Page 1: 표지 / 뒷면: 핑크하트 (왼쪽 고정용) -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 36;">
-      <div class="page-front">
-        <img src="sec4_album.png" alt="앨범 표지">
-      </div>
-      <div class="page-back album-left-heart">
-        <div class="heart-icon">💖</div>
-      </div>
-    </div>
+  <!-- 이전 / 다음 버튼 -->
+  <button class="modal-nav-btn prev-btn" onclick="prevSlide(event)">&#10094;</button>
+  <button class="modal-nav-btn next-btn" onclick="nextSlide(event)">&#10095;</button>
 
-    <!-- Page 2: scene_1.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 35;">
-      <div class="page-front"><img src="scene_1.jpg" alt="scene_1"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
+  <!-- 이미지 및 인디케이터 컨테이너 -->
+  <div class="modal-content-wrapper">
+    <div class="modal-img-container">
+      <img id="modalImg" src="scene_1.jpg" alt="웨딩 사진">
     </div>
-
-    <!-- Page 3: scene_2.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 34;">
-      <div class="page-front"><img src="scene_2.jpg" alt="scene_2"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 4: scene_3.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 33;">
-      <div class="page-front"><img src="scene_3.jpg" alt="scene_3"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 5: scene_4.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 32;">
-      <div class="page-front"><img src="scene_4.jpg" alt="scene_4"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 6: scene_5.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 31;">
-      <div class="page-front"><img src="scene_5.jpg" alt="scene_5"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 7: scene_6.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 30;">
-      <div class="page-front"><img src="scene_6.jpg" alt="scene_6"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 8: scene_7.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 29;">
-      <div class="page-front"><img src="scene_7.jpg" alt="scene_7"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 9: scene_8.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 28;">
-      <div class="page-front"><img src="scene_8.jpg" alt="scene_8"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 10: scene_9.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 27;">
-      <div class="page-front"><img src="scene_9.jpg" alt="scene_9"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 11: scene_10.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 26;">
-      <div class="page-front"><img src="scene_10.jpg" alt="scene_10"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 12: scene_11.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 25;">
-      <div class="page-front"><img src="scene_11.jpg" alt="scene_11"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 13: scene_12.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 24;">
-      <div class="page-front"><img src="scene_12.jpg" alt="scene_12"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 14: scene_13.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 23;">
-      <div class="page-front"><img src="scene_13.jpg" alt="scene_13"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 15: scene_14.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 22;">
-      <div class="page-front"><img src="scene_14.jpg" alt="scene_14"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 16: scene_15.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 21;">
-      <div class="page-front"><img src="scene_15.jpg" alt="scene_15"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 17: scene_16.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 20;">
-      <div class="page-front"><img src="scene_16.jpg" alt="scene_16"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 18: scene_17.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 19;">
-      <div class="page-front"><img src="scene_17.jpg" alt="scene_17"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 19: scene_18.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 18;">
-      <div class="page-front"><img src="scene_18.jpg" alt="scene_18"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 20: scene_19.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 17;">
-      <div class="page-front"><img src="scene_19.jpg" alt="scene_19"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 21: scene_20.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 16;">
-      <div class="page-front"><img src="scene_20.jpg" alt="scene_20"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 22: scene_21.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 15;">
-      <div class="page-front"><img src="scene_21.jpg" alt="scene_21"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 23: scene_22.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 14;">
-      <div class="page-front"><img src="scene_22.jpg" alt="scene_22"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 24: scene_23.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 13;">
-      <div class="page-front"><img src="scene_23.jpg" alt="scene_23"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 25: scene_24.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 12;">
-      <div class="page-front"><img src="scene_24.jpg" alt="scene_24"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 26: scene_25.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 11;">
-      <div class="page-front"><img src="scene_25.jpg" alt="scene_25"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 27: scene_26.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 10;">
-      <div class="page-front"><img src="scene_26.jpg" alt="scene_26"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 28: scene_27.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 9;">
-      <div class="page-front"><img src="scene_27.jpg" alt="scene_27"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 29: scene_28.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 8;">
-      <div class="page-front"><img src="scene_28.jpg" alt="scene_28"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 30: scene_29.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 7;">
-      <div class="page-front"><img src="scene_29.jpg" alt="scene_29"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 31: scene_30.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 6;">
-      <div class="page-front"><img src="scene_30.jpg" alt="scene_30"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 32: scene_31.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 5;">
-      <div class="page-front"><img src="scene_31.jpg" alt="scene_31"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 33: scene_32.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 4;">
-      <div class="page-front"><img src="scene_32.jpg" alt="scene_32"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 34: scene_33.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 3;">
-      <div class="page-front"><img src="scene_33.jpg" alt="scene_33"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 35: scene_34.jpg / 뒷면: 핑크하트 -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 2;">
-      <div class="page-front"><img src="scene_34.jpg" alt="scene_34"></div>
-      <div class="page-back album-left-heart"><div class="heart-icon">🤍</div></div>
-    </div>
-
-    <!-- Page 36: scene_35.jpg / 뒷면: 핑크하트 (최종 뒷표지) -->
-    <div class="book-page" onclick="flipPage(this)" style="z-index: 1;">
-      <div class="page-front"><img src="scene_35.jpg" alt="scene_35"></div>
-      <div class="page-back album-left-heart">
-        <div class="heart-icon">🤍</div>
-        <p class="back-text">THANK YOU</p>
-      </div>
+    <div class="modal-counter">
+      <span id="currentIndex">1</span> / <span id="totalIndex">35</span>
     </div>
   </div>
-
-  <div class="album-hint">페이지를 터치하면 넘어갑니다 📖</div>
 </div>
     
     <!-- 5. 신랑,신부 메시지 -->
@@ -2339,78 +2074,72 @@
   setInterval(updateDday, 1000);
 
   // ==========================================
-    // 4. 앨범 모달 로직 (모바일 터치 완벽 대응)
-    // ==========================================
-    let isOpening = false;
-    
-    function openAlbumModal(e) {
-      if (e) {
-        e.preventDefault(); // 모바일 중복 터치 이벤트 방지
-      }
-      
-      if (isOpening) return;
-      isOpening = true;
-    
-      const modal = document.getElementById('albumModal');
-      if (modal) {
-        modal.classList.add('active');
-      }
-    
-      setTimeout(() => {
-        isOpening = false;
-      }, 300);
-    }
-    
-    function flipPage(element) {
-      element.classList.toggle('flipped');
-      
-      const bookEl = element.closest('.book-container');
-      const pages = bookEl.querySelectorAll('.book-page');
-    
-      // 애니메이션 시간(0.8초)이 끝난 직후 z-index 순서를 정리하여 미리 보이는 현상 방지
-      setTimeout(() => {
-        pages.forEach((page, index) => {
-          if (page.classList.contains('flipped')) {
-            page.style.zIndex = index + 1;
-          } else {
-            page.style.zIndex = pages.length - index;
-          }
-        });
-      }, 400);
-    
-      const firstPage = pages[0];
-      if (firstPage && firstPage.classList.contains('flipped')) {
-        bookEl.classList.add('opened');
-      } else if (bookEl) {
-        bookEl.classList.remove('opened');
-      }
-    }
-    
-    function closeAlbumModal() {
-      const modal = document.getElementById('albumModal');
-      if (modal) {
-        modal.classList.remove('active');
-        setTimeout(() => {
-          const pages = document.querySelectorAll('.book-page');
-          pages.forEach(page => page.classList.remove('flipped'));
-          const bookEl = document.querySelector('.book-container');
-          if (bookEl) {
-            bookEl.classList.remove('opened');
-          }
-        }, 300);
-      }
-    }
+// 4. 앨범 모달 로직 (기본 슬라이더 형태)
+// ==========================================
 
-    // DOM 로드 완료 후 모바일 전용 이벤트 추가 바인딩 (안전장치)
-    document.addEventListener('DOMContentLoaded', () => {
-      const albumBtn = document.querySelector('.album-cover-btn');
-      if (albumBtn) {
-        albumBtn.addEventListener('touchend', (e) => {
-          e.preventDefault();
-          openAlbumModal();
-        });
-      }
+// 앨범 사진 파일 목록 (scene_1.jpg ~ scene_35.jpg)
+const albumImages = Array.from({ length: 35 }, (_, i) => `scene_${i + 1}.jpg`);
+let currentSlideIndex = 0;
+
+function updateModalImage() {
+  const imgEl = document.getElementById('modalImg');
+  const indexEl = document.getElementById('currentIndex');
+  
+  if (imgEl) {
+    imgEl.src = albumImages[currentSlideIndex];
+  }
+  if (indexEl) {
+    indexEl.textContent = currentSlideIndex + 1;
+  }
+}
+
+function openAlbumModal(e) {
+  if (e) e.stopPropagation();
+  
+  const modal = document.getElementById('albumModal');
+  const totalEl = document.getElementById('totalIndex');
+  
+  if (totalEl) {
+    totalEl.textContent = albumImages.length;
+  }
+  
+  currentSlideIndex = 0; // 모달을 열 때 첫 번째 사진부터 시작
+  updateModalImage();
+  
+  if (modal) {
+    modal.classList.add('active');
+  }
+}
+
+function closeAlbumModal() {
+  const modal = document.getElementById('albumModal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
+}
+
+function prevSlide(e) {
+  if (e) e.stopPropagation();
+  currentSlideIndex = (currentSlideIndex - 1 + albumImages.length) % albumImages.length;
+  updateModalImage();
+}
+
+function nextSlide(e) {
+  if (e) e.stopPropagation();
+  currentSlideIndex = (currentSlideIndex + 1) % albumImages.length;
+  updateModalImage();
+}
+
+// 모바일 터치 이벤트 바인딩 (안전장치)
+document.addEventListener('DOMContentLoaded', () => {
+  const albumBtn = document.querySelector('.album-cover-btn');
+  if (albumBtn) {
+    albumBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      openAlbumModal(e);
     });
+  }
+});
 
   // ==========================================
   // 5. BGM 오디오 제어 로직
