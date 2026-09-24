@@ -47,6 +47,16 @@
       font-display: swap;
     }
 
+    /* EF_jejudoldam 폰트 추가 */
+    @font-face {
+      font-family: 'EF_jejudoldam';
+      src: url('EF_jejudoldam(TTF).woff2') format('woff2'),
+           url('EF_jejudoldam(TTF).ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -189,32 +199,34 @@
     }
     
     /* 3. 초대글 본문 문구 스타일 (CSS 줄눈 생성 적용) */
-    .letter-text-main {
-      font-family: 'Nanum DdarEGeEomMaGa', 'Nanum Pen Script', cursive, sans-serif;
-      font-size: 23px;
-      line-height: 38px; /* 🔥 글자 줄높이 */
-      letter-spacing: 0.02em;
-      color: #000000;
-      text-align: center;
-      -webkit-text-stroke: 0.5px #000000;
-      width: 80%;
-      margin-top: 190px;
-    
-      /* 🔥 CSS로 38px 간격의 편지지 연회색 줄눈 반복 생성 */
-      background-image: linear-gradient(to bottom, transparent 37px, #EDE3DF 37px);
-      background-size: 100% 38px; /* line-height(38px)와 완벽히 일치하게 설정 */
-      background-position: 0 0;
-    }
-    
-    /* 문단 간격도 줄눈 간격(38px)의 배수로 맞춰 어긋남 방지 */
-    .letter-text-main p {
-      margin-bottom: 38px; /* 한 줄 공백 */
-    }
-    
-    .letter-text-main p:last-child {
-      margin-bottom: 0;
-    }
-
+      .letter-text-main {
+        font-family: 'Nanum DdarEGeEomMaGa', 'Nanum Pen Script', cursive, sans-serif;
+        font-size: 23px;
+        line-height: 38px; /* 🔥 글자 줄높이 */
+        letter-spacing: 0.02em;
+        color: #000000;
+        text-align: center;
+        -webkit-text-stroke: 0.5px #000000;
+        width: 66%;
+        
+        /* 🔥 상단 여백 및 오른쪽으로 20px 이동 지정 */
+        margin-top: 190px;
+        transform: translateX(20px); /* 전체 박스(글자+줄눈)를 오른쪽으로 20px 이동 */
+      
+        /* 🔥 CSS로 38px 간격의 편지지 연회색 줄눈 반복 생성 */
+        background-image: linear-gradient(to bottom, transparent 37px, #EDE3DF 37px);
+        background-size: 100% 38px; /* line-height(38px)와 완벽히 일치하게 설정 */
+        background-position: 0 0;
+      }
+      
+      /* 문단 간격도 줄눈 간격(38px)의 배수로 맞춰 어긋남 방지 */
+      .letter-text-main p {
+        margin-bottom: 38px; /* 한 줄 공백 */
+      }
+      
+      .letter-text-main p:last-child {
+        margin-bottom: 0;
+      }
     /* [섹션 3] 부모님 편지 및 어릴적 사진 섹션 */
     .sec3-container {
       position: relative;
