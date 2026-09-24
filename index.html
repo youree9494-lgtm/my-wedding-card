@@ -424,6 +424,12 @@
       margin-top: 20px;
     }
 
+    /* 주변 영역 요소들이 앨범 버튼 클릭을 방지하지 않도록 설정 */
+    .click-me-wrapper,
+    .purple-arrow {
+      pointer-events: none;
+    }
+
     /* ==========================================
    앨범 이동 및 확대 방지 추가 CSS
    ========================================== */
@@ -450,23 +456,23 @@
 
     /* 3D Flip Book Modal */
     .album-modal {
-  display: none; /* 기본 상태에서는 보이지 않도록 절대 설정 */
-  position: fixed !important; /* 화면에 항상 고정 */
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background-color: rgba(0, 0, 0, 0.85);
-  z-index: 99999 !important; /* 메인 화면 맨 위에 떠 있도록 설정 */
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(5px);
-}
-
-/* active 클래스가 추가되었을 때만 화면에 노출 */
-.album-modal.active {
-  display: flex !important;
-}
+      display: none; /* 기본 상태에서는 보이지 않도록 절대 설정 */
+      position: fixed !important; /* 화면에 항상 고정 */
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background-color: rgba(0, 0, 0, 0.85);
+      z-index: 99999 !important; /* 메인 화면 맨 위에 떠 있도록 설정 */
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+    
+    /* active 클래스가 추가되었을 때만 화면에 노출 */
+    .album-modal.active {
+      display: flex !important;
+    }
 
     .modal-close-btn {
       position: absolute;
@@ -479,25 +485,25 @@
     }
 
     .book-container {
-  width: 320px;
-  height: 440px;
-  position: relative;
-  perspective: 1500px;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateX(0);
-}
-
-/* 펼쳐졌을 때 이동 (모바일/PC 구분) */
-.book-container.opened {
-  transform: translateX(25%);
-}
-
-/* 화면 가로가 좁은 모바일 화면 대응 */
-@media screen and (max-width: 600px) {
-  .book-container.opened {
-    transform: translateX(15%); /* 모바일 화면에서는 잘리지 않도록 이동량 조절 */
-  }
-}
+        width: 320px;
+        height: 440px;
+        position: relative;
+        perspective: 1500px;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateX(0);
+      }
+      
+      /* 펼쳐졌을 때 이동 (모바일/PC 구분) */
+      .book-container.opened {
+        transform: translateX(25%);
+      }
+      
+      /* 화면 가로가 좁은 모바일 화면 대응 */
+      @media screen and (max-width: 600px) {
+        .book-container.opened {
+          transform: translateX(15%); /* 모바일 화면에서는 잘리지 않도록 이동량 조절 */
+        }
+      }
 
     .book-page {
       width: 100%;
@@ -1666,6 +1672,46 @@
         </div>
       </div>
     </div> 
+
+    <!-- ★ [복구 필요] 3D 입체 플립 앨범 모달 구조 ★ -->
+    <div id="albumModal" class="album-modal">
+      <div class="modal-close-btn" onclick="closeAlbumModal()">&times;</div>
+      
+      <div class="book-container">
+        <!-- Page 1 (표지 / 1페이지) -->
+        <div class="book-page" onclick="flipPage(this)" style="z-index: 5;">
+          <div class="page-front">
+            <img src="album_cover.png" alt="앨범 표지">
+          </div>
+          <div class="page-back">
+            <img src="album_01.png" alt="앨범 1페이지">
+          </div>
+        </div>
+    
+        <!-- Page 2 (2페이지 / 3페이지) -->
+        <div class="book-page" onclick="flipPage(this)" style="z-index: 4;">
+          <div class="page-front">
+            <img src="album_02.png" alt="앨범 2페이지">
+          </div>
+          <div class="page-back">
+            <img src="album_03.png" alt="앨범 3페이지">
+          </div>
+        </div>
+    
+        <!-- Page 3 (4페이지 / 뒷표지) -->
+        <div class="book-page" onclick="flipPage(this)" style="z-index: 3;">
+          <div class="page-front">
+            <img src="album_04.png" alt="앨범 4페이지">
+          </div>
+          <div class="page-back">
+            <img src="album_back.png" alt="앨범 뒷표지">
+          </div>
+        </div>
+      </div>
+    
+      <div class="album-hint">페이지를 터치하면 넘어갑니다 📖</div>
+    </div>
+    
     <!-- 5. 신랑,신부 메시지 -->
     <section class="section5">
       <div class="sec5-container">
