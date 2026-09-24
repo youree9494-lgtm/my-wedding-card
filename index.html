@@ -2010,27 +2010,35 @@
   const targetDate = new Date("2026-11-14T17:20:00").getTime();
   let isPlaying = false;
 
-  // ==========================================
-  // 2. DOMContentLoaded (페이지 로드 시 초기화)
-  // ==========================================
-  document.addEventListener("DOMContentLoaded", function () {
-    // [지도 로드]
-    const latitude = 37.517332;
-    const longitude = 126.724128;
-    const mapContainer = document.getElementById('map');
-    
-    if (mapContainer && typeof kakao !== 'undefined' && kakao.maps) {
-      kakao.maps.load(function() {
-        const mapOption = {
-          center: new kakao.maps.LatLng(latitude, longitude),
-          level: 3
-        };
-        const map = new kakao.maps.Map(mapContainer, mapOption);
-        const markerPosition = new kakao.maps.LatLng(latitude, longitude);
-        const marker = new kakao.maps.Marker({ position: markerPosition });
-        marker.setMap(map);
-      });
-    }
+ window.addEventListener('load', function () {
+  const latitude = 37.517332;
+  const longitude = 126.724128;
+  const mapContainer = document.getElementById('map');
+
+  if (!mapContainer) return;
+// 지도 영
+  // kakao 객체 로드 여부 확인
+  if (typeof kakao !== 'undefined' && kakao.maps) {
+    kakao.maps.load(function () {
+      const mapOption = {
+        center: new kakao.maps.LatLng(latitude, longitude),
+        level: 3
+      };
+      const map = new kakao.maps.Map(mapContainer, mapOption);
+      const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+      const marker = new kakao.maps.Marker({ position: markerPosition });
+      marker.setMap(map);
+
+      // 렌더링 직후 지도 크기 및 정중앙 재설정
+      setTimeout(function () {
+        map.relayout();
+        map.setCenter(markerPosition);
+      }, 200);
+    });
+  } else {
+    console.error("카카오 지도 SDK가 정상적으로 로드되지 않았습니다.");
+  }
+});
 
     // [방명록 렌더링]
     renderGuestbook();
