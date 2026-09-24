@@ -1146,18 +1146,19 @@
       background-color: #EFEFEF;
     }
 
-    /* ==========================================
+   /* ==========================================
    Section 10: 방명록 (Guestbook Section)
    ========================================== */
 
     .guestbook-section {
-      width: auto;
-      height: 800px;
+      width: 100%;
+      min-height: 800px;             /* 🔥 fixed height 대신 min-height 사용 */
       padding: 50px 40px 60px 40px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-between;/* 🔥 내부 요소를 위-중앙-아래 일정하게 배치 */
       background-image: url('sec10_bg.png');
       background-size: cover;        /* 이미지를 요소에 맞춰 꽉 채움 */
       background-position: center;   /* 이미지를 중앙에 배치 */
@@ -1166,17 +1167,19 @@
     
     /* 1. 상단 타이틀 */
     .guestbook-title-container {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
     
-    /* 2. 방명록 목록 리스트 */
+    /* 2. 방명록 목록 리스트 (고정 영역) */
     .guestbook-list {
       width: 100%;
+      height: 510px;                 /* 🔥 min-height 대신 height 고정으로 높이 변화 방지 */
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;  /* 🔥 카드가 적어도 상단부터 정렬됨 */
       gap: 20px;
-      min-height: 510px; /* 4개 기준 영역 확보 */
-      margin-bottom: 25px;
+      margin-bottom: 0;
+      box-sizing: border-box;
     }
     
     /* 방명록 아이템 공통 레이아웃 */
@@ -1241,7 +1244,7 @@
       border-left: none;
     }
     
-    /* 말풍선 공통 스타일 (max-width 제약 제거) */
+    /* 말풍선 공통 스타일 */
     .gb-bubble {
       position: relative;
       background-color: #FFFFFF;
@@ -1249,7 +1252,6 @@
       border-radius: 18px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       word-break: break-word;
-      /* 기존 max-width: 75% 를 제거하여 flex: 1 이 정상 적용되도록 함 */
     }
     
     /* 방명록 텍스트 스펙 */
@@ -1268,78 +1270,78 @@
       color: #666666;
     }
     
-    /* 방명록 슬라이드/목록 컨테이너에 하단 여백 추가 (카드와 도트 간격 확보) */
-.guestbook-page-container,
-.guestbook-list,
-.guestbook-wrapper {
-  padding-bottom: 20px !important; /* 카드 아래쪽에 여백을 줘서 도트가 밀려나게 함 */
-}
+    /* 방명록 컨테이너 하단 여백 보정 */
+    .guestbook-page-container,
+    .guestbook-wrapper {
+      padding-bottom: 10px !important;
+    }
 
-/* 3. 페이지네이션 (도트) */
-.guestbook-pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 15px;    /* 🔥 상단 방명록 카드와의 여백 추가 */
-  margin-bottom: 25px; /* 하단 버튼 영역과의 여백 */
-  position: relative;  /* 🔥 위치 겹침 방지 */
-  z-index: 5;
-}
+    /* 3. 페이지네이션 (도트 고정 높이) */
+    .guestbook-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      min-height: 20px;     /* 🔥 도트 영역 고정 높이 확보 */
+      margin-top: 15px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 5;
+    }
 
-.gb-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #E2B2C9;
-  opacity: 0.5;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+    .gb-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #E2B2C9;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
 
-.gb-dot.active {
-  opacity: 1;
-  transform: scale(1.2);
-  background-color: #D780B5;
-}
+    .gb-dot.active {
+      opacity: 1;
+      transform: scale(1.2);
+      background-color: #D780B5;
+    }
 
-/* 4. 하단 버튼 영역 */
-.guestbook-btn-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-}
+    /* 4. 하단 버튼 영역 */
+    .guestbook-btn-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
 
-.btn-guestbook-write {
-  width: 180px;
-  height: 44px;
-  background-color: #D780B5;
-  color: #FFFFFF;
-  font-family: 'NanumSquare Neo', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(215, 128, 181, 0.3);
-  transition: background-color 0.2s ease;
-}
+    .btn-guestbook-write {
+      width: 180px;
+      height: 44px;
+      background-color: #D780B5;
+      color: #FFFFFF;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(215, 128, 181, 0.3);
+      transition: background-color 0.2s ease;
+    }
 
-.btn-guestbook-write:hover {
-  background-color: #C36FA2;
-}
+    .btn-guestbook-write:hover {
+      background-color: #C36FA2;
+    }
 
-.btn-guestbook-manage {
-  background: none;
-  border: none;
-  font-family: 'NanumSquare Neo', sans-serif;
-  font-size: 12px;
-  color: #888888;
-  text-decoration: underline;
-  cursor: pointer;
-}
+    .btn-guestbook-manage {
+      background: none;
+      border: none;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 12px;
+      color: #888888;
+      text-decoration: underline;
+      cursor: pointer;
+    }
 
     /* ==========================================
        공통 모달 (Modal UI)
@@ -1511,7 +1513,6 @@
       background-color: #FFF;
       cursor: pointer;
     }
-
     /* Section 11 스타일 */
     .section11 {
       background-color: #ffffff;
