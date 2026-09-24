@@ -112,7 +112,7 @@
     .header-section {
       position: relative;
       width: 100%;
-      background: url('sec1-bg.png') no-repeat center top / cover;
+      background: url('sec1-bg2.png') no-repeat center top / cover;
       min-height: 920px;
       display: flex;
       flex-direction: column;
@@ -757,7 +757,7 @@
     
     .dday-decor-heart-top {
       position: absolute;
-      top: 39px;
+      top: 20px;
       left: 61px;
       width: 39px;
       height: auto;
@@ -1802,21 +1802,21 @@
             <div class="bank-account-info">
               <p class="bank-account-text">농협 352-0431-3129-03<br>정철민</p>
             </div>
-            <button type="button" class="bank-copy-btn" onclick="copyAccount('352-0431-3129-03')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('농협 352-0431-3129-03')">복사하기</button>
           </div>
     
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">국민은행 228-24-0278-357<br>정기준</p>
             </div>
-            <button type="button" class="bank-copy-btn" onclick="copyAccount('228-24-0278-357')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('국민은행 228-24-0278-357')">복사하기</button>
           </div>
     
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">우리은행 1002-730-313767<br>이경화</p>
             </div>
-            <button type="button" class="bank-copy-btn" onclick="copyAccount('1002-730-313767')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('우리은행 1002-730-313767')">복사하기</button>
           </div>
         </div>
       </div>
@@ -1833,21 +1833,21 @@
             <div class="bank-account-info">
               <p class="bank-account-text">농협 130051-51-095784<br>최유리</p>
             </div>
-            <button type="button" class="bank-copy-btn" onclick="copyAccount('130051-51-095784')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('농협 130051-51-095784')">복사하기</button>
           </div>
     
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">국민은행 646801-01-269377<br>최만순</p>
             </div>
-            <button type="button" class="bank-copy-btn" onclick="copyAccount('646801-01-269377')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('국민은행 646801-01-269377')">복사하기</button>
           </div>
     
           <div class="bank-account-item">
             <div class="bank-account-info">
               <p class="bank-account-text">신한은행 110-32872-7772<br>경창희</p>
             </div>
-            <button type="button" class="bank-copy-btn" onclick="copyAccount('110-32872-7772')">복사하기</button>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('신한은행 110-32872-7772')">복사하기</button>
           </div>
         </div>
       </div>
@@ -2149,12 +2149,47 @@
   window.addEventListener('click', enableAudioOnInteraction, { once: true });
   window.addEventListener('scroll', enableAudioOnInteraction, { once: true });
 
-  function copyAccount(accountNumber) {
-    navigator.clipboard.writeText(accountNumber).then(() => {
-      alert("계좌번호가 복사되었습니다: " + accountNumber);
-    }).catch(err => {
-      alert("복사에 실패했습니다.");
-    });
+  // 계좌번호(은행명 포함) 복사 함수
+  function copyAccount(accountInfo) {
+    if (navigator.clipboard && window.isSecureContext) {
+      // 최신 브라우저 및 HTTPS 환경
+      navigator.clipboard.writeText(accountInfo)
+        .then(() => {
+          alert(`${accountInfo}\n계좌번호가 복사되었습니다. 💕`);
+        })
+        .catch(err => {
+          fallbackCopyAccount(accountInfo);
+        });
+    } else {
+      // 구형 브라우저 및 HTTP 환경 대응
+      fallbackCopyAccount(accountInfo);
+    }
+  }
+  
+  // 복사 실패 시 동작하는 fallback 함수
+  function fallbackCopyAccount(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+  
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        alert(`${text}\n계좌번호가 복사되었습니다. 💕`);
+      } else {
+        alert("복사에 실패했습니다. 직접 복사해 주세요.");
+      }
+    } catch (err) {
+      alert("복사에 실패했습니다. 직접 복사해 주세요.");
+    }
+  
+    document.body.removeChild(textArea);
   }
     //오시는길 - 주소 복사 전용 함수
   function copyToClipboard(text) {
