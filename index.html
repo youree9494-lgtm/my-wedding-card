@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- 하얀색 하트 파비콘 설정 -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤍</text></svg>">
-  <!-- 1. 카카오 지도 SDK 스크립트  -->
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_APP_KEY&libraries=services"></script>
+  <!-- 카카오 지도 API -->
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97efe4ac977cffdbea326517a6eb3adb&autoload=false"></script>
 
   <style>
     /* 1-1. FreakArt Personal Use */
@@ -596,16 +596,19 @@
       z-index: 4;
     }
     
+    /* [수정] 신부 편지 그룹 전체를 photo-black1(z-index: 4)보다 위로 올림 */
     .letter-yr-group {
       bottom: 37px;
       left: -1px;
       width: 432px;
-      z-index: 2;
+      z-index: 10; /* 2 -> 10으로 변경하여 사진 요소들보다 최상위 레이어로 설정 */
     }
     
     .letter-bg {
       width: 100%;
       display: block;
+      position: relative;
+      z-index: 1; /* 편지지 배경은 그룹 내 1번 레이어 */
     }
     
     .letter-text-img-yr {
@@ -616,7 +619,8 @@
       height: 100%;
       object-fit: contain;
     }
-
+    
+    /* [수정] 신부 편지 글씨 이미지를 그룹 내에서도 최상단으로 설정 */
     .letter-text-img-cm {
       position: absolute;
       top: 6px;
@@ -624,6 +628,7 @@
       width: 97%;
       height: 100%;
       object-fit: contain;
+      z-index: 2; /* 편지지 배경(z-index: 1)보다 앞으로 나오도록 설정 */
     }
 
     /* 6. 달력 섹션 */
