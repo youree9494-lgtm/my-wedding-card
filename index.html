@@ -2742,37 +2742,53 @@ window.addEventListener('scroll', enableAudioOnInteraction, { passive: true });
   });
 
   // ==========================================
-  // 9. 카카오 지도 초기화 및 마커 생성
-  // ==========================================
-  function initKakaoMap() {
-    const container = document.getElementById('map');
-    if (!container) return;
+// 9. 카카오 지도 초기화 및 마커 생성
+// ==========================================
+function initKakaoMap() {
+  const container = document.getElementById('map');
+  if (!container) return;
 
-    const lat = 37.5158768;  // 위도
-    const lng = 126.7224966; // 경도
-    const options = {
-      center: new kakao.maps.LatLng(lat, lng),
-      level: 3
-    };
+  const lat = 37.5158768;  // 위도
+  const lng = 126.7224966; // 경도
+  const options = {
+    center: new kakao.maps.LatLng(lat, lng),
+    level: 3
+  };
 
-    const map = new kakao.maps.Map(container, options);
-    const markerPosition = new kakao.maps.LatLng(lat, lng);
-    const marker = new kakao.maps.Marker({
-      position: markerPosition
-    });
+  const map = new kakao.maps.Map(container, options);
+  const markerPosition = new kakao.maps.LatLng(lat, lng);
 
-    marker.setMap(map);
-  }
+  // 1. #D780B5 색상의 SVG 핀 마커 정의
+  const customMarkerSvg = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+  <svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 0C7.163 0 0 7.163 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.163 24.837 0 16 0Z" fill="#D780B5"/>
+    <circle cx="16" cy="16" r="6" fill="#FFFFFF"/>
+  </svg>
+  `);
 
-  if (window.kakao && window.kakao.maps) {
-    kakao.maps.load(initKakaoMap);
-  } else {
-    window.addEventListener('load', () => {
-      if (window.kakao && window.kakao.maps) {
-        kakao.maps.load(initKakaoMap);
-      }
-    });
-  }
+  // 2. 마커 이미지 설정 (32x42px 크기, 하단 중앙 기준점)
+  const imageSize = new kakao.maps.Size(32, 42);
+  const imageOption = { offset: new kakao.maps.Point(16, 42) };
+  const markerImage = new kakao.maps.MarkerImage(customMarkerSvg, imageSize, imageOption);
+
+  // 3. 커스텀 마커 생성
+  const marker = new kakao.maps.Marker({
+    position: markerPosition,
+    image: markerImage // 핑크색 커스텀 마커 적용
+  });
+
+  marker.setMap(map);
+}
+
+if (window.kakao && window.kakao.maps) {
+  kakao.maps.load(initKakaoMap);
+} else {
+  window.addEventListener('load', () => {
+    if (window.kakao && window.kakao.maps) {
+      kakao.maps.load(initKakaoMap);
+    }
+  });
+}
 </script>
 </body>
 </html>
