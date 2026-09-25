@@ -1062,7 +1062,27 @@
       margin-bottom: 0;
     }
 
-       /* ==========================================
+    /* 주차장 찾기 버튼 스타일 */
+    .parking-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      color: #ffffff;
+      background-color: #8A9A86; /* 원하는 버튼 색상으로 변경 가능 */
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    
+    /* 버튼 클릭 및 호버 효과 */
+    .parking-btn:active {
+      transform: scale(0.97);
+      background-color: #788874;
+    }
+
+  /* ==========================================
    Section 9: 마음 전하실 곳 (Bank Section)
    ========================================== */
 
@@ -1907,6 +1927,9 @@
             <p>갈산역(40601) 정류장 하차</p>
           </div>
         </div>
+          <!-- 주차장 찾기 버튼 추가 -->
+          <a href="https://m.site.naver.com/1TZYx" target="_blank" rel="noopener noreferrer" class="parking-btn">
+        주차장 찾기 🚗
       </div>
     </section>
 
