@@ -2437,8 +2437,11 @@ window.addEventListener('scroll', enableAudioOnInteraction, { passive: true });
   }
 
   // ==========================================
-  // 7. 방명록 로직 (Firebase 데이터베이스 연동 & 스와이프 기능)
+  // 7. 방명록 로직 (CSS 580px 동적 높이 계산 페이징)
   // ==========================================
+  
+  let pageRanges = []; // 각 페이지에 담길 [startIdx, endIdx] 저장 배열
+  
   function initGuestbookListener() {
     db.collection("guestbook")
       .orderBy("createdAt", "desc")
@@ -2447,6 +2450,8 @@ window.addEventListener('scroll', enableAudioOnInteraction, { passive: true });
           id: doc.id,
           ...doc.data()
         }));
+        
+        calculatePages(); // 데이터 수신 시 페이지 범위 계산
         renderGuestbook();
         
         const manageModal = document.getElementById('manageModal');
@@ -2457,49 +2462,126 @@ window.addEventListener('scroll', enableAudioOnInteraction, { passive: true });
         console.error("방명록 로딩 중 오류 발생:", error);
       });
   }
-
+  
+  // 💡 CSS 스펙(580px 고정 높이, 16px gap)에 맞춰 페이지 범위를 동적으로 계산하는 함수
+  function calculatePages() {
+    pageRanges = [];
+    if (!guestbookData || guestbookData.length === 0) return;
+  
+    const listEl = document.getElementById('guestbookList') || document.querySelector('.guestbook-list');
+    const containerWidth = listEl ? (listEl.clientWidth || 300) : 300;
+    const maxAllowedHeight = 580; // CSS .guestbook-list의 고정 높이
+    const itemGap = 16;          // CSS gap: 16px
+  
+    // 실측용 임시 렌더링 컨테이너 생성
+    const tempContainer = document.createElement('div');
+    tempContainer.style.cssText = `
+      position: absolute;
+      visibility: hidden;
+      pointer-events: none;
+      left: -9999px;
+      width: ${containerWidth}px;
+      display: flex;
+      flex-direction: column;
+      gap: ${itemGap}px;
+      box-sizing: border-box;
+    `;
+    document.body.appendChild(tempContainer);
+  
+    let startIndex = 0;
+  
+    while (startIndex < guestbookData.length) {
+      tempContainer.innerHTML = '';
+      let currentTotalHeight = 0;
+      let endIndex = startIndex;
+  
+      for (let i = startIndex; i < guestbookData.length; i++) {
+        const item = guestbookData[i];
+        const isRight = i % 2 === 0;
+        const directionClass = isRight ? 'right' : 'left';
+        const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
+  
+        const tempItem = document.createElement('div');
+        tempItem.className = `gb-item ${directionClass}`;
+        tempItem.innerHTML = `
+          <div class="gb-avatar">${avatar}</div>
+          <div class="gb-bubble">
+            <div class="gb-text">${escapeHtml(item.text)}</div>
+            <div class="gb-author">-${escapeHtml(item.author)}-</div>
+          </div>
+        `;
+        tempContainer.appendChild(tempItem);
+  
+        const itemHeight = tempItem.offsetHeight;
+        const addedGap = (i > startIndex) ? itemGap : 0; // 첫 항목 이후부터 gap(16px) 누적
+        
+        // 높이 초과 여부 판단 (단, 페이지당 최소 1개는 무조건 포함)
+        if (currentTotalHeight + itemHeight + addedGap > maxAllowedHeight && i > startIndex) {
+          break;
+        }
+  
+        currentTotalHeight += (itemHeight + addedGap);
+        endIndex = i;
+      }
+  
+      pageRanges.push({ start: startIndex, end: endIndex });
+      startIndex = endIndex + 1;
+    }
+  
+    document.body.removeChild(tempContainer);
+  }
+  
   function renderGuestbook() {
-    const listEl = document.getElementById('guestbookList');
-    const paginationEl = document.getElementById('guestbookPagination');
+    const listEl = document.getElementById('guestbookList') || document.querySelector('.guestbook-list');
+    const paginationEl = document.getElementById('guestbookPagination') || document.querySelector('.guestbook-pagination');
     
     if (!listEl || !paginationEl) return;
-
+  
     listEl.innerHTML = '';
     paginationEl.innerHTML = '';
-
-    const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
+  
+    if (pageRanges.length === 0 && guestbookData.length > 0) {
+      calculatePages();
+    }
+  
+    const totalPages = pageRanges.length || 1;
     if (currentPage > totalPages) currentPage = totalPages;
-
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
-    pageItems.forEach((item, index) => {
-      const isRight = index % 2 === 0;
-      const directionClass = isRight ? 'right' : 'left';
-      const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
-
-      const itemEl = document.createElement('div');
-      itemEl.className = `gb-item ${directionClass}`;
-      
-      itemEl.innerHTML = `
-        <div class="gb-avatar">${avatar}</div>
-        <div class="gb-bubble">
-          <div class="gb-text">${escapeHtml(item.text)}</div>
-          <div class="gb-author">-${escapeHtml(item.author)}-</div>
-        </div>
-      `;
-      listEl.appendChild(itemEl);
-    });
-
-    if (guestbookData.length > ITEMS_PER_PAGE) {
+    if (currentPage < 1) currentPage = 1;
+  
+    const currentRange = pageRanges[currentPage - 1] || { start: 0, end: Math.max(0, guestbookData.length - 1) };
+    
+    if (guestbookData.length > 0) {
+      const pageItems = guestbookData.slice(currentRange.start, currentRange.end + 1);
+  
+      pageItems.forEach((item, index) => {
+        const globalIndex = currentRange.start + index;
+        const isRight = globalIndex % 2 === 0;
+        const directionClass = isRight ? 'right' : 'left';
+        const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
+  
+        const itemEl = document.createElement('div');
+        itemEl.className = `gb-item ${directionClass}`;
+        itemEl.innerHTML = `
+          <div class="gb-avatar">${avatar}</div>
+          <div class="gb-bubble">
+            <div class="gb-text">${escapeHtml(item.text)}</div>
+            <div class="gb-author">-${escapeHtml(item.author)}-</div>
+          </div>
+        `;
+        listEl.appendChild(itemEl);
+      });
+    }
+  
+    // 페이지네이션 도트 생성
+    if (totalPages > 1) {
       const maxVisibleDots = 5;
       let startPage = Math.max(1, currentPage - Math.floor(maxVisibleDots / 2));
       let endPage = Math.min(totalPages, startPage + maxVisibleDots - 1);
-
+  
       if (endPage - startPage + 1 < maxVisibleDots) {
         startPage = Math.max(1, endPage - maxVisibleDots + 1);
       }
-
+  
       for (let i = startPage; i <= endPage; i++) {
         const dot = document.createElement('div');
         dot.className = `gb-dot ${i === currentPage ? 'active' : ''}`;
@@ -2509,6 +2591,21 @@ window.addEventListener('scroll', enableAudioOnInteraction, { passive: true });
         };
         paginationEl.appendChild(dot);
       }
+    }
+  }
+  
+  function goToNextPage() {
+    const totalPages = pageRanges.length || 1;
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderGuestbook();
+    }
+  }
+  
+  function goToPrevPage() {
+    if (currentPage > 1) {
+      currentPage--;
+      renderGuestbook();
     }
   }
 
