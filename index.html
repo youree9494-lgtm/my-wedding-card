@@ -2139,16 +2139,14 @@
   });
 
  // ==========================================
-// 3. D-Day 타이머 로직
+// 3. D-Day 타이머 로직 (중복 오류 해결 버전)
 // ==========================================
-
-// targetDate를 연도, 월(0부터 시작하므로 11월은 10), 일, 시, 분, 초로 정확히 지정
-// (예: 2026년 11월 14일 17시 20분 00초)
-const targetDate = new Date(2026, 10, 14, 17, 20, 0).getTime();
-
 function updateDday() {
+  // 예식 일시: 2026년 11월 14일 17시 20분
+  const targetDate = new Date("2026-11-14T17:20:00").getTime();
   const now = new Date().getTime();
   const distance = targetDate - now;
+
   const timerElement = document.getElementById("ddayTimer");
   const daysElement = document.getElementById("ddayDays");
 
@@ -2158,7 +2156,6 @@ function updateDday() {
     return;
   }
 
-  // 남은 날짜 계산 (Math.ceil 또는 Math.floor 선택)
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
