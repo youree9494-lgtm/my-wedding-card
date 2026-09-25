@@ -1725,7 +1725,7 @@
       
       <div class="parents-title">
         최만순 &amp; 경창희의 <br>&nbsp;&nbsp;딸
-        <span class="child-name">&nbsp;&nbsp;최유리</span>
+        <span class="child-name">&nbsp;최유리</span>
       </div>
       
       <!-- 오른쪽 상단: 엄마와 함께 찍은 사진 -->
@@ -2284,52 +2284,65 @@ setInterval(updateDday, 1000);
   });
 
   // ==========================================
-  // 5. BGM 오디오 제어 로직
-  // ==========================================
-  function playAudio() {
-    const bgm = document.getElementById('bgm');
-    const bgmBtn = document.getElementById('bgmBtn');
-    
-    if (!isPlaying && bgm) {
-      bgm.play().then(() => {
-        isPlaying = true;
-        if (bgmBtn) bgmBtn.classList.add('playing');
-      }).catch(err => {
-        console.warn("BGM 재생 실패:", err);
-        isPlaying = false;
-      });
-    }
-  }
+// 5. BGM 오디오 제어 로직
+// ==========================================
+let isPlaying = false;
+let userManuallyPaused = false; // 사용자가 직접 껐는지 여부 체크 플래그
 
-  function toggleBgm() {
-    const bgm = document.getElementById('bgm');
-    const bgmBtn = document.getElementById('bgmBtn');
-    
-    if (isPlaying) {
-      if (bgm) bgm.pause();
-      if (bgmBtn) bgmBtn.classList.remove('playing');
-      isPlaying = false;
-    } else {
-      playAudio();
-    }
-  }
-
-  const enableAudioOnInteraction = () => {
-    const bgm = document.getElementById('bgm');
-    if (!bgm) return;
-
+function playAudio() {
+  const bgm = document.getElementById('bgm');
+  const bgmBtn = document.getElementById('bgmBtn');
+  
+  if (!isPlaying && bgm && !userManuallyPaused) {
     bgm.play().then(() => {
       isPlaying = true;
-      const bgmBtn = document.getElementById('bgmBtn');
       if (bgmBtn) bgmBtn.classList.add('playing');
+    }).catch(err => {
+      console.warn("BGM 재생 실패:", err);
+      isPlaying = false;
+    });
+  }
+}
 
-      window.removeEventListener('touchstart', enableAudioOnInteraction);
-      window.removeEventListener('click', enableAudioOnInteraction);
-    }).catch(() => {});
-  };
+function toggleBgm() {
+  const bgm = document.getElementById('bgm');
+  const bgmBtn = document.getElementById('bgmBtn');
+  
+  if (isPlaying) {
+    if (bgm) bgm.pause();
+    if (bgmBtn) bgmBtn.classList.remove('playing');
+    isPlaying = false;
+    userManuallyPaused = true; // 🔥 사용자가 직접 음악을 껐음을 기록
+    
+    // 사용자가 직접 껐으므로 화면 터치 시 자동 재생되는 이벤트 제거
+    window.removeEventListener('touchstart', enableAudioOnInteraction);
+    window.removeEventListener('click', enableAudioOnInteraction);
+  } else {
+    userManuallyPaused = false; // 다시 켰을 때는 수동 끄기 해제
+    playAudio();
+  }
+}
 
-  window.addEventListener('touchstart', enableAudioOnInteraction);
-  window.addEventListener('click', enableAudioOnInteraction);
+const enableAudioOnInteraction = () => {
+  // 사용자가 직접 끈 상태라면 클릭하더라도 재생하지 않음
+  if (userManuallyPaused) return;
+
+  const bgm = document.getElementById('bgm');
+  if (!bgm) return;
+
+  bgm.play().then(() => {
+    isPlaying = true;
+    const bgmBtn = document.getElementById('bgmBtn');
+    if (bgmBtn) bgmBtn.classList.add('playing');
+
+    // 한 번 재생에 성공했으면 터치/클릭 이벤트 제거
+    window.removeEventListener('touchstart', enableAudioOnInteraction);
+    window.removeEventListener('click', enableAudioOnInteraction);
+  }).catch(() => {});
+};
+
+window.addEventListener('touchstart', enableAudioOnInteraction);
+window.addEventListener('click', enableAudioOnInteraction);
 
   // ==========================================
   // 6. 클립보드 복사 기능
