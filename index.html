@@ -2284,79 +2284,51 @@ setInterval(updateDday, 1000);
   });
 
   // ==========================================
-// 5. BGM 오디오 제어 로직 (최종 안정화 버전)
-// ==========================================
-let isPlaying = false;
-let userManuallyPaused = false;
-
-// 1. 이벤트 제거 함수 (안전하게 일괄 제거)
-function removeBgmInteractionListeners() {
-  window.removeEventListener('touchstart', handleFirstInteraction);
-  window.removeEventListener('click', handleFirstInteraction);
-  window.removeEventListener('scroll', handleFirstInteraction);
-}
-
-// 2. 최초 화면 터치/스크롤 시 BGM 자동 재생 처리
-function handleFirstInteraction() {
-  if (userManuallyPaused || isPlaying) return;
-
-  const bgm = document.getElementById('bgm');
-  if (!bgm) return;
-
-  bgm.play().then(() => {
-    isPlaying = true;
+  // 5. BGM 오디오 제어 로직
+  // ==========================================
+  function playAudio() {
+    const bgm = document.getElementById('bgm');
     const bgmBtn = document.getElementById('bgmBtn');
-    if (bgmBtn) bgmBtn.classList.add('playing');
-    
-    // 재생 성공 시에만 인터랙션 이벤트 제거
-    removeBgmInteractionListeners();
-  }).catch(() => {
-    // 자동재생 실패 시에는 다음 터치를 위해 이벤트를 남겨둠
-  });
-}
 
-// 3. BGM 재생 함수
-function playAudio() {
-  const bgm = document.getElementById('bgm');
-  const bgmBtn = document.getElementById('bgmBtn');
-
-  if (!bgm) return;
-
-  bgm.play().then(() => {
-    isPlaying = true;
-    userManuallyPaused = false;
-    if (bgmBtn) bgmBtn.classList.add('playing');
-    removeBgmInteractionListeners();
-  }).catch(err => {
-    console.warn("BGM 재생 실패:", err);
-    isPlaying = false;
-  });
-}
-
-// 4. BGM 버튼 토글 함수 (버튼 클릭 시 실행)
-function toggleBgm() {
-  const bgm = document.getElementById('bgm');
-  const bgmBtn = document.getElementById('bgmBtn');
-
-  if (!bgm) return;
-
-  if (isPlaying) {
-    bgm.pause();
-    isPlaying = false;
-    userManuallyPaused = true; // 사용자가 직접 끔
-    if (bgmBtn) bgmBtn.classList.remove('playing');
-    removeBgmInteractionListeners(); // 수동으로 껐으므로 자동재생 감지 해제
-  } else {
-    userManuallyPaused = false; // 다시 켬
-    playAudio();
+    if (!isPlaying && bgm) {
+      bgm.play().then(() => {
+        isPlaying = true;
+        if (bgmBtn) bgmBtn.classList.add('playing');
+      }).catch(err => {
+        console.warn("BGM 재생 실패:", err);
+        isPlaying = false;
+      });
+    }
   }
-}
 
-// 5. 이벤트 등록 (passive 옵션으로 터치/스크롤 딜레이 및 먹통 현상 방지)
-window.addEventListener('touchstart', handleFirstInteraction, { passive: true });
-window.addEventListener('click', handleFirstInteraction);
-window.addEventListener('scroll', handleFirstInteraction, { passive: true });
-  
+  function toggleBgm() {
+    const bgm = document.getElementById('bgm');
+    const bgmBtn = document.getElementById('bgmBtn');
+
+    if (isPlaying) {
+      if (bgm) bgm.pause();
+      if (bgmBtn) bgmBtn.classList.remove('playing');
+      isPlaying = false;
+    } else {
+      playAudio();
+    }
+  }
+
+  const enableAudioOnInteraction = () => {
+    const bgm = document.getElementById('bgm');
+    if (!bgm) return;
+
+    bgm.play().then(() => {
+      isPlaying = true;
+      const bgmBtn = document.getElementById('bgmBtn');
+      if (bgmBtn) bgmBtn.classList.add('playing');
+      window.removeEventListener('touchstart', enableAudioOnInteraction);
+      window.removeEventListener('click', enableAudioOnInteraction);
+    }).catch(() => {});
+  };
+
+  window.addEventListener('touchstart', enableAudioOnInteraction);
+  window.addEventListener('click', enableAudioOnInteraction);
   // ==========================================
   // 6. 클립보드 복사 기능
   // ==========================================
