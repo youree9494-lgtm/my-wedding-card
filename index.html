@@ -2,75 +2,2793 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>철민 & 유리 청첩장</title>
-  
-  <!-- 구글 폰트 (Gamja Flower - 감자꽃 폰트) 불러오기 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>정철민 · 최유리 결혼합니다</title>
+  <!-- 공유용 제목 (타이틀) -->
+  <meta property="og:title" content="정철민 · 최유리 결혼합니다🕊️">
+  <!-- 공유용 설명 (서브타이틀) -->
+  <meta property="og:description" content="2026.11.14 토요일 오후 5시 20분 | 인천 웨스턴팰리스 팰리스홀">
+  <!-- 공유용 썸네일 이미지 (필수) -->
+  <meta property="og:image" content="https://youree9494-lgtm.github.io/my-wedding-card/sec1-bg.png">
+  <!-- FontAwesome 아이콘 라이브러리 (하트 및 음표) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- 하얀색 하트 파비콘 설정 -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤍</text></svg>">
+  <!-- 카카오 지도 API (https: 추가) -->
+  <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=97efe4ac977cffdbea326517a6eb3adb&autoload=false"></script>
+  <!-- Firebase SDK (Version 9+) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
+  
   <style>
-    body {
+   /* 1-1. FreakArt Personal Use (서버에 ttf만 있으므로 ttf만 지정) */
+    @font-face {
+      font-family: 'FreakArt Personal Use';
+      src: url('FreakArt-Personal-Use.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    /* 1-2. GriunXHangeul Gowoon (서버에 woff2와 ttf가 있으므로 확장자 수정) */
+    @font-face {
+      font-family: 'GriunXHangeul Gowoon';
+      src: url('GriunXHangeul_Gowoon-Rg.woff2') format('woff2'),
+           url('GriunXHangeul_Gowoon-Rg.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    /* 1-3. Nanum DdarEGeEomMaGa (정상 동작) */
+    @font-face {
+      font-family: 'Nanum DdarEGeEomMaGa';
+      src: url('NanumDdarEGeEomMaGa.woff2') format('woff2'),
+           url('NanumDdarEGeEomMaGa.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* EF_jejudoldam 폰트 추가 */
+    @font-face {
+      font-family: 'EF_jejudoldam';
+      src: url('EF_jejudoldam(TTF).woff2') format('woff2'),
+           url('EF_jejudoldam(TTF).ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background-color: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      /* 손글씨 폰트 적용 */
-      font-family: "Gamja Flower", cursive, sans-serif;
-      color: #333;
     }
-    .card-container {
+
+    body {
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+    }
+
+    .wedding-card {
       width: 100%;
-      max-width: 430px; /* 모바일 화면 너비에 맞춤 */
+      max-width: 430px; /* 모바일 프레임 규격 */
       background-color: #ffffff;
-      min-height: 100vh;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    /* 우측 상단 고정 음악(BGM) 버튼 */
+    .bgm-btn {
+      position: fixed;
+      top: 18px;
+      right: calc(50% - 200px);
+      z-index: 9999;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid #e59bb3;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e59bb3;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(4px);
+      transition: all 0.3s ease;
+    }
+    @media (max-width: 430px) {
+      .bgm-btn {
+        right: 18px;
+      }
+    }
+    .bgm-btn.playing {
+      background-color: #e59bb3;
+      color: #ffffff;
+      animation: spin 4s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 헤더 섹션 레이아웃 */
+    .header-section {
+      position: relative;
+      width: 100%;
+      background: url('sec1-bg2.png') no-repeat center top / cover;
+      min-height: 920px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 20px;
-      box-sizing: border-box;
+      z-index: 2;
+    }
+
+    /* 타이틀 텍스트 영역 */
+    .header-title {
+      margin-top: 75px;
       text-align: center;
+      font-family: 'FreakArt Personal Use', 'Georgia', cursive, serif !important;
+      font-size: 55px;
+      color: #ffffff;
+      line-height: 53px;
+      letter-spacing: 0;
+      z-index: 2;
+      text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
     }
-    h1 {
-      font-size: 28px; /* 손글씨 느낌을 살리기 위해 크기를 살짝 키웠습니다 */
-      font-weight: 400;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-      color: #222;
+
+    .header-title .fa-heart {
+      color: #DE7DA6;
+      font-size: 32px;
+      margin-left: 4px;
+      vertical-align: middle;
     }
-    .img-wrapper {
+
+    /* 초대글(편지) 섹션 컨테이너 */
+    .letter-section {
+      position: relative;
       width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-top: -118px;
+      z-index: 1;
     }
-    img {
+    
+    /* 배경 이미지 (줄선 제거된 이미지 사용) */
+    .letter-bg-img {
       width: 100%;
       height: auto;
       display: block;
     }
-    p {
+    
+    /* 편지 배경 위 텍스트 오버레이 영역 */
+    .letter-content-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 247px;
+    }
+    
+    /* 1. 정철민 · 최유리 스타일 */
+    .couple-names {
+      font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
+      font-size: 39.55px;
+      color: #222222;
+      font-weight: normal;
+      text-align: center;
+      -webkit-text-stroke: 0.31px #222222;
+      margin-bottom: 1px;
+    }
+    
+    /* 2. 일시 및 장소 스타일 */
+    .wedding-date-location {
+      font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
+      font-size: 19.78px;
+      color: #222222;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 110px;
+    }
+    
+    .letter-text-main {
+        font-family: 'Nanum DdarEGeEomMaGa', 'Nanum Pen Script', cursive, sans-serif;
+        font-size: 23px;
+        line-height: 1.6; /* px 고정값 대신 비율 단위 사용 */
+        letter-spacing: 0.02em;
+        color: #000000;
+        text-align: center;
+        -webkit-text-stroke: 0.5px #000000;
+        width: 75%; /* 넓이를 조금 넓혀서 모바일에서 불필요한 자동줄바꿈 방지 */
+        margin: 0 auto; /* 중앙 정렬 */
+        
+        /* 🔥 이미지 상단 비율에 맞게 vh/vw 또는 % 단위 고려 (필요시 조정) */
+        margin-top: 160px; 
+        transform: translateX(6px);
+      }
+      
+      /* 각 줄마다 밑줄(줄눈)을 직접 그어주는 핵심 코드 */
+      .letter-text-main span {
+        display: inline-block;
+        width: 84%;
+        border-bottom: 1px solid #EDE3DF; /* 편지지 줄눈 색상 */
+        padding-bottom: 2px; /* 글자와 줄선 사이 미세 간격 */
+        box-sizing: border-box;
+        white-space: nowrap; /* 줄 안에서 글자 잘림/자동줄바꿈 방지 */
+      }
+    
+    /* [섹션 3] 부모님 편지 및 어릴적 사진 섹션 */
+
+    .sec3-container {
+      position: relative;
+      width: 100%;
+      background: url('sec3_bg.png') no-repeat center top / cover;
+      padding: 50px 25px 60px 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+    /* 공통 타이틀 스타일 */
+    .parents-title {
+      font-family: 'GriunXHangeul Gowoon', 'Gowun Dodum', sans-serif;
+      font-size: 22px;
+      white-space: nowrap;
+      color: #000000;
+      line-height: 1.3;
+      z-index: 10;
+    }
+    
+    .parents-title .child-name {
+      font-size: 30px;
+      font-weight: normal;
+      -webkit-text-stroke: 0.3px #000000;
+    }
+
+    /* 신랑측 박스 */
+    .groom-block {
+      display: flex;
+      flex-direction: column;
+      margin-top: 106px;
+    }
+    /* 신랑 엄마와 함께 사진 (좌측 상단) */
+    /* 최근 수정 */
+    .groom-mom-photo {
+      width: 160px;
+      height: auto;
+      position: absolute;
+      top: 96px;
+      left: 0;
+      z-index: 2;
+    }
+
+    .groom-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    
+    .groom-header .parents-title {
+      flex: 1;
+      padding-right: 15px;
+      padding-bottom: 10px;
+      transform: translate(62px, -69px);
+    }
+
+    .groom-photo {
+      width: 200px;
+      height: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .groom-letter-img {
+      width: 106%;
+      height: auto;
+      display: block;
+      transform: translate(0px, -69px);
+    }
+    /* 신부측 박스 */
+    .bride-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 신부 엄마와 함께 사진 (우측 상단) */
+    /* 최근 수정 */
+    .bride-mom-photo {
+      width: 140px;
+      height: auto;
+      position: absolute;
+      right: 9px;
+      bottom: 505px;
+      z-index: 2;
+    }
+  
+    .bride-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 15px;
+    }
+
+    .bride-photo {
+      width: 200px;
+      height: auto;
+      display: block;
+      flex-shrink: 0;
+      transform: translate(-29px);
+    }
+
+    .bride-header .parents-title {
+      text-align: left;
+      flex: 1;
+      transform: translate(-60px, -161px);
+    }
+
+    .bride-letter-img {
+      width: 62%;
+      height: auto;
+      display: block;
+      transform: translate(158px, -201px);
+    }
+    
+    /* [섹션 4] 웨딩 앨범 컨테이너 */
+    .sec4-container {
+      position: relative;
+      width: 100%;
+      min-height: 850px;
+      background: url('sec4_bg.png') no-repeat center top / cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .click-me-wrapper {
+      position: relative;
+      width: 280px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .cloud-bg {
+      position: absolute;
+      width: 80%;
+      height: auto;
+      z-index: 1;
+    }
+
+    .click-me-text {
+      position: relative;
+      z-index: 2;
+      font-family: 'FreakArt Personal Use', cursive, sans-serif;
+      font-size: 48.79px;
+      font-weight: bold;
+      line-height: 45.5px;
+      letter-spacing: 0em;
+      text-align: center;
+      margin-top: -6px;
+    }
+
+    .click-me-text span:nth-child(1) { color: #3F689A; }
+    .click-me-text span:nth-child(2) { color: #4091D3; }
+    .click-me-text span:nth-child(3) { color: #A4D28E; }
+    .click-me-text span:nth-child(4) { color: #AB7E6B; }
+    .click-me-text span:nth-child(5) { color: #CDBFA2; }
+    .click-me-text span:nth-child(6) { color: transparent; width: 10px; display: inline-block; }
+    .click-me-text span:nth-child(7) { color: #D780B5; }
+    .click-me-text span:nth-child(8) { color: #F5C3CC; }
+    .click-me-text span:nth-child(9) { color: transparent; width: 10px; display: inline-block; }
+    .click-me-text span:nth-child(10) { color: #3F689A; }
+    .click-me-text span:nth-child(11) { color: #4091D3; }
+
+    .click-me-text .excl {
+      font-family: 'FreakArt Personal Use', 'Georgia', serif !important;
+      font-weight: normal;
+      display: inline-block;
+      transform: scaleY(1.1);
+    }
+
+    .pink-arrow {
+      position: absolute;
+      right: -51px;
+      bottom: -85px;
+      width: 180px;
+      height: auto;
+      z-index: 20;
+    }
+    
+    /* ==========================================
+   앨범 버튼 및 클릭 가림 방지 CSS
+   ========================================== */
+    .album-cover-btn {
+      position: relative;
+      width: 320px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 10 !important;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    
+    .album-cover-btn:hover {
+      transform: scale(1.02);
+    }
+    
+    .album-cover-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.15));
+      margin-left: 10px;
+    }
+    
+    .album-notice-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .purple-arrow {
+      position: absolute;
+      left: 0px;
+      top: -82px;
+      width: 143px;
+      height: auto;
+      z-index: 20;
+    }
+    
+    .album-notice-text {
+      font-family: 'EF_jejudoldam', sans-serif;
+      font-size: 24px;
+      line-height: 31px;
+      letter-spacing: 0em;
+      color: #5E1F00;
+      text-align: center;
       margin-top: 20px;
+    }
+    
+    .click-me-wrapper,
+    .purple-arrow {
+      pointer-events: none;
+    }
+    
+    /* ==========================================
+       기본 앨범 모달 CSS (복잡한 3D 효과 제거)
+       ========================================== */
+    /* 모달 오픈 시 배경 스크롤 차단 */
+      body.modal-open {
+        overflow: hidden !important;
+        touch-action: none;
+      }
+    
+    .album-modal {
+      display: none;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 99999 !important;
+      justify-content: center;
+      align-items: center;
+      touch-action: manipulation;
+}
+    
+    .album-modal.active {
+      display: flex !important;
+    }
+    
+    /* 닫기 버튼 */
+    .modal-close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: #ffffff;
+      font-size: 36px;
+      cursor: pointer;
+      z-index: 100001;
+      padding: 10px;
+      line-height: 1;
+    }
+    
+    /* 좌/우 이동 화살표 버튼 */
+    .modal-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: none;
+      font-size: 24px;
+      padding: 16px 12px;
+      cursor: pointer;
+      z-index: 100001;
+      border-radius: 4px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .modal-nav-btn:active {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+    
+    /* 이미지 및 텍스트 컨테이너 */
+    .modal-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 60px 50px 40px 50px;
+      box-sizing: border-box;
+    }
+    
+    .modal-img-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* 이미지 고유 비율 유지 핵심 설정 */
+   .modal-img-container img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    
+      /* 🔥 [핵심] 모바일 이미지 길게 누르기 / 복사 / 공유 / 드래그 메뉴 방지 */
+      -webkit-touch-callout: none !important; /* iOS 저장/공유 팝업 차단 */
+      -webkit-user-select: none !important;   /* 텍스트/이미지 선택 차단 */
+      user-select: none !important;
+      -webkit-user-drag: none !important;     /* 드래그 차단 */
+      touch-action: pan-y;                   /* 세로 스크롤은 허용, 가로 터치는 스와이프로 처리 */
+    }
+    
+    /* 카운터 표시 */
+    .modal-counter {
+      color: #ffffff;
+      font-size: 14px;
+      margin-top: 12px;
+      font-family: sans-serif;
+      letter-spacing: 1px;
+      opacity: 0.8;
+    }
+    
+    /* 모바일 전용 여백 조절 */
+    @media screen and (max-width: 600px) {
+      .modal-content-wrapper {
+        padding: 50px 15px 30px 15px;
+      }
+      .modal-nav-btn {
+        padding: 12px 8px;
+        font-size: 20px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+   
+
+    /* 5. 신랑신부 메시지 */
+    .section5 {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      overflow: hidden;
+      background-image: url('sec5_bg.png');
+      background-repeat: repeat;
+      background-size: contain;
+    }
+    
+    .sec5-container {
+      position: relative;
+      width: 100%;
+      height: 1150px;
+    }
+    
+    .sec5-container .item {
+      position: absolute;
+    }
+    
+    .photo-pink1 {
+      top: 100px;
+      left: 20px;
+      width: 190px;
+      z-index: 1;
+    }
+    
+    .letter-cm-group {
+      top: 3px;
+      right: -3px;
+      width: 300px;
+      z-index: 2;
+    }
+
+    .letter-yr-group {
+      bottom: 33px;
+    }
+    
+    .photo-pink2 {
+      top: 330px;
+      right: 13px;
+      width: 193px;
+      z-index: 3;
+    }
+    
+    .photo-black1 {
+      top: 622px;
+      left: 35px;
+      width: 158px;
+      z-index: 4;
+    }
+    
+    
+    
+    .letter-bg {
+      width: 100%;
+      display: block;
+      position: relative;
+    }
+    
+    .letter-text-img-yr {
+      position: absolute;
+      top: -19px;
+      left: 32px;
+      width: 90%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .letter-bg2 {
+      width: 100%;
+      display: block;
+      position: relative;
+    }
+
+    
+    
+    /* [수정] 신부 편지 글씨 이미지를 그룹 내에서도 최상단으로 설정 */
+    .letter-text-img-cm {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 97%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 4; /* 편지지 배경(z-index: 1)보다 앞으로 나오도록 설정 */
+    }
+
+    /* 6. 달력 섹션 */
+    .section6 {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      background-color: #FFDCEB; /* 피그마 지정 배경색[cite: 24] */
+      font-family: 'GriunXHangeul Gowoon', sans-serif; /* 피그마 지정 폰트[cite: 21, 22, 23] */
+      text-align: center;
+      color: #000000;
+      box-sizing: border-box;
+    }
+    
+    .wedding-info {
+      margin-bottom: 35px;
+    }
+    
+    .wedding-info .location {
+      font-size: 17px; /* 피그마 지정 크기[cite: 21] */
+      line-height: 25px; /* 행간[cite: 21] */
+      letter-spacing: 0.02em; /* 자간 2%[cite: 21] */
+      margin: 0 0 4px 0;
+    }
+    
+    .wedding-info .date {
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0.02em;
+      margin: 0 0 4px 0;
+    }
+    
+    .wedding-info .time {
+      font-size: 17px;
+      line-height: 25px;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+    
+    .calendar-container {
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    
+    .calendar-header,
+    .calendar-body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      align-items: center;
+      justify-items: center;
+    }
+    
+    .calendar-header {
+      font-size: 15px; /* 피그마 요일 글자 크기[cite: 22] */
+      margin-bottom: 15px;
+    }
+    
+    .calendar-body .day {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    
+    .calendar-body .day.target-day {
+      background-color: #000000;
+      color: #FFFFFF; /* 흰색 글씨[cite: 23] */
+      border-radius: 50%;
+      font-size: 19px; /* 피그마 지정 크기[cite: 23] */
+      letter-spacing: -0.1em; /* 피그마 지정 자간 -10%[cite: 23] */
+      -webkit-text-stroke: 0.2px #FFFFFF
+    }
+        
+    .account-section {
+      background-color: #fff2f5;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+      /* ==========================================
+       7_D-Day 섹션 스타일링
+       ========================================== */
+    .dday-section {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 30px 20px 40px 20px;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    
+    /* 검은색 구름 말풍선 컨테이너 */
+    .dday-cloud-wrapper {
+      position: relative;
+      width: 320px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+      box-sizing: border-box;
+    }
+    
+    /* 피그마 검은 구름 배경 이미지 */
+    .dday-cloud-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      object-fit: contain;
+    }
+    
+    /* 구름 내부 텍스트 레이아웃 */
+    .dday-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      width: 100%;
+    }
+    
+    /* 1번 문구: 36일 23시 04분 40초 */
+    .dday-timer {
+      font-family: 'GriunXHangeul Gowoon', sans-serif;
+      font-size: 22px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+      -webkit-text-stroke: 0.5px #FFFFFF;
+    }
+    
+    /* 2번 문구: 철민, 유리의 결혼식이 37일 남았습니다. */
+    .dday-text-main {
+      font-family: 'EF_jejudoldam', sans-serif;
+      font-size: 19px;
+      line-height: 22px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+    }
+    
+    /* 신랑/신부 이름 포인트 컬러 */
+    .dday-text-main .name-groom {
+      color: #4091D3;
+    }
+    
+    .dday-text-main .name-bride {
+      color: #D780B5;
+    }
+    
+    /* 스티커 위치 설정 */
+    .dday-decor-arrow {
+      position: absolute;
+      top: -50px;
+      right: -63px;
+      width: 176px;
+      height: auto;
+      z-index: 3;
+    }
+    
+    .dday-decor-heart-top {
+      position: absolute;
+      top: 20px;
+      left: 61px;
+      width: 39px;
+      height: auto;
+      z-index: 0;
+    }
+    
+    .dday-decor-heart-bottom {
+      position: absolute;
+      bottom: 96px;
+      right: 25px;
+      width: 30px;
+      height: auto;
+      z-index: 0;
+      transform: rotate(54deg);
+    }
+  
+    /* ==========================================
+     Section 8 : 오시는 길 전체 레이아웃
+     ========================================== */
+    .location-section {
+      width: 100%;
+      max-width: 480px; /* 모바일 반응형 기본 규격 */
+      margin: 0 auto;
+      padding: 0px 40px 60px 40px;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    /* 1. 상단 타원형 뱃지 (제공해주신 스펙 적용) */
+    .oval-badge {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 235.3px;
+      height: 79.86px;
+      background-color: #D780B5;
+      border-radius: 50%;
+      box-sizing: border-box;
+      margin-bottom: 60px;
+      margin-top: 150px;
+    }
+    
+    .oval-badge-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 212.72px;          /* 피그마 안쪽 요소 너비 */
+      height: 65.14px;          /* 피그마 안쪽 요소 높이 */
+      border: 2px solid #FFFFFF;/* 피그마 안쪽 흰색 외곽선 굵기 2px */
+      border-radius: 50%;
+      box-sizing: border-box;
+    }
+    
+    .oval-badge-text {
+      font-family: 'GriunXHangeul Gowoon', 'Gowoon Batang', sans-serif; /* 피그마 폰트 */
+      font-size: 24px;          /* 피그마 글씨 크기 24px */
+      color: #FFFFFF;           /* 피그마 글자색 흰색 */
+      line-height: 1;
+      user-select: none;
+    }
+    
+    /* 2. 지도 컨테이너 및 핀 스타일 */
+    .map-container {
+      width: 100%;
+      height: 280px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 40px;
+    }
+    
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* 3. 주소 및 복사 버튼 */
+    .address-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4px;
+      margin-bottom: 35px;
+      box-sizing: border-box;
+    }
+    
+    .address-text {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* 주소 및 장소명 폰트 스펙 (Inter SemiBold & Regular 20px) */
+    .address-main {
+      font-size: 20px;
+      font-weight: 400; /* Regular */
+      color: #000000;
+      margin: 0;
+      line-height: 1.3;
+    }
+    
+    .address-sub {
+      font-size: 20px;
+      font-weight: 600; /* Semi Bold */
+      color: #000000;
+      margin: 2px 0 0 0;
+      line-height: 1.3;
+    }
+    
+    /* 재사용 가능한 복사하기 버튼 컴포넌트 */
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      background-color: #ffffff;
+      border: 1px solid #d1d1d1;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #333333;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease-in-out;
+    }
+    
+    .btn-copy:hover {
+      background-color: #f7f7f7;
+      border-color: #bbbbbb;
+    }
+    
+    .btn-copy:active {
+      background-color: #eeeeee;
+    }
+    
+    /* 구분선 */
+    .section-divider {
+      width: 100%;
+      border: none;
+      border-top: 1px solid #FFE2E9;
+      margin: 10px 0 28px 0;
+    }
+    
+    /* 4. 교통 및 주차 상세 정보 목록 */
+    .transport-info-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .transport-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .transport-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 17px;
+    }
+    
+    .info-icon {
+      width: 33px;
+      height: auto;
+      object-fit: contain;
+    }
+    
+    .info-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #000000;
+      margin: 0;
+    }
+    
+    /* 서브 텍스트 스펙 (Inter Regular 16px, 자간 -3%) */
+    .info-desc {
+    }
+    
+    .info-desc p {
+      font-size: 16px;
+      font-weight: 400;
+      color: #000000;
+      margin: 0 0 4px 0;
+      letter-spacing: -0.03em; /* 자간 -3% */
+      line-height: 1.4;
+    }
+    
+    .info-desc p:last-child {
       margin-bottom: 0;
-      font-size: 18px; /* 손글씨 폰트는 가독성을 위해 18px 이상을 추천합니다 */
-      color: #666;
+    }
+
+    /* 주차장 찾기 버튼 스타일 */
+    .parking-btn {
+      /* display: inline-block; */
+      margin-top: 10px;
+      font-size: 14px;
+      color: #9A3366;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      font-weight: 500;
+    }
+    
+    
+
+  /* ==========================================
+   Section 9: 마음 전하실 곳 (Bank Section)
+   ========================================== */
+
+    .bank-section {
+      padding: 0px 40px 180px 40px;
+      background-color: #FFF9F9; /* 이미지 배경 연한 핑크 톤 */
+      box-sizing: border-box;
+    }
+    
+    /* 1. 타이틀 영역 (section8 오시는 길 타이틀 뱃지와 동일) */
+    .bank-title-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    
+    /* 2. 신랑/신부 그룹 컨테이너 */
+    .bank-group-container {
+      margin-bottom: 60px;
+    }
+    
+    .bank-group-container:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* 그룹 헤더 (신랑/신부 측 계좌번호 타이틀) */
+    .bank-group-header {
+      margin-bottom: 8px;
+    }
+    
+    .bank-group-title {
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #000000;
+      line-height: 28px;
+    }
+    
+    /* 구분선 (피그마 분홍색 선 #D780B5, 1px) */
+    .bank-header-line {
+      width: 100%;
+      height: 1px;
+      background-color: #D780B5;
+      margin-bottom: 20px;
+    }
+    
+    /* 3. 계좌 목록 및 각 항목 */
+    .bank-account-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .bank-account-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: transparent;
+    }
+    
+    .bank-account-info {
+      flex: 1;
+    }
+    
+    /* 계좌 정보 텍스트 (피그마 수치 적용: NanumSquare Neo, 14px, 행간 20px, #000000) */
+    .bank-account-text {
+      margin: 0;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #000000;
+      letter-spacing: 0;
+    }
+    
+    /* 4. 복사하기 버튼 (피그마 디자인 스펙 맞춤) */
+    .bank-copy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 32px;
+      padding: 0;
+      background-color: #FFFFFF;
+      border: 1px solid #E2E2E2;
+      border-radius: 8px; /* 은은한 라운드 모서리 */
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #000000;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    
+    .bank-copy-btn:hover {
+      background-color: #F8F8F8;
+      border-color: #CCCCCC;
+    }
+    
+    .bank-copy-btn:active {
+      background-color: #EFEFEF;
+    }
+    /* ==========================================
+   Section 10: 방명록 (Guestbook Section)
+   ========================================== */
+
+.guestbook-section {
+  width: 100%;
+  height: auto !important;
+  min-height: 700px;
+  padding: 50px 40px 90px 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('sec10_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 1. 상단 타이틀 */
+.guestbook-title-container {
+  margin-bottom: 25px;
+}
+
+/* 2. 방명록 목록 리스트 (영역 높이 완전 고정) */
+.guestbook-list {
+  width: 100%;
+  /* 🔥 min-height 대신 height를 고정하여 1개든 3개든 영역 크기를 항상 동일하게 유지합니다 */
+  height: 580px !important;      
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;   /* 항목이 적어도 위에서부터 고정 위치에 배치 */
+  gap: 16px;                     /* 방명록 카드 간 간격 */
+  margin-bottom: 20px;           /* 페이지네이션 도트와의 간격 확보 */
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+    
+    /* 방명록 아이템 공통 레이아웃 */
+    .gb-item {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* ==========================================
+       오른쪽 타입: [말풍선 + 오른쪽 꼬리표] ---- [오른쪽 이모지]
+       ========================================== */
+    .gb-item.right {
+      flex-direction: row-reverse; /* HTML 순서를 반대로 뒤집어 말풍선이 왼쪽, 이모지가 오른쪽에 오도록 설정 */
+      justify-content: flex-start;
+    }
+    
+    .gb-item.right .gb-bubble {
+      flex: 1; /* 남아있는 전체 폭을 꽉 채움 */
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 18px;
+    }
+    
+    .gb-item.right .gb-bubble::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-left: 10px solid #FFFFFF;
+      border-top: 8px solid transparent;
+      border-right: none;
+    }
+    
+    /* ==========================================
+       왼쪽 타입: [왼쪽 이모지] ---- [왼쪽 꼬리표 + 말풍선]
+       ========================================== */
+    .gb-item.left {
+      flex-direction: row; /* 기본 순서 유지: 이모지 -> 말풍선 */
+      justify-content: flex-start;
+    }
+    
+    .gb-item.left .gb-bubble {
+      flex: 1; /* 남아있는 전체 폭을 꽉 채움 */
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 18px;
+    }
+    
+    .gb-item.left .gb-bubble::after {
+      content: "";
+      position: absolute;
+      left: -8px;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-right: 10px solid #FFFFFF;
+      border-top: 8px solid transparent;
+      border-left: none;
+    }
+    
+    /* 말풍선 공통 스타일 */
+    .gb-bubble {
+      position: relative;
+      background-color: #FFFFFF;
+      padding: 14px 18px;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      word-break: break-all;         /* 긴 단어나 연속된 알파벳/문자도 자동 줄바꿈 처리 */
+    }
+    
+    /* 방명록 텍스트 스펙 */
+    .gb-text {
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 14px;
       line-height: 1.5;
+      color: #111111;
+      margin-bottom: 6px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    
+    .gb-author {
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 12px;
+      color: #666666;
+    }
+    
+    /* 방명록 컨테이너 하단 여백 보정 */
+    .guestbook-page-container,
+    .guestbook-wrapper {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* 3. 페이지네이션 (도트 고정 위치 확보) */
+    .guestbook-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      clear: both;                   /* 🔥 상단 요소와의 레이아웃 완전 분리 */
+      margin-top: 0;
+      margin-bottom: 25px;           /* 🔥 하단 버튼들과의 여백 */
+      position: relative;
+      z-index: 5;
+    }
+
+    .gb-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #E2B2C9;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .gb-dot.active {
+      opacity: 1;
+      transform: scale(1.2);
+      background-color: #D780B5;
+    }
+
+    /* 4. 하단 버튼 영역 */
+    .guestbook-btn-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .btn-guestbook-write {
+      width: 180px;
+      height: 44px;
+      background-color: #D780B5;
+      color: #FFFFFF;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(215, 128, 181, 0.3);
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-guestbook-write:hover {
+      background-color: #C36FA2;
+    }
+
+    .btn-guestbook-manage {
+      background: none;
+      border: none;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 12px;
+      color: #888888;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* ==========================================
+       공통 모달 (Modal UI)
+       ========================================== */
+    
+    .gb-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    .gb-modal-overlay.active {
+      display: flex;
+    }
+    
+    .gb-modal-content {
+      background-color: #FFFFFF;
+      width: 100%;
+      max-width: 340px;
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-sizing: border-box;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      animation: modalUp 0.25s ease-out;
+    }
+    
+    @keyframes modalUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .gb-modal-title {
+      margin: 0 0 16px 0;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #222222;
+      text-align: center;
+    }
+    
+    .gb-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    
+    .gb-form-group label {
+      font-size: 12px;
+      color: #666666;
+      font-weight: 600;
+    }
+    
+    .gb-form-group input,
+    .gb-form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #E2E2E2;
+      border-radius: 8px;
+      font-family: 'NanumSquare Neo', sans-serif;
+      font-size: 13px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    
+    .gb-form-group input:focus,
+    .gb-form-group textarea:focus {
+      border-color: #D780B5;
+    }
+    
+    .gb-modal-btn-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    
+    .gb-btn-submit {
+      flex: 1;
+      height: 40px;
+      background-color: #D780B5;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .gb-btn-cancel {
+      flex: 1;
+      height: 40px;
+      background-color: #F2F2F2;
+      color: #555555;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    /* 관리 모달 내부 스타일 */
+    .gb-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .gb-close-icon {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #888888;
+    }
+    
+    .gb-manage-desc {
+      font-size: 12px;
+      color: #777;
+      margin: 0 0 15px 0;
+      text-align: center;
+    }
+    
+    .gb-manage-list {
+      max-height: 240px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .gb-manage-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #F9F9F9;
+      border-radius: 8px;
+      border: 1px solid #EEEEEE;
+    }
+    
+    .gb-manage-info {
+      font-size: 13px;
+      color: #333;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 180px;
+    }
+    
+    .gb-manage-actions {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .gb-manage-actions button {
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 4px;
+      border: 1px solid #DDD;
+      background-color: #FFF;
+      cursor: pointer;
+    }
+    /* Section 11 스타일 */
+    .section11 {
+      background-color: #ffffff;
+      padding: 160px 20px;
+      text-align: center;
+      color: #000000;
+      box-sizing: border-box;
+    }
+    
+    .sec11-container {
+      max-width: 430px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* 반려동물 이미지 */
+    .sec11-animal-img {
+      width: 180px;
+      height: auto;
+      margin-bottom: 25px;
+      display: block;
+    }
+    
+    
+    /* 영문 메인 타이틀 */
+    .sec11-title-en {
+      font-family: 'FreakArt Personal Use', cursive, sans-serif;
+      font-size: 58px;
+      font-weight: bold;
+      line-height: 55px;
+      letter-spacing: 0;
+      color: #000000;
+      margin: 0 0 25px 0;
+      /* 이미지의 외곽선(Stroke) 효과 반영 */
+      -webkit-text-stroke: 1px #ffffff;
+      paint-order: stroke fill;
+    }
+    
+    /* 메시지 영역 (GriunXHangeul Gowoon) */
+    .sec11-message {
+      font-family: 'GriunXHangeul Gowoon', 'Gowoon Batang', serif, sans-serif;
+      font-size: 19px;
+      color: #000000;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+    
+    .sec11-subtitle {
+      margin: 0 0 15px 0;
+    }
+    
+    .sec11-dots {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 15px;
+    }
+    
+    .sec11-dots span {
+      font-size: 20px;
+      line-height: 1;
+    }
+    
+    .sec11-text {
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    /* 링크 복사하기 버튼 */
+    .sec11-copy-btn {
+      width: 100%;
+      max-width: 280px;
+      background-color: #d880b9; /* 분홍색 버튼 배경 */
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 0;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      margin: 160px 20px 20px;
+    }
+    
+    .sec11-copy-btn:active {
+      transform: scale(0.98);
+      background-color: #c76fa8;
+    }
+    
+    /* 푸터 영역 (NanumSquare Neo) */
+    .sec11-footer {
+      font-family: 'NanumSquare Neo', 'NanumSquare', sans-serif;
+      font-size: 10px;
+      line-height: 18px;
+      color: #000000;
+    }
+    
+    .sec11-footer p {
+      margin: 0;
     }
   </style>
 </head>
 <body>
-  <div class="card-container">
-    <h1>청첩장 준비 중 ... !</h1>
-    <div class="img-wrapper">
-      <img src="강아지투샷.png" alt="강아지이미지">
+  <!-- BGM 음악 오디오 태그 -->
+  <audio id="bgm" src="360.mp4" preload="auto" loop playsinline></audio>
+
+  <!-- 우측 상단 노래 표시 컨트롤 버튼 -->
+  <button id="bgmBtn" class="bgm-btn" onclick="toggleBgm()" title="배경음악 재생/일시정지">
+    <i class="fa-solid fa-music"></i>
+  </button>
+
+  <!-- 메인 청첩장 컨테이너 -->
+  <div class="wedding-card">
+    <!-- 1. 헤더 섹션 -->
+    <div class="header-section">
+      <h1 class="header-title">
+        Our Wedding Story<br>
+        &nbsp;&nbsp;Begins <i class="fa-solid fa-heart"></i>
+      </h1>
     </div>
-    <p>정식 모바일 청첩장은 제작 중입니다 💌</p>
-    <p>9/18부터 확인이 가능하십니다.<br>조금만 기다려주세요 ❤️</p>
+
+    <!-- 2. 초대글 편지 이미지 & 텍스트 오버레이 섹션 -->
+    <div class="letter-section">
+      <img class="letter-bg-img" src="sec2-letter2.png" alt="초대글 배경">
+
+      <div class="letter-content-overlay">
+        <div class="couple-names">정철민 · 최유리</div>
+
+        <div class="wedding-date-location">
+          2026.11.14 토요일 5시 20분<br>
+          인천 웨스턴팰리스 &lt;팰리스홀&gt;
+        </div>
+
+        <div class="letter-text-main">
+          <p>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <span>서로를 바라보던 시간이 쌓여</span>
+            <span>이제는 나란히 같은 방향을</span>
+            <span>바라보게 되었습니다.</span>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+          </p>
+          <p>
+            <span>서툴지만 단단한 두 사람이</span>
+            <span>하나의 계절을 시작하려 합니다.</span>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+          </p>
+          <p>
+            <span>그 시작의 순간에</span>
+            <span>함께 해 주신다면</span>
+            <span>더 없이 기쁠 것 같습니다.</span>
+          </p>
+        </div>
+      </div>
+    </div> 
+
+    <!-- 3. 부모님 메시지 & 어릴적 사진 섹션 -->
+<div class="sec3-container">
+  
+  <!-- 신랑측 영역 -->
+  <div class="groom-block">
+    <!-- 왼쪽 상단: 엄마와 함께 찍은 사진 -->
+    <img class="groom-mom-photo" src="mom_cm.png" alt="정철민 어릴적 엄마와">
+    
+    <div class="groom-header">
+      <div class="parents-title">
+        정기준 &amp; 이경화의 <br>&nbsp;&nbsp;아들
+        <span class="child-name">정철민</span>
+      </div>
+      <!-- 오른쪽 상단: 신랑 어린시절 사진 -->
+      <img class="groom-photo" src="cm_child.png" alt="정철민 어린시절">
+    </div>
+    
+    <!-- 하단: 신랑 부모님 편지 -->
+    <img class="groom-letter-img" src="cm_daddy.png" alt="신랑 부모님 편지">
   </div>
+
+  <!-- 신부측 영역 -->
+  <div class="bride-block">
+    <div class="bride-header">
+      <!-- 왼쪽 상단: 신부 어린시절 사진 -->
+      <img class="bride-photo" src="yr_child.png" alt="최유리 어린시절">
+      
+      <div class="parents-title">
+        최만순 &amp; 경창희의 <br>&nbsp;&nbsp;딸
+        <span class="child-name">&nbsp;최유리</span>
+      </div>
+      
+      <!-- 오른쪽 상단: 엄마와 함께 찍은 사진 -->
+      <img class="bride-mom-photo" src="mom_yr.png" alt="최유리 어릴적 엄마와">
+    </div>
+    
+    <!-- 하단: 신부 부모님 편지 -->
+    <img class="bride-letter-img" src="yr_mommy.png" alt="신부 부모님 편지">
+  </div>
+
+</div>
+
+    <!-- 4. 웨딩 앨범 섹션 -->
+    <div class="sec4-container">
+      <div class="click-me-wrapper">
+        <img src="sec4_cloud.png" class="cloud-bg" alt="구름 배경">
+        <div class="click-me-text">
+          <span>C</span><span>L</span><span>I</span><span>C</span><span>K</span><span> </span><span>M</span><span>E</span><span class="excl">!</span><span class="excl">!</span>
+        </div>
+        <img src="sec4_arrow_pink.png" class="pink-arrow" alt="화살표">
+      </div>
+
+      <div class="album-cover-btn" onclick="openAlbumModal()">
+        <img src="sec4_album.png" class="album-cover-img" alt="OUR WEDDING ALBUM">
+      </div>
+
+      <div class="album-notice-wrapper">
+        <img src="sec4_arrow_purple.png" class="purple-arrow" alt="화살표">
+        <div class="album-notice-text">
+          앨범을 누르시면<br>저희 사진을 볼 수 있어요!
+        </div>
+      </div>
+    </div> 
+
+    <!-- 5. 신랑,신부 메시지 -->
+    <section class="section5">
+      <div class="sec5-container">
+        <img src="sec5_photo_pink1.png" class="item photo-pink1" alt="사진 핑크 1">
+
+        <div class="item letter-cm-group">
+          <img src="sec5_cm_letter_bg.png" class="letter-bg" alt="편지지 배경">
+          <img src="sec5_cm_letter.png" class="letter-text-img-yr" alt="편지 글씨">
+        </div>
+
+        <img src="sec5_photo_pink2.png" class="item photo-pink2" alt="사진 핑크 2">
+        <img src="sec5_photo_black1.png" class="item photo-black1" alt="사진 블랙 1">
+
+        <div class="item letter-yr-group">
+          <img src="sec5_yr_letter_bg.png" class="letter-bg2" alt="편지지 배경">
+          <img src="sec5_yr_letter.png" class="letter-text-img-cm" alt="편지 글씨">
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 달력 섹션 -->
+    <section class="section6">
+      <div class="wedding-info">
+        <p class="location">인천 웨스턴팰리스 &lt;팰리스홀&gt;</p>
+        <p class="date">2026.11.14</p>
+        <p class="time">토요일 5시 20분</p>
+      </div>
+
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <span>일</span>
+          <span>월</span>
+          <span>화</span>
+          <span>수</span>
+          <span>목</span>
+          <span>금</span>
+          <span>토</span>
+        </div>
+
+        <div class="calendar-body">
+          <span class="day">1</span>
+          <span class="day">2</span>
+          <span class="day">3</span>
+          <span class="day">4</span>
+          <span class="day">5</span>
+          <span class="day">6</span>
+          <span class="day">7</span>
+          <span class="day">8</span>
+          <span class="day">9</span>
+          <span class="day">10</span>
+          <span class="day">11</span>
+          <span class="day">12</span>
+          <span class="day">13</span>
+          <span class="day target-day">14</span>
+          <span class="day">15</span>
+          <span class="day">16</span>
+          <span class="day">17</span>
+          <span class="day">18</span>
+          <span class="day">19</span>
+          <span class="day">20</span>
+          <span class="day">21</span>
+          <span class="day">22</span>
+          <span class="day">23</span>
+          <span class="day">24</span>
+          <span class="day">25</span>
+          <span class="day">26</span>
+          <span class="day">27</span>
+          <span class="day">28</span>
+          <span class="day">29</span>
+          <span class="day">30</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. D-Day 디데이 섹션 -->
+    <section class="dday-section">
+      <img src="sec7_heart.png" class="dday-decor-heart-top" alt="하트">
+      <img src="sec7_heart.png" class="dday-decor-heart-bottom" alt="하트">
+
+      <div class="dday-cloud-wrapper">
+        <img src="sec7_cloud.png" class="dday-cloud-bg" alt="구름 배경">
+        <img src="sec7_arrow.png" class="dday-decor-arrow" alt="화살표">
+
+        <div class="dday-content">
+          <div id="ddayTimer" class="dday-timer">00일 00시 00분 00초</div>
+          <div class="dday-text-main">
+            <span class="name-groom">철민</span><span class="name-bride">&nbsp;·&nbsp;유리</span>의 결혼식이<br>
+            <span id="ddayDays">0</span>일 남았습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. 오시는 길 섹션 -->
+    <section id="section8" class="location-section">
+      <div class="oval-badge">
+        <div class="oval-badge-inner">
+          <span class="oval-badge-text">오시는 길</span>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <div id="map"></div>
+      </div>
+
+      <div class="address-container">
+        <div class="address-text">
+          <p class="address-main">인천 부평구 갈산동 178-1</p>
+          <p class="address-sub">웨스턴 팰리스 웨딩홀</p>
+        </div>
+        <button type="button" class="btn-copy" onclick="copyToClipboard('인천 부평구 갈산동 178-1 웨스턴 팰리스 웨딩홀')">
+          복사하기
+        </button>
+      </div>
+      <hr class="section-divider">
+
+      <div class="transport-info-list">
+        <div class="transport-item">
+          <div class="transport-header">
+            <img src="parking_icon.png" alt="주차 아이콘" class="info-icon">
+            <h3 class="info-title">주차 안내</h3>
+          </div>
+          <div class="info-desc">
+            <p>부평 우림 라이온스밸리 3시간 무료</p>
+            <p>갈산역 공영주차장 2시간 무료</p>
+            <div>
+              <a href="https://m.site.naver.com/1TZYx" target="_blank" rel="noopener noreferrer" class="parking-btn">
+        주차장 오시는 길 안내 영상 🚗 </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="transport-item">
+          <div class="transport-header">
+            <img src="subway_icon.png" alt="지하철 아이콘" class="info-icon">
+            <h3 class="info-title">지하철 이용</h3>
+          </div>
+          <div class="info-desc">
+            <p>인천1호선 갈산역 2번 출구 - 도보 1분</p>
+          </div>
+        </div>
+
+        <div class="transport-item">
+          <div class="transport-header">
+            <img src="bus_icon.png" alt="버스 아이콘" class="info-icon">
+            <h3 class="info-title">버스 이용</h3>
+          </div>
+          <div class="info-desc">
+            <p>갈산역(40601) 정류장 하차</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. 마음 전하실 곳 섹션 -->
+    <section id="section9" class="bank-section">
+      <div class="bank-title-container">
+        <div class="oval-badge">
+          <div class="oval-badge-inner">
+            <span class="oval-badge-text">마음 전하실 곳</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 신랑 측 계좌번호 -->
+      <div class="bank-group-container">
+        <div class="bank-group-header">
+          <span class="bank-group-title">🤵🏻‍♂️ 신랑 측 계좌번호</span>
+        </div>
+        <div class="bank-header-line"></div>
+
+        <div class="bank-account-list">
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">농협 352-0431-3129-03<br>정철민</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('농협 352-0431-3129-03')">복사하기</button>
+          </div>
+
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">국민은행 228-24-0278-357<br>정기준</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('국민은행 228-24-0278-357')">복사하기</button>
+          </div>
+
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">우리은행 1002-730-313767<br>이경화</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('우리은행 1002-730-313767')">복사하기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 신부 측 계좌번호 -->
+      <div class="bank-group-container">
+        <div class="bank-group-header">
+          <span class="bank-group-title">👰🏻‍♀️ 신부 측 계좌번호</span>
+        </div>
+        <div class="bank-header-line"></div>
+
+        <div class="bank-account-list">
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">농협 130051-51-095784<br>최유리</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('농협 130051-51-095784')">복사하기</button>
+          </div>
+
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">국민은행 646801-01-269377<br>최만순</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('국민은행 646801-01-269377')">복사하기</button>
+          </div>
+
+          <div class="bank-account-item">
+            <div class="bank-account-info">
+              <p class="bank-account-text">신한은행 110-32872-7772<br>경창희</p>
+            </div>
+            <button type="button" class="bank-copy-btn" onclick="copyAccount('신한은행 110-32872-7772')">복사하기</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. 방명록 섹션 -->
+    <section id="section10" class="guestbook-section">
+      <div id="guestbookList" class="guestbook-list"></div>
+      <div id="guestbookPagination" class="guestbook-pagination"></div>
+
+      <div class="guestbook-btn-group">
+        <button type="button" class="btn-guestbook-write" onclick="openWriteModal()">방명록 쓰기</button>
+        <button type="button" class="btn-guestbook-manage" onclick="openManageModal()">방명록 관리</button>
+      </div>
+    </section>
+
+    <!-- 11. 푸터 섹션 -->
+    <section class="section11">
+      <div class="sec11-container">
+        <img src="animal.png" alt="반려동물 이미지" class="sec11-animal-img">
+
+        <h2 class="sec11-title-en">the Beginning of<br>Forever</h2>
+
+        <div class="sec11-message">
+          <p class="sec11-subtitle">[영원토록 함께할 날들의 시작]</p>
+          <div class="sec11-dots">
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </div>
+          <p class="sec11-text">
+            따뜻한 축하를 건네주신 모든 분께<br>
+            진심으로 감사드립니다.<br>
+            행복한 모습으로 보답하겠습니다.
+          </p>
+        </div>
+
+        <button type="button" class="sec11-copy-btn" onclick="copyInvitationLink()">
+          모바일 청첩장 링크 복사하기
+        </button>
+
+        <footer class="sec11-footer">
+          <p>©신부 유리가 한 땀 한 땀 디자인하고 개발한 청첩장</p>
+          <p>©Designed &amp; Developed by choiyouree</p>
+        </footer>
+      </div>
+    </section>
+
+  </div> <!-- .wedding-card 닫기 -->
+
+
+  <!-- =================================================== -->
+  <!-- 🔥 모든 모달 영역은 .wedding-card 밖, body 직속에 위치 -->
+  <!-- =================================================== -->
+
+  <!-- [모달 1] 앨범 사진 슬라이더 모달 -->
+  <div id="albumModal" class="album-modal">
+    <div class="modal-close-btn" onclick="closeAlbumModal()">&times;</div>
+
+    <button class="modal-nav-btn prev-btn" onclick="prevSlide(event)">&#10094;</button>
+    <button class="modal-nav-btn next-btn" onclick="nextSlide(event)">&#10095;</button>
+
+    <div class="modal-content-wrapper">
+      <div class="modal-img-container">
+        <img id="modalImg" src="scene_1.jpg" alt="웨딩 사진">
+      </div>
+      <div class="modal-counter">
+        <span id="currentIndex">1</span> / <span id="totalIndex">35</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- [모달 2] 방명록 작성 모달 -->
+  <div id="writeModal" class="gb-modal-overlay">
+    <div class="gb-modal-content">
+      <h3 class="gb-modal-title">방명록 작성</h3>
+      <div class="gb-form-group">
+        <label for="gbAuthor">작성자 이름</label>
+        <input type="text" id="gbAuthor" placeholder="이름 또는 닉네임을 입력하세요" maxlength="20">
+      </div>
+      <div class="gb-form-group">
+        <label for="gbPassword">비밀번호 (수정/삭제용)</label>
+        <input type="password" id="gbPassword" placeholder="비밀번호 4자리" maxlength="10" inputmode="numeric">
+      </div>
+      <div class="gb-form-group">
+        <label for="gbText">내용</label>
+        <textarea id="gbText" rows="4" placeholder="축하 메시지를 남겨주세요 💕" maxlength="150"></textarea>
+      </div>
+      <div class="gb-modal-btn-group">
+        <button type="button" class="gb-btn-submit" onclick="submitGuestbook()">등록하기</button>
+        <button type="button" class="gb-btn-cancel" onclick="closeWriteModal()">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- [모달 3] 방명록 관리/수정/삭제 모달 -->
+  <div id="manageModal" class="gb-modal-overlay">
+    <div class="gb-modal-content gb-modal-manage">
+      <div class="gb-modal-header">
+        <h3 class="gb-modal-title">방명록 관리</h3>
+        <button type="button" class="gb-close-icon" onclick="closeManageModal()">✕</button>
+      </div>
+      <p class="gb-manage-desc">내가 작성한 글을 수정하거나 삭제할 수 있습니다.</p>
+
+      <div id="manageList" class="gb-manage-list"></div>
+
+      <div class="gb-modal-btn-group">
+        <button type="button" class="gb-btn-cancel" onclick="closeManageModal()">닫기</button>
+      </div>
+    </div>
+  </div>
+  <!-- JavaScript 동작 스크립트 -->
+<script>
+  // ==========================================
+  // 1. 전역 변수 선언 및 초기화
+  // ==========================================
+  const targetDate = new Date("2026-11-21T11:00:00").getTime(); // 예시 날짜
+  const ITEMS_PER_PAGE = 3; // 한 페이지당 보여줄 방명록 개수
+  let currentPage = 1;
+  let guestbookData = [];
+
+  // 앨범 관련 변수
+  const albumImages = Array.from({ length: 35 }, (_, i) => `scene_${i + 1}.jpg`);
+  let currentSlideIndex = 0;
+
+  // 모달 내부 슬라이드 스와이프 감지용
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  // 앨범 버튼 오작동 방지용 (터치 이동 거리 측정)
+  let btnTouchStartY = 0;
+  let btnTouchStartX = 0;
+
+  // BGM 변수
+  let isPlaying = false;
+
+  // ==========================================
+  // 2. Firebase 설정 및 초기화
+  // ==========================================
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQOyahDoHhlxQlklqOHensfBLlcz9ks4Y",
+    authDomain: "my-wedding-card-ea8b6.firebaseapp.com",
+    projectId: "my-wedding-card-ea8b6",
+    storageBucket: "my-wedding-card-ea8b6.firebasestorage.app",
+    messagingSenderId: "740378029645",
+    appId: "1:740378029645:web:9bec5aad8ff59fea307604",
+    measurementId: "G-9WSVJG1VHM"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
+
+  // DOM 로드 완료 시 초기화 함수 실행
+  document.addEventListener("DOMContentLoaded", function () {
+    initGuestbookListener();
+    initGuestbookSwipe(); // 방명록 스와이프 이벤트 바인딩 추가
+  });
+
+ // ==========================================
+// 3. D-Day 타이머 로직 (중복 오류 해결 버전)
+// ==========================================
+function updateDday() {
+  // 예식 일시: 2026년 11월 14일 17시 20분
+  const targetDate = new Date("2026-11-14T17:20:00").getTime();
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  const timerElement = document.getElementById("ddayTimer");
+  const daysElement = document.getElementById("ddayDays");
+
+  if (distance < 0) {
+    if (timerElement) timerElement.textContent = "00일 00시 00분 00초";
+    if (daysElement) daysElement.textContent = "0";
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  const formattedHours = String(hours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(seconds).padStart(2, "0");
+
+  if (timerElement) {
+    timerElement.textContent = `${days}일 ${formattedHours}시 ${formattedMinutes}분 ${formattedSeconds}초`;
+  }
+  if (daysElement) {
+    daysElement.textContent = days;
+  }
+}
+
+updateDday();
+setInterval(updateDday, 1000);
+  
+  // ==========================================
+  // 4. 앨범 모달 로직 (오버스크롤 방지 & 터치 오작동 완벽 차단)
+  // ==========================================
+  function updateModalImage() {
+    const imgEl = document.getElementById('modalImg');
+    const indexEl = document.getElementById('currentIndex');
+    
+    if (imgEl) {
+      imgEl.src = albumImages[currentSlideIndex];
+    }
+    if (indexEl) {
+      indexEl.textContent = currentSlideIndex + 1;
+    }
+  }
+
+  function openAlbumModal(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    
+    const modal = document.getElementById('albumModal');
+    const totalEl = document.getElementById('totalIndex');
+    
+    if (totalEl) {
+      totalEl.textContent = albumImages.length;
+    }
+    
+    currentSlideIndex = 0;
+    updateModalImage();
+    
+    if (modal) {
+      modal.classList.add('active');
+      document.body.classList.add('modal-open');
+    }
+  }
+
+  function closeAlbumModal() {
+    const modal = document.getElementById('albumModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+    }
+  }
+
+  function prevSlide(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    currentSlideIndex = (currentSlideIndex - 1 + albumImages.length) % albumImages.length;
+    updateModalImage();
+  }
+
+  function nextSlide(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    currentSlideIndex = (currentSlideIndex + 1) % albumImages.length;
+    updateModalImage();
+  }
+
+  // 앨범 스와이프 및 터치 이벤트 바인딩
+  document.addEventListener('DOMContentLoaded', () => {
+    const albumBtn = document.querySelector('.album-cover-btn');
+
+    if (albumBtn) {
+      albumBtn.addEventListener('touchstart', (e) => {
+        btnTouchStartX = e.touches[0].clientX;
+        btnTouchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      albumBtn.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+
+        const moveX = Math.abs(touchEndX - btnTouchStartX);
+        const moveY = Math.abs(touchEndY - btnTouchStartY);
+
+        if (moveX < 10 && moveY < 10) {
+          e.preventDefault();
+          openAlbumModal(e);
+        }
+      });
+    }
+
+    const modalImg = document.getElementById('modalImg');
+
+    if (modalImg) {
+      modalImg.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+      });
+
+      modalImg.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      modalImg.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+    }
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diffX = touchEndX - touchStartX;
+
+      if (diffX < -swipeThreshold) {
+        nextSlide();
+      } else if (diffX > swipeThreshold) {
+        prevSlide();
+      }
+    }
+  });
+
+// ==========================================
+// 5. BGM 오디오 제어 로직
+// ==========================================
+function playAudio() {
+  const bgm = document.getElementById('bgm');
+  const bgmBtn = document.getElementById('bgmBtn');
+  
+  if (!isPlaying && bgm) {
+    bgm.play().then(() => {
+      isPlaying = true;
+      if (bgmBtn) bgmBtn.classList.add('playing');
+    }).catch(err => {
+      console.warn("BGM 재생 실패:", err);
+      isPlaying = false;
+    });
+  }
+}
+
+function toggleBgm() {
+  const bgm = document.getElementById('bgm');
+  const bgmBtn = document.getElementById('bgmBtn');
+  
+  if (isPlaying) {
+    if (bgm) bgm.pause();
+    if (bgmBtn) bgmBtn.classList.remove('playing');
+    isPlaying = false;
+  } else {
+    playAudio();
+  }
+}
+
+const enableAudioOnInteraction = () => {
+  const bgm = document.getElementById('bgm');
+  if (!bgm) return;
+
+  bgm.play().then(() => {
+    isPlaying = true;
+    const bgmBtn = document.getElementById('bgmBtn');
+    if (bgmBtn) bgmBtn.classList.add('playing');
+
+    // 재생 성공 시 터치 및 스크롤 감지 이벤트 해제
+    window.removeEventListener('touchstart', enableAudioOnInteraction);
+    window.removeEventListener('scroll', enableAudioOnInteraction);
+  }).catch(() => {});
+};
+
+// PC/모바일 스크롤 및 모바일 화면 터치 시에만 감지 (click 이벤트 제거로 지도 클릭 시 자동재생 방지)
+window.addEventListener('touchstart', enableAudioOnInteraction, { passive: true });
+window.addEventListener('scroll', enableAudioOnInteraction, { passive: true });
+  
+  // ==========================================
+  // 6. 클립보드 복사 기능
+  // ==========================================
+  function copyAccount(accountInfo) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(accountInfo)
+        .then(() => alert(`${accountInfo}\n계좌번호가 복사되었습니다. 💕`))
+        .catch(() => fallbackCopyAccount(accountInfo));
+    } else {
+      fallbackCopyAccount(accountInfo);
+    }
+  }
+  
+  function fallbackCopyAccount(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      alert(`${text}\n계좌번호가 복사되었습니다. 💕`);
+    } catch (err) {
+      alert("복사에 실패했습니다. 직접 복사해 주세요.");
+    }
+    document.body.removeChild(textArea);
+  }
+
+  function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text)
+        .then(() => alert("주소가 복사되었습니다. 💕"))
+        .catch(() => fallbackCopyToClipboard(text));
+    } else {
+      fallbackCopyToClipboard(text);
+    }
+  }
+  
+  function fallbackCopyToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      alert("주소가 복사되었습니다. 💕");
+    } catch (err) {
+      alert("주소 복사에 실패했습니다. 직접 복사해 주세요.");
+    }
+    document.body.removeChild(textArea);
+  }
+
+  function copyInvitationLink() {
+    const currentUrl = window.location.href;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(currentUrl)
+        .then(() => alert("모바일 청첩장 링크가 복사되었습니다. 💕"))
+        .catch(() => fallbackCopyTextToClipboard(currentUrl));
+    } else {
+      fallbackCopyTextToClipboard(currentUrl);
+    }
+  }
+  
+  function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      alert("모바일 청첩장 링크가 복사되었습니다. 💕");
+    } catch (err) {
+      alert("링크 복사에 실패했습니다.");
+    }
+    document.body.removeChild(textArea);
+  }
+
+  // ==========================================
+  // 7. 방명록 로직 (Firebase 데이터베이스 연동 & 스와이프 기능)
+  // ==========================================
+  function initGuestbookListener() {
+    db.collection("guestbook")
+      .orderBy("createdAt", "desc")
+      .onSnapshot((snapshot) => {
+        guestbookData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        renderGuestbook();
+        
+        const manageModal = document.getElementById('manageModal');
+        if (manageModal && manageModal.classList.contains('active')) {
+          renderManageList();
+        }
+      }, (error) => {
+        console.error("방명록 로딩 중 오류 발생:", error);
+      });
+  }
+
+  function renderGuestbook() {
+    const listEl = document.getElementById('guestbookList');
+    const paginationEl = document.getElementById('guestbookPagination');
+    
+    if (!listEl || !paginationEl) return;
+
+    listEl.innerHTML = '';
+    paginationEl.innerHTML = '';
+
+    const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const pageItems = guestbookData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    pageItems.forEach((item, index) => {
+      const isRight = index % 2 === 0;
+      const directionClass = isRight ? 'right' : 'left';
+      const avatar = isRight ? '🙋‍♂️' : '🙋‍♀️';
+
+      const itemEl = document.createElement('div');
+      itemEl.className = `gb-item ${directionClass}`;
+      
+      itemEl.innerHTML = `
+        <div class="gb-avatar">${avatar}</div>
+        <div class="gb-bubble">
+          <div class="gb-text">${escapeHtml(item.text)}</div>
+          <div class="gb-author">-${escapeHtml(item.author)}-</div>
+        </div>
+      `;
+      listEl.appendChild(itemEl);
+    });
+
+    if (guestbookData.length > ITEMS_PER_PAGE) {
+      const maxVisibleDots = 5;
+      let startPage = Math.max(1, currentPage - Math.floor(maxVisibleDots / 2));
+      let endPage = Math.min(totalPages, startPage + maxVisibleDots - 1);
+
+      if (endPage - startPage + 1 < maxVisibleDots) {
+        startPage = Math.max(1, endPage - maxVisibleDots + 1);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        const dot = document.createElement('div');
+        dot.className = `gb-dot ${i === currentPage ? 'active' : ''}`;
+        dot.onclick = () => {
+          currentPage = i;
+          renderGuestbook();
+        };
+        paginationEl.appendChild(dot);
+      }
+    }
+  }
+
+  // --- 방명록 스와이프 기능 ---
+  function initGuestbookSwipe() {
+    const guestbookList = document.getElementById('guestbookList') || document.querySelector('.guestbook-list');
+
+    let startX = 0;
+    let endX = 0;
+
+    if (guestbookList) {
+      guestbookList.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        endX = 0; // 시작 시 초기화
+      }, { passive: true });
+
+      guestbookList.addEventListener('touchmove', (e) => {
+        endX = e.touches[0].clientX;
+      }, { passive: true });
+
+      guestbookList.addEventListener('touchend', () => {
+        const threshold = 50; // 스와이프로 인식할 최소 거리(px)
+        const diff = startX - endX;
+
+        if (endX !== 0 && Math.abs(diff) > threshold) {
+          if (diff > 0) {
+            goToNextPage();
+          } else {
+            goToPrevPage();
+          }
+        }
+
+        startX = 0;
+        endX = 0;
+      });
+    }
+  }
+
+  function goToNextPage() {
+    const totalPages = Math.ceil(guestbookData.length / ITEMS_PER_PAGE) || 1;
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderGuestbook();
+    }
+  }
+
+  function goToPrevPage() {
+    if (currentPage > 1) {
+      currentPage--;
+      renderGuestbook();
+    }
+  }
+
+  function openWriteModal() {
+    const writeModal = document.getElementById('writeModal');
+    if (writeModal) writeModal.classList.add('active');
+  }
+
+  function closeWriteModal() {
+    const writeModal = document.getElementById('writeModal');
+    if (writeModal) writeModal.classList.remove('active');
+    clearWriteInputs();
+  }
+
+  function clearWriteInputs() {
+    const author = document.getElementById('gbAuthor');
+    const password = document.getElementById('gbPassword');
+    const text = document.getElementById('gbText');
+
+    if (author) author.value = '';
+    if (password) password.value = '';
+    if (text) text.value = '';
+  }
+
+  async function submitGuestbook() {
+    const author = document.getElementById('gbAuthor')?.value.trim();
+    const password = document.getElementById('gbPassword')?.value.trim();
+    const text = document.getElementById('gbText')?.value.trim();
+
+    if (!author || !password || !text) {
+      alert('모든 항목을 입력해 주세요.');
+      return;
+    }
+
+    try {
+      await db.collection("guestbook").add({
+        author: author,
+        password: password,
+        text: text,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      currentPage = 1;
+      closeWriteModal();
+      alert('방명록이 등록되었습니다. 💕');
+    } catch (error) {
+      console.error("방명록 작성 오류:", error);
+      alert('저장에 실패했습니다. 다시 시도해 주세요.');
+    }
+  }
+
+  function openManageModal() {
+    renderManageList();
+    const manageModal = document.getElementById('manageModal');
+    if (manageModal) manageModal.classList.add('active');
+  }
+
+  function closeManageModal() {
+    const manageModal = document.getElementById('manageModal');
+    if (manageModal) manageModal.classList.remove('active');
+  }
+
+  function renderManageList() {
+    const container = document.getElementById('manageList');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (guestbookData.length === 0) {
+      container.innerHTML = '<p style="text-align:center; font-size:13px; color:#999;">작성된 방명록이 없습니다.</p>';
+      return;
+    }
+
+    guestbookData.forEach(item => {
+      const manageItem = document.createElement('div');
+      manageItem.className = 'gb-manage-item';
+      
+      manageItem.innerHTML = `
+        <div class="gb-manage-info">
+          <strong>${escapeHtml(item.author)}</strong>: ${escapeHtml(item.text)}
+        </div>
+        <div class="gb-manage-actions">
+          <button type="button" onclick="editGuestbook('${item.id}')">수정</button>
+          <button type="button" onclick="deleteGuestbook('${item.id}')">삭제</button>
+        </div>
+      `;
+      container.appendChild(manageItem);
+    });
+  }
+
+  async function editGuestbook(id) {
+    const target = guestbookData.find(item => item.id === id);
+    if (!target) return;
+
+    const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
+    if (inputPw === null) return;
+
+    if (inputPw !== target.password) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    const newText = prompt('수정할 내용을 입력하세요:', target.text);
+    if (newText && newText.trim() !== '') {
+      try {
+        await db.collection("guestbook").doc(id).update({
+          text: newText.trim()
+        });
+        alert('수정되었습니다.');
+      } catch (error) {
+        console.error("방명록 수정 오류:", error);
+        alert('수정에 실패했습니다.');
+      }
+    }
+  }
+
+  async function deleteGuestbook(id) {
+    const target = guestbookData.find(item => item.id === id);
+    if (!target) return;
+
+    const inputPw = prompt('글 작성 시 입력했던 비밀번호를 입력하세요:');
+    if (inputPw === null) return;
+
+    if (inputPw !== target.password) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    if (confirm('정말 삭제하시겠습니까?')) {
+      try {
+        await db.collection("guestbook").doc(id).delete();
+        alert('삭제되었습니다.');
+      } catch (error) {
+        console.error("방명록 삭제 오류:", error);
+        alert('삭제에 실패했습니다.');
+      }
+    }
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  // 모달 영역 바깥 클릭 시 닫기
+  window.addEventListener('click', function(event) {
+    const writeModal = document.getElementById('writeModal');
+    const manageModal = document.getElementById('manageModal');
+    const albumModal = document.getElementById('albumModal');
+    
+    if (event.target === writeModal) closeWriteModal();
+    if (event.target === manageModal) closeManageModal();
+    if (albumModal && event.target === albumModal) {
+      if (typeof closeAlbumModal === 'function') closeAlbumModal();
+    }
+  });
+
+  // ==========================================
+  // 8. 모바일 화면 줌 방지
+  // ==========================================
+  document.addEventListener('touchstart', function(event) {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+  
+  let lastTouchEnd = 0;
+  document.addEventListener('touchend', function(event) {
+    const now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+  }, false);
+  
+  document.addEventListener('gesturestart', function(event) {
+    event.preventDefault();
+  });
+
+  // ==========================================
+// 9. 카카오 지도 초기화 및 마커 생성
+// ==========================================
+function initKakaoMap() {
+  const container = document.getElementById('map');
+  if (!container) return;
+
+  const lat = 37.5158768;  // 위도
+  const lng = 126.7224966; // 경도
+  const options = {
+    center: new kakao.maps.LatLng(lat, lng),
+    level: 3
+  };
+
+  const map = new kakao.maps.Map(container, options);
+  const markerPosition = new kakao.maps.LatLng(lat, lng);
+
+  // 1. #D780B5 색상의 SVG 핀 마커 정의
+  const customMarkerSvg = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+  <svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 0C7.163 0 0 7.163 0 16C0 28 16 42 16 42C16 42 32 28 32 16C32 7.163 24.837 0 16 0Z" fill="#9A3366"/>
+    <circle cx="16" cy="16" r="6" fill="#FFFFFF"/>
+  </svg>
+  `);
+
+  // 2. 마커 이미지 설정 (32x42px 크기, 하단 중앙 기준점)
+  const imageSize = new kakao.maps.Size(32, 42);
+  const imageOption = { offset: new kakao.maps.Point(16, 42) };
+  const markerImage = new kakao.maps.MarkerImage(customMarkerSvg, imageSize, imageOption);
+
+  // 3. 커스텀 마커 생성
+  const marker = new kakao.maps.Marker({
+    position: markerPosition,
+    image: markerImage // 핑크색 커스텀 마커 적용
+  });
+
+  marker.setMap(map);
+}
+
+if (window.kakao && window.kakao.maps) {
+  kakao.maps.load(initKakaoMap);
+} else {
+  window.addEventListener('load', () => {
+    if (window.kakao && window.kakao.maps) {
+      kakao.maps.load(initKakaoMap);
+    }
+  });
+}
+</script>
 </body>
 </html>
