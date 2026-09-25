@@ -2283,7 +2283,7 @@ setInterval(updateDday, 1000);
     }
   });
 
-  // ==========================================
+// ==========================================
 // 5. BGM 오디오 제어 로직
 // ==========================================
 function playAudio() {
@@ -2323,16 +2323,14 @@ const enableAudioOnInteraction = () => {
     const bgmBtn = document.getElementById('bgmBtn');
     if (bgmBtn) bgmBtn.classList.add('playing');
 
-    // 재생 성공 시 터치, 클릭, 스크롤 감지 이벤트 모두 해제
+    // 재생 성공 시 터치 및 스크롤 감지 이벤트 해제
     window.removeEventListener('touchstart', enableAudioOnInteraction);
-    window.removeEventListener('click', enableAudioOnInteraction);
     window.removeEventListener('scroll', enableAudioOnInteraction);
   }).catch(() => {});
 };
 
-// 기존 클릭/터치 외에 스크롤 감지 추가 ({ passive: true }로 화면 버벅임/오류 방지)
+// PC/모바일 스크롤 및 모바일 화면 터치 시에만 감지 (click 이벤트 제거로 지도 클릭 시 자동재생 방지)
 window.addEventListener('touchstart', enableAudioOnInteraction, { passive: true });
-window.addEventListener('click', enableAudioOnInteraction);
 window.addEventListener('scroll', enableAudioOnInteraction, { passive: true });
   
   // ==========================================
